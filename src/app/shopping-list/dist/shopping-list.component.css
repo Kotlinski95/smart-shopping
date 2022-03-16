@@ -1,0 +1,8 @@
+.shopping-list-component {
+  width: 100%;
+}
+.shopping-list-component .container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
