@@ -107,7 +107,7 @@
         "deploy": {
           "builder": "@netlify-builder/deploy:deploy",
           "options": {
-            "outputPath": "docs",
+            "outputPath": "dist",
             "netlifyToken": "TlrpkDSQe0zt8TsyAnAZ96TyUYEu1jb3icDyGogTVzM",
             "siteId": "f306ccac-16ad-44a0-8657-ebf280c1aced"
           }
