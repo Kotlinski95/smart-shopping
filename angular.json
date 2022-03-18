@@ -13,14 +13,14 @@
           "strict": true
         }
       },
-      "root": "",
+      "root": "/",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/smart-shopping",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -102,6 +102,14 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist",
+            "netlifyToken": "TlrpkDSQe0zt8TsyAnAZ96TyUYEu1jb3icDyGogTVzM",
+            "siteId": "f306ccac-16ad-44a0-8657-ebf280c1aced"
           }
         }
       }
