@@ -12,6 +12,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var shopping_list_component_1 = require("./shopping-list/shopping-list.component");
+var forms_1 = require("@angular/forms");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -23,7 +24,8 @@ var AppModule = /** @class */ (function () {
             ],
             imports: [
                 platform_browser_1.BrowserModule,
-                app_routing_module_1.AppRoutingModule
+                app_routing_module_1.AppRoutingModule,
+                forms_1.FormsModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

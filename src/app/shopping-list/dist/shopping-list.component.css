@@ -6,3 +6,17 @@
   justify-content: space-around;
   align-items: center;
 }
+.shopping-list-component .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shopping-list-component .header * {
+  margin-bottom: 10px;
+}
+
+body {
+  min-height: 100vh;
+  background: url("../../assets/background.jpeg") no-repeat fixed center;
+  display: block;
+}
