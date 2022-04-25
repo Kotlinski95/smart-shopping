@@ -1,5 +1,10 @@
 .shopping-list-component {
   width: 100%;
+  background: rgba(255, 255, 255, 0.6);
+}
+.shopping-list-component h2 {
+  text-align: center;
+  padding: 0.625rem;
 }
 .shopping-list-component .container {
   display: flex;
@@ -18,5 +23,6 @@
 body {
   min-height: 100vh;
   background: url("../../assets/background.jpeg") no-repeat fixed center;
+  background-size: cover;
   display: block;
 }

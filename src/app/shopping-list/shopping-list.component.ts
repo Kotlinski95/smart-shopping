@@ -7,6 +7,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./shopping-list.component.scss']
 })
 export class ShoppingListComponent{
+  title = "Shopping List";
   newTask: string = "";
   taskList: Array<string> = [];
   taskDone: string[] = [];

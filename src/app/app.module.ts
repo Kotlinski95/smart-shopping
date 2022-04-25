@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { FormsModule } from '@angular/forms';
 
+/* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
   declarations: [
     AppComponent,

@@ -13,6 +13,7 @@ var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var shopping_list_component_1 = require("./shopping-list/shopping-list.component");
 var forms_1 = require("@angular/forms");
+/* Decorator NgModule - information about components, directives and servises in our application */
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }

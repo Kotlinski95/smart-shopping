@@ -10,6 +10,7 @@ exports.ShoppingListComponent = void 0;
 var core_1 = require("@angular/core");
 var ShoppingListComponent = /** @class */ (function () {
     function ShoppingListComponent() {
+        this.title = "Shopping List";
         this.newTask = "";
         this.taskList = [];
         this.taskDone = [];

@@ -1,4 +1,6 @@
 <section class="shopping-list-component">
+  <!--  String interpolation  -->
+  <h2>{{ title }}</h2>
   <div class="header">
     <p>Dodanie tasków</p>
     <div>
@@ -8,6 +10,7 @@
   </div>
   <div class="container" >
     <div>
+      <!-- conditional display - ngIf  -->
       <ng-container *ngIf="taskList.length > 0; else noTask">
         Lista zakupów:
         <ul>
