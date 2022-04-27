@@ -1,0 +1,5 @@
+<ng-content></ng-content>
+<div>
+  <input type="text" placeholder="Nazwa zadania" [(ngModel)]="newTask" #inputField>
+  <button (click)="add(inputField)">Dodaj zadanie</button>
+</div>

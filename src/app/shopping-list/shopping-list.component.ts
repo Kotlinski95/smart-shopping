@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 @Component({
   selector: 'app-shopping-list',
@@ -8,21 +9,30 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class ShoppingListComponent{
   title = "Shopping List";
-  newTask: string = "";
   taskList: Array<string> = [];
   taskDone: string[] = [];
-  add():void {
-    this.taskList.push(this.newTask);
-    console.table(this.taskList);
-    this.newTask = '';
+
+  @ViewChild('addTaskRef')
+  AddTaskComponent!: AddTaskComponent;
+
+  @ViewChild('inputField2') input!: ElementRef;
+
+  ngOnInit(): void {
+    console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
   }
-  remove(task: string): void {
+  /* Main app logic */
+  add(task: string):void {
+    this.taskList.push(task);
+    console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
+  }
+  remove(task: string) {
     this.taskList = this.taskList.filter(element =>  element !== task );
     console.log("task removed: ", task);
   }
   done(task: string){
     this.remove(task);
     this.taskDone.push(task);
+    console.log("task done: ", task);
   }
   calcDone(list: Array<string>): number {
     return list.length;
