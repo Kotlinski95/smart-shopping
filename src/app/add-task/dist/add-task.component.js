@@ -9,20 +9,20 @@ exports.__esModule = true;
 exports.AddTaskComponent = void 0;
 var core_1 = require("@angular/core");
 var AddTaskComponent = /** @class */ (function () {
-    function AddTaskComponent() {
+    /* @Output() emitTask = new EventEmitter<string>();  not necessary with service */
+    function AddTaskComponent(tasksTaskService) {
+        this.tasksTaskService = tasksTaskService;
         this.newTask = "";
-        this.emitTask = new core_1.EventEmitter();
     }
     AddTaskComponent.prototype.ngOnInit = function () {
     };
     AddTaskComponent.prototype.add = function (inputField) {
         console.log("Inputfield: ", inputField);
-        this.emitTask.emit(this.newTask);
+        var task = { name: this.newTask, created: new Date() };
+        // this.emitTask.emit(this.newTask); not necessary with service
+        this.tasksTaskService.add(task);
         this.newTask = "";
     };
-    __decorate([
-        core_1.Output()
-    ], AddTaskComponent.prototype, "emitTask");
     AddTaskComponent = __decorate([
         core_1.Component({
             selector: 'app-add-task',

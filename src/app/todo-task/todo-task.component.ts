@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { TaskService } from 'src/services/task.service';
+import { Task } from 'src/app/models/task';
 
 @Component({
   selector: 'app-todo-task',
@@ -7,19 +9,28 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } fro
   encapsulation: ViewEncapsulation.None
 })
 export class TodoTaskComponent implements OnInit {
-  @Input() tasksList: Array<string> = [];
-  @Output() emitDone = new EventEmitter<string>();
-  @Output() emitRemove = new EventEmitter<string>();
-  constructor() { }
+  /* @Input() tasksList: Array<string> = [];  not necessary with services */
+  /* @Output() emitDone = new EventEmitter<string>();   not necessary with services */
+  /* @Output() emitRemove = new EventEmitter<string>();  not necessary with services */
+
+  tasksList: Task[] = [];
+
+  constructor(private tasksService: TaskService) {
+    this.tasksService.getTasksListObservable().subscribe((tasks: Array<Task>) => {
+      this.tasksList = tasks;
+    })
+  }
 
   ngOnInit(): void {
   }
 
-  remove(task: string) {
-    this.emitRemove.emit(task);
+  remove(task: Task) {
+    // this.emitRemove.emit(task);  not necessary with services
+    this.tasksService.remove(task);
   }
-  done(task: string){
-    this.emitDone.emit(task);
+  done(task: Task){
+    // this.emitDone.emit(task);  not necessary with services
+    this.tasksService.done(task);
   }
   getColor(): string {
     return this.tasksList.length > 1 ? 'Red' : 'Green';

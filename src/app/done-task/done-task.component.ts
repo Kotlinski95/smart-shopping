@@ -1,4 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, DoCheck, OnDestroy } from '@angular/core';
+import { TaskService } from 'src/services/task.service';
+import { Task } from 'src/app/models/task';
 
 @Component({
   selector: 'app-done-task',
@@ -7,8 +9,13 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, DoCheck, OnDestroy 
 })
 export class DoneTaskComponent implements OnInit, OnChanges {
 
-  @Input() tasksDone: Array<string> = []
-  constructor() { }
+  // @Input() tasksDone: Array<string> = [] - not necessary with services
+  tasksDone: Task[] = []
+  constructor(private tasksService: TaskService) {
+    this.tasksService.getTasksDoneObservable().subscribe((tasksDone: Task[]) => {
+      this.tasksDone = tasksDone;
+    })
+   }
   /* Uruchamia si na początku, przed ngOnInit
     * Sprawdza czy zmienily si zbindowane pola komponentu
     * Musi zmienić sie referencja!
@@ -35,7 +42,7 @@ export class DoneTaskComponent implements OnInit, OnChanges {
     console.log("ngOnDestroy - uruchomione! - #8");
   }
 
-  calcDone(list: Array<string>): number {
+  calcDone(list: Array<Task>): number {
     return list.length;
   }
 

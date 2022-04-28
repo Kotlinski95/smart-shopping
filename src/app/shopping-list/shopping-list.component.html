@@ -2,17 +2,20 @@
   <!--  String interpolation  -->
   <h2>{{ title }}</h2>
   <div class="header" #inputField2>
-    <app-add-task (emitTask)="add($event)" #addTaskRef>
+    <!-- <app-add-task (emitTask)="add($event)" #addTaskRef> -->
+    <app-add-task>
       <p>Dodanie tasków</p>
     </app-add-task>
   </div>
   <div class="container" >
     <div>
-      <app-todo-task [tasksList]="taskList" (emitDone)="done($event)" (emitRemove)="remove($event)"></app-todo-task>
+      <!-- <app-todo-task [tasksList]="taskList" (emitDone)="done($event)" (emitRemove)="remove($event)"></app-todo-task> -->
+      <app-todo-task></app-todo-task>
     </div>
 
     <div>
-      <app-done-task [tasksDone]="taskDone"></app-done-task>
+      <!-- <app-done-task [tasksDone]="taskDone"></app-done-task> -->
+      <app-done-task></app-done-task>
     </div>
   </div>
 </section>

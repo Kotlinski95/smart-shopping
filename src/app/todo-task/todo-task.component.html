@@ -4,7 +4,7 @@
   <ul>
     <li *ngFor="let task of tasksList; let odd = odd"
       [ngClass]="{'odd-li': odd === true, 'li-last': tasksList.length === 1}">
-      {{ task }}
+      {{ task.name }}
       <button type="button" class="btn btn-danger" (click)="remove(task)">Usuń</button>
       <button type="button" class="btn btn-success" (click)="done(task)">Zrobione</button>
     </li>

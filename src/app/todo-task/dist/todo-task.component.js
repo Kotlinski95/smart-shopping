@@ -9,31 +9,30 @@ exports.__esModule = true;
 exports.TodoTaskComponent = void 0;
 var core_1 = require("@angular/core");
 var TodoTaskComponent = /** @class */ (function () {
-    function TodoTaskComponent() {
+    function TodoTaskComponent(tasksService) {
+        var _this = this;
+        this.tasksService = tasksService;
+        /* @Input() tasksList: Array<string> = [];  not necessary with services */
+        /* @Output() emitDone = new EventEmitter<string>();   not necessary with services */
+        /* @Output() emitRemove = new EventEmitter<string>();  not necessary with services */
         this.tasksList = [];
-        this.emitDone = new core_1.EventEmitter();
-        this.emitRemove = new core_1.EventEmitter();
+        this.tasksService.getTasksListObservable().subscribe(function (tasks) {
+            _this.tasksList = tasks;
+        });
     }
     TodoTaskComponent.prototype.ngOnInit = function () {
     };
     TodoTaskComponent.prototype.remove = function (task) {
-        this.emitRemove.emit(task);
+        // this.emitRemove.emit(task);  not necessary with services
+        this.tasksService.remove(task);
     };
     TodoTaskComponent.prototype.done = function (task) {
-        this.emitDone.emit(task);
+        // this.emitDone.emit(task);  not necessary with services
+        this.tasksService.done(task);
     };
     TodoTaskComponent.prototype.getColor = function () {
         return this.tasksList.length > 1 ? 'Red' : 'Green';
     };
-    __decorate([
-        core_1.Input()
-    ], TodoTaskComponent.prototype, "tasksList");
-    __decorate([
-        core_1.Output()
-    ], TodoTaskComponent.prototype, "emitDone");
-    __decorate([
-        core_1.Output()
-    ], TodoTaskComponent.prototype, "emitRemove");
     TodoTaskComponent = __decorate([
         core_1.Component({
             selector: 'app-todo-task',

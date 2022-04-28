@@ -9,8 +9,14 @@ exports.__esModule = true;
 exports.DoneTaskComponent = void 0;
 var core_1 = require("@angular/core");
 var DoneTaskComponent = /** @class */ (function () {
-    function DoneTaskComponent() {
+    function DoneTaskComponent(tasksService) {
+        var _this = this;
+        this.tasksService = tasksService;
+        // @Input() tasksDone: Array<string> = [] - not necessary with services
         this.tasksDone = [];
+        this.tasksService.getTasksDoneObservable().subscribe(function (tasksDone) {
+            _this.tasksDone = tasksDone;
+        });
     }
     /* Uruchamia si na początku, przed ngOnInit
       * Sprawdza czy zmienily si zbindowane pola komponentu
@@ -39,9 +45,6 @@ var DoneTaskComponent = /** @class */ (function () {
     DoneTaskComponent.prototype.calcDone = function (list) {
         return list.length;
     };
-    __decorate([
-        core_1.Input()
-    ], DoneTaskComponent.prototype, "tasksDone");
     DoneTaskComponent = __decorate([
         core_1.Component({
             selector: 'app-done-task',

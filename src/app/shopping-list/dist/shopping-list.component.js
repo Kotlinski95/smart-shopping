@@ -8,31 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ShoppingListComponent = void 0;
 var core_1 = require("@angular/core");
+var task_service_1 = require("src/services/task.service");
 var ShoppingListComponent = /** @class */ (function () {
     function ShoppingListComponent() {
         this.title = "Shopping List";
-        this.taskList = [];
-        this.taskDone = [];
+        /* Main app logic */ // - not necessary with services
+        // add(task: string):void {
+        //   this.taskList.push(task);
+        //   console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
+        // }
+        // remove(task: string) {
+        //   this.taskList = this.taskList.filter(element =>  element !== task );
+        //   console.log("task removed: ", task);
+        // }
+        // done(task: string){
+        //   this.remove(task);
+        //   this.taskDone.push(task);
+        //   console.log("task done: ", task);
+        // }
+        // calcDone(list: Array<string>): number {
+        //   return list.length;
+        // }
     }
     ShoppingListComponent.prototype.ngOnInit = function () {
         console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
-    };
-    /* Main app logic */
-    ShoppingListComponent.prototype.add = function (task) {
-        this.taskList.push(task);
-        console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
-    };
-    ShoppingListComponent.prototype.remove = function (task) {
-        this.taskList = this.taskList.filter(function (element) { return element !== task; });
-        console.log("task removed: ", task);
-    };
-    ShoppingListComponent.prototype.done = function (task) {
-        this.remove(task);
-        this.taskDone.push(task);
-        console.log("task done: ", task);
-    };
-    ShoppingListComponent.prototype.calcDone = function (list) {
-        return list.length;
     };
     __decorate([
         core_1.ViewChild('addTaskRef')
@@ -45,7 +44,8 @@ var ShoppingListComponent = /** @class */ (function () {
             selector: 'app-shopping-list',
             templateUrl: './shopping-list.component.html',
             encapsulation: core_1.ViewEncapsulation.None,
-            styleUrls: ['./shopping-list.component.scss']
+            styleUrls: ['./shopping-list.component.scss'],
+            providers: [task_service_1.TaskService]
         })
     ], ShoppingListComponent);
     return ShoppingListComponent;
