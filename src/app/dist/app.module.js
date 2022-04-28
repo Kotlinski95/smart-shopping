@@ -13,6 +13,13 @@ var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var shopping_list_component_1 = require("./shopping-list/shopping-list.component");
 var forms_1 = require("@angular/forms");
+var add_task_component_1 = require("./add-task/add-task.component");
+var todo_task_component_1 = require("./todo-task/todo-task.component");
+var done_task_component_1 = require("./done-task/done-task.component");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var checked_directive_1 = require("./shared/checked.directive");
+var date_directive_1 = require("./shared/date.directive");
+var transform_task_pipe_1 = require("./shared/transform-task.pipe");
 /* Decorator NgModule - information about components, directives and servises in our application */
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -21,12 +28,19 @@ var AppModule = /** @class */ (function () {
         core_1.NgModule({
             declarations: [
                 app_component_1.AppComponent,
-                shopping_list_component_1.ShoppingListComponent
+                shopping_list_component_1.ShoppingListComponent,
+                add_task_component_1.AddTaskComponent,
+                todo_task_component_1.TodoTaskComponent,
+                done_task_component_1.DoneTaskComponent,
+                checked_directive_1.CheckedDirective,
+                date_directive_1.DateDirective,
+                transform_task_pipe_1.TransformTaskPipe,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 app_routing_module_1.AppRoutingModule,
-                forms_1.FormsModule
+                forms_1.FormsModule,
+                ng_bootstrap_1.NgbModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

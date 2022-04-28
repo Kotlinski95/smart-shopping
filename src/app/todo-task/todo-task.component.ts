@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { TaskService } from 'src/services/task.service';
+import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task';
 
 @Component({
@@ -30,6 +30,7 @@ export class TodoTaskComponent implements OnInit {
   }
   done(task: Task){
     // this.emitDone.emit(task);  not necessary with services
+    task.end = new Date();
     this.tasksService.done(task);
   }
   getColor(): string {

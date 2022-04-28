@@ -9,6 +9,9 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { TodoTaskComponent } from './todo-task/todo-task.component';
 import { DoneTaskComponent } from './done-task/done-task.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CheckedDirective } from './shared/checked.directive';
+import { DateDirective } from './shared/date.directive';
+import { TransformTaskPipe } from './shared/transform-task.pipe';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -17,7 +20,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ShoppingListComponent,
     AddTaskComponent,
     TodoTaskComponent,
-    DoneTaskComponent
+    DoneTaskComponent,
+    CheckedDirective,
+    DateDirective,
+    TransformTaskPipe,
   ],
   imports: [
     BrowserModule,

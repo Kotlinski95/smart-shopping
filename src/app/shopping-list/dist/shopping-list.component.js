@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ShoppingListComponent = void 0;
 var core_1 = require("@angular/core");
-var task_service_1 = require("src/services/task.service");
+var task_service_1 = require("src/app/services/task.service");
 var ShoppingListComponent = /** @class */ (function () {
     function ShoppingListComponent() {
         this.title = "Shopping List";

@@ -28,6 +28,7 @@ var TodoTaskComponent = /** @class */ (function () {
     };
     TodoTaskComponent.prototype.done = function (task) {
         // this.emitDone.emit(task);  not necessary with services
+        task.end = new Date();
         this.tasksService.done(task);
     };
     TodoTaskComponent.prototype.getColor = function () {

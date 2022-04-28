@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { TaskService } from 'src/services/task.service';
+import { TaskService } from 'src/app/services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 
 @Component({

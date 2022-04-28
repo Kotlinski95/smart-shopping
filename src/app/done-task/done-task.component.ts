@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, DoCheck, OnDestroy } from '@angular/core';
-import { TaskService } from 'src/services/task.service';
+import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task';
 
 @Component({
