@@ -9,28 +9,23 @@ exports.__esModule = true;
 exports.ShoppingListComponent = void 0;
 var core_1 = require("@angular/core");
 var task_service_1 = require("src/app/services/task.service");
+var operators_1 = require("rxjs/operators");
 var ShoppingListComponent = /** @class */ (function () {
-    function ShoppingListComponent() {
+    function ShoppingListComponent(HttpService) {
+        this.HttpService = HttpService;
         this.title = "Shopping List";
-        /* Main app logic */ // - not necessary with services
-        // add(task: string):void {
-        //   this.taskList.push(task);
-        //   console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
-        // }
-        // remove(task: string) {
-        //   this.taskList = this.taskList.filter(element =>  element !== task );
-        //   console.log("task removed: ", task);
-        // }
-        // done(task: string){
-        //   this.remove(task);
-        //   this.taskDone.push(task);
-        //   console.log("task done: ", task);
-        // }
-        // calcDone(list: Array<string>): number {
-        //   return list.length;
-        // }
     }
     ShoppingListComponent.prototype.ngOnInit = function () {
+        this.HttpService.getData().pipe(operators_1.retry(3)).subscribe({
+            next: function (posts) { return console.log("getData: ", posts); },
+            error: function (error) { return console.error(error); }
+        });
+        this.HttpService.getSpecificData(1).subscribe(function (posts) {
+            console.log("getSpecificData: ", posts);
+        });
+        this.HttpService.getDataById(1).subscribe(function (posts) {
+            console.log("getDataById: ", posts);
+        });
         console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
     };
     __decorate([

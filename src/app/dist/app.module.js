@@ -20,6 +20,9 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var checked_directive_1 = require("./shared/checked.directive");
 var date_directive_1 = require("./shared/date.directive");
 var transform_task_pipe_1 = require("./shared/transform-task.pipe");
+var sort_name_pipe_1 = require("./shared/sort-name.pipe");
+var http_service_1 = require("./services/http.service");
+var http_1 = require("@angular/common/http");
 /* Decorator NgModule - information about components, directives and servises in our application */
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -35,14 +38,16 @@ var AppModule = /** @class */ (function () {
                 checked_directive_1.CheckedDirective,
                 date_directive_1.DateDirective,
                 transform_task_pipe_1.TransformTaskPipe,
+                sort_name_pipe_1.SortNamePipe,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 app_routing_module_1.AppRoutingModule,
                 forms_1.FormsModule,
+                http_1.HttpClientModule,
                 ng_bootstrap_1.NgbModule
             ],
-            providers: [],
+            providers: [http_service_1.HttpService],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

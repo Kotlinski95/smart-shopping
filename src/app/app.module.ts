@@ -12,6 +12,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CheckedDirective } from './shared/checked.directive';
 import { DateDirective } from './shared/date.directive';
 import { TransformTaskPipe } from './shared/transform-task.pipe';
+import { SortNamePipe } from './shared/sort-name.pipe';
+import { HttpService } from './services/http.service';
+import { HttpClientModule } from '@angular/common/http';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -24,14 +27,16 @@ import { TransformTaskPipe } from './shared/transform-task.pipe';
     CheckedDirective,
     DateDirective,
     TransformTaskPipe,
+    SortNamePipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

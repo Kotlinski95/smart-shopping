@@ -17,7 +17,7 @@ export class TodoTaskComponent implements OnInit {
 
   constructor(private tasksService: TaskService) {
     this.tasksService.getTasksListObservable().subscribe((tasks: Array<Task>) => {
-      this.tasksList = tasks;
+      this.tasksList = [...tasks]; // empty slice() method, to change referenece to array ( generally create new ) - to properly sortName pipe working in pure mode
     })
   }
 
