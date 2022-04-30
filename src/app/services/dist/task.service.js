@@ -10,36 +10,38 @@ exports.TaskService = void 0;
 var core_1 = require("@angular/core");
 var BehaviorSubject_1 = require("rxjs/internal/BehaviorSubject");
 var TaskService = /** @class */ (function () {
+    //private tasksDoneObservable = new BehaviorSubject<Array<Task>>([]); //BehaviorSubject requires initial value, it could be event empty object.
     function TaskService() {
         this.taskList = [];
-        this.taskDone = [];
+        //private taskDone: Task[] = [];
         // BehaviorSubject enable to subscribe this array after our initial array is fullfilled in constructor.
-        this.tasksListObservable = new BehaviorSubject_1.BehaviorSubject(this.taskDone);
-        this.tasksDoneObservable = new BehaviorSubject_1.BehaviorSubject([]); //BehaviorSubject requires initial value, it could be event empty object.
+        this.tasksListObservable = new BehaviorSubject_1.BehaviorSubject(this.taskList);
         this.tasksListObservable.next(this.taskList);
     }
     TaskService.prototype.add = function (task) {
         this.taskList.push(task);
         this.tasksListObservable.next(this.taskList);
+        console.log("TASK ADDED: ", this.taskList);
     };
     TaskService.prototype.remove = function (task) {
         this.taskList = this.taskList.filter(function (element) { return element !== task; });
         this.tasksListObservable.next(this.taskList);
     };
     TaskService.prototype.done = function (task) {
-        this.remove(task);
-        this.taskDone.push(task);
-        console.log("task done: ", task);
-        this.tasksDoneObservable.next(this.taskDone);
+        // this.remove(task);
+        // this.taskDone.push(task);
+        // console.log("task done: ", task);
+        // this.tasksDoneObservable.next(this.taskDone);
+        task.end = new Date().toLocaleString();
+        task.isDone = true;
+        var list = this.tasksListObservable.getValue();
+        this.tasksListObservable.next(list);
     };
     TaskService.prototype.calcDone = function (list) {
         return list.length;
     };
     TaskService.prototype.getTasksListObservable = function () {
         return this.tasksListObservable.asObservable();
-    };
-    TaskService.prototype.getTasksDoneObservable = function () {
-        return this.tasksDoneObservable.asObservable();
     };
     TaskService = __decorate([
         core_1.Injectable()

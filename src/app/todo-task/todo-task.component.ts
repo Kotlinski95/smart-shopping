@@ -16,8 +16,9 @@ export class TodoTaskComponent implements OnInit {
   tasksList: Task[] = [];
 
   constructor(private tasksService: TaskService) {
-    this.tasksService.getTasksListObservable().subscribe((tasks: Array<Task>) => {
-      this.tasksList = [...tasks]; // empty slice() method, to change referenece to array ( generally create new ) - to properly sortName pipe working in pure mode
+    this.tasksService.getTasksListObservable().subscribe((tasks: Task[]) => {
+      this.tasksList = [...tasks].filter((task: Task) => {
+        return task.isDone === false }); // empty slice() method, to change referenece to array ( generally create new ) - to properly sortName pipe working in pure mode
     })
   }
 
@@ -30,7 +31,6 @@ export class TodoTaskComponent implements OnInit {
   }
   done(task: Task){
     // this.emitDone.emit(task);  not necessary with services
-    task.end = new Date();
     this.tasksService.done(task);
   }
   getColor(): string {

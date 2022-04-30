@@ -14,8 +14,11 @@ var DoneTaskComponent = /** @class */ (function () {
         this.tasksService = tasksService;
         // @Input() tasksDone: Array<string> = [] - not necessary with services
         this.tasksDone = [];
-        this.tasksService.getTasksDoneObservable().subscribe(function (tasksDone) {
-            _this.tasksDone = tasksDone;
+        // this.tasksService.getTasksDoneObservable().subscribe((tasksDone: Task[]) => {
+        //   this.tasksDone = tasksDone;
+        // })
+        this.tasksService.getTasksListObservable().subscribe(function (tasksDone) {
+            _this.tasksDone = tasksDone.filter(function (task) { return task.isDone === true; });
         });
     }
     /* Uruchamia si na początku, przed ngOnInit

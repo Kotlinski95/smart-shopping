@@ -10,7 +10,7 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   getData(): Observable<Array<Post>> {
-    return this.http.get<Array<Post>>('https://jsonplaceholder.typicode.com/posts2');
+    return this.http.get<Array<Post>>('https://jsonplaceholder.typicode.com/posts');
   }
 
   getSpecificData(id: number): Observable<Post>{
@@ -28,12 +28,4 @@ interface Post {
   id?: number;
   title?: string;
   body?: string;
-}
-
-interface task {
-  _id?: {$oid: string};
-  name?: string;
-  created?: string;
-  end?: string;
-  isDone?: boolean;
 }

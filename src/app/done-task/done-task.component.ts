@@ -12,9 +12,13 @@ export class DoneTaskComponent implements OnInit, OnChanges {
   // @Input() tasksDone: Array<string> = [] - not necessary with services
   tasksDone: Task[] = []
   constructor(private tasksService: TaskService) {
-    this.tasksService.getTasksDoneObservable().subscribe((tasksDone: Task[]) => {
-      this.tasksDone = tasksDone;
+    // this.tasksService.getTasksDoneObservable().subscribe((tasksDone: Task[]) => {
+    //   this.tasksDone = tasksDone;
+    // })
+    this.tasksService.getTasksListObservable().subscribe((tasksDone: Task[]) => {
+      this.tasksDone = tasksDone.filter((task: Task)=>{ return task.isDone === true});
     })
+
    }
   /* Uruchamia si na początku, przed ngOnInit
     * Sprawdza czy zmienily si zbindowane pola komponentu

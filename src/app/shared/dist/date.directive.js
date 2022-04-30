@@ -15,9 +15,8 @@ var DateDirective = /** @class */ (function () {
         this.paragraph = this.renderer.createElement('p');
     }
     DateDirective.prototype.mouseEnter = function (eventDate) {
-        var _a, _b;
         console.log("mouseenter: ", this.date);
-        this.paragraph.innerHTML = ((_a = this.date) === null || _a === void 0 ? void 0 : _a.toLocaleDateString()) + " " + ((_b = this.date) === null || _b === void 0 ? void 0 : _b.toLocaleTimeString());
+        this.paragraph.innerHTML = "" + this.date;
         this.renderer.appendChild(this.element.nativeElement, this.paragraph);
     };
     DateDirective.prototype.mouseLeave = function (eventDate) {

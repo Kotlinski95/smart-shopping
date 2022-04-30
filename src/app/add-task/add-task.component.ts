@@ -17,7 +17,7 @@ export class AddTaskComponent implements OnInit {
 
   add(inputField: HTMLInputElement) {
     console.log("Inputfield: ", inputField)
-    const task = { name: this.newTask, created: new Date()}
+    const task = { name: this.newTask, created: new Date().toLocaleString(), isDone: false}
     // this.emitTask.emit(this.newTask); not necessary with service
     this.tasksTaskService.add(task);
     this.newTask = "";

@@ -14,7 +14,7 @@ var HttpService = /** @class */ (function () {
         this.http = http;
     }
     HttpService.prototype.getData = function () {
-        return this.http.get('https://jsonplaceholder.typicode.com/posts2');
+        return this.http.get('https://jsonplaceholder.typicode.com/posts');
     };
     HttpService.prototype.getSpecificData = function (id) {
         return this.http.get('https://jsonplaceholder.typicode.com/posts/' + id);

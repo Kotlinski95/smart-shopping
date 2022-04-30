@@ -24,7 +24,9 @@ var TodoTaskComponent = /** @class */ (function () {
         /* @Output() emitRemove = new EventEmitter<string>();  not necessary with services */
         this.tasksList = [];
         this.tasksService.getTasksListObservable().subscribe(function (tasks) {
-            _this.tasksList = __spreadArrays(tasks); // empty slice() method, to change referenece to array ( generally create new ) - to properly sortName pipe working in pure mode
+            _this.tasksList = __spreadArrays(tasks).filter(function (task) {
+                return task.isDone === false;
+            }); // empty slice() method, to change referenece to array ( generally create new ) - to properly sortName pipe working in pure mode
         });
     }
     TodoTaskComponent.prototype.ngOnInit = function () {
@@ -35,7 +37,6 @@ var TodoTaskComponent = /** @class */ (function () {
     };
     TodoTaskComponent.prototype.done = function (task) {
         // this.emitDone.emit(task);  not necessary with services
-        task.end = new Date();
         this.tasksService.done(task);
     };
     TodoTaskComponent.prototype.getColor = function () {

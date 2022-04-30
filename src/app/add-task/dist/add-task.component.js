@@ -18,7 +18,7 @@ var AddTaskComponent = /** @class */ (function () {
     };
     AddTaskComponent.prototype.add = function (inputField) {
         console.log("Inputfield: ", inputField);
-        var task = { name: this.newTask, created: new Date() };
+        var task = { name: this.newTask, created: new Date().toLocaleString(), isDone: false };
         // this.emitTask.emit(this.newTask); not necessary with service
         this.tasksTaskService.add(task);
         this.newTask = "";
