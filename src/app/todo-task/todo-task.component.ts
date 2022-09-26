@@ -16,10 +16,11 @@ export class TodoTaskComponent implements OnInit {
   tasksList: Task[] = [];
 
   constructor(private tasksService: TaskService) {
-    this.tasksService.getTasksListObservable().subscribe((tasks: Task[]) => {
+    this.tasksService.gettasksListObservableFb().subscribe((tasks: Task[]) => {
       this.tasksList = [...tasks].filter((task: Task) => {
-        return task.isDone === false }); // empty slice() method, to change referenece to array ( generally create new ) - to properly sortName pipe working in pure mode
-    })
+        return task.isDone === false;
+      }); // empty slice() method, to change referenece to array ( generally create new ) - to properly sortName pipe working in pure mode
+    });
   }
 
   ngOnInit(): void {

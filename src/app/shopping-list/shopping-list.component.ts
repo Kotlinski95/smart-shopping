@@ -4,15 +4,17 @@ import { AddTaskComponent } from '../add-task/add-task.component';
 import { HttpService } from 'src/app/services/http.service';
 import { HttpErrorResponse } from '@angular/common/http'
 import { retry } from 'rxjs/operators';
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./shopping-list.component.scss'],
-  providers: [TaskService]
+  providers: [TaskService],
 })
-export class ShoppingListComponent{
-  title = "Shopping List";
+export class ShoppingListComponent {
+  title = 'Shopping List';
 
   // * not necessary with services
   // taskList: Array<string> = [];
@@ -20,20 +22,33 @@ export class ShoppingListComponent{
 
   @ViewChild('addTaskRef')
   AddTaskComponent!: AddTaskComponent;
-  constructor(private HttpService: HttpService){}
+  constructor(private HttpService: HttpService, firestore: Firestore) {
+        const collectionFb: any = collection(firestore, 'tasks');
+        collectionData(collectionFb).subscribe((data) => {
+          console.log('Firebase tasks: ', data);
+        });
+    console.log('Shopping list init');
+  }
   @ViewChild('inputField2') input!: ElementRef;
   ngOnInit(): void {
-    this.HttpService.getData().pipe(retry(3)).subscribe({
-      next: posts =>  console.log("getData: ", posts),
-      error: (error: HttpErrorResponse) => console.error(error)
-    })
-    this.HttpService.getSpecificData(1).subscribe(posts => {
-      console.log("getSpecificData: ", posts);
-    })
-    this.HttpService.getDataById(1).subscribe(posts => {
-      console.log("getDataById: ", posts);
-    })
-    console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
+    this.HttpService.getData()
+      .pipe(retry(3))
+      .subscribe({
+        next: (posts) => console.log('getData: ', posts),
+        error: (error: HttpErrorResponse) => console.error(error),
+      });
+    this.HttpService.getSpecificData(1).subscribe((posts) => {
+      console.log('getSpecificData: ', posts);
+    });
+    this.HttpService.getDataById(1).subscribe((posts) => {
+      console.log('getDataById: ', posts);
+    });
+    console.log(
+      '#addTaskRef: ',
+      this.AddTaskComponent,
+      '#inputField: ',
+      this.input
+    );
   }
   /* Main app logic */ // - not necessary with services
   // add(task: string):void {
@@ -52,5 +67,4 @@ export class ShoppingListComponent{
   // calcDone(list: Array<string>): number {
   //   return list.length;
   // }
-
 }
