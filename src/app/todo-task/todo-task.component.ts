@@ -1,38 +1,56 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+} from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task';
+import {
+  Firestore,
+  collectionData,
+  collection,
+  doc as Doc2,
+  addDoc,
+} from '@angular/fire/firestore';
+import { doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-todo-task',
   templateUrl: './todo-task.component.html',
   styleUrls: ['./todo-task.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class TodoTaskComponent implements OnInit {
-  /* @Input() tasksList: Array<string> = [];  not necessary with services */
-  /* @Output() emitDone = new EventEmitter<string>();   not necessary with services */
-  /* @Output() emitRemove = new EventEmitter<string>();  not necessary with services */
-
   tasksList: Task[] = [];
+  collectionFb: any;
+  myDoc: any;
 
-  constructor(private tasksService: TaskService) {
+  firestre: any;
+
+  constructor(private tasksService: TaskService, firestore: Firestore) {
     this.tasksService.gettasksListObservableFb().subscribe((tasks: Task[]) => {
       this.tasksList = [...tasks].filter((task: Task) => {
         return task.isDone === false;
-      }); // empty slice() method, to change referenece to array ( generally create new ) - to properly sortName pipe working in pure mode
+      });
     });
+    this.collectionFb = collection(firestore, 'tasks');
+    this.firestre = firestore;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   remove(task: Task) {
-    // this.emitRemove.emit(task);  not necessary with services
     this.tasksService.remove(task);
+    deleteDoc(doc(this.firestre, 'tasks', `${task.name}`));
   }
-  done(task: Task){
-    // this.emitDone.emit(task);  not necessary with services
+  done(task: Task) {
     this.tasksService.done(task);
+    task.end = new Date().toLocaleString();
+    task.isDone = true;
+    updateDoc(doc(this.firestre, 'tasks', `${task.name}`), { ...task });
   }
   getColor(): string {
     return this.tasksList.length > 1 ? 'Red' : 'Green';
