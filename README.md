@@ -25,3 +25,17 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Firebase configuration:
+
+First, you have to connect your firebase account > firebase login (in project console)
+
+Next, check if the connection is alright (you need to create your project on firebase in a first place to see it in the result) > firebase projects:list
+
+Then, you need to initialize firebase > firebase init
+
+And now you can add the following command > ng add @angular/fire
+
+## Netlify config
+
+Production branch: gh-pages
