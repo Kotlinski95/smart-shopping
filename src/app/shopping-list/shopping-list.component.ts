@@ -4,7 +4,6 @@ import { AddTaskComponent } from '../add-task/add-task.component';
 import { HttpService } from 'src/app/services/http.service';
 import { HttpErrorResponse } from '@angular/common/http'
 import { retry } from 'rxjs/operators';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-shopping-list',
@@ -16,18 +15,9 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 export class ShoppingListComponent {
   title = 'Shopping List';
 
-  // * not necessary with services
-  // taskList: Array<string> = [];
-  // taskDone: string[] = [];
-
   @ViewChild('addTaskRef')
   AddTaskComponent!: AddTaskComponent;
-  constructor(private HttpService: HttpService, firestore: Firestore) {
-        const collectionFb: any = collection(firestore, 'tasks');
-        collectionData(collectionFb).subscribe((data) => {
-          console.log('Firebase tasks: ', data);
-        });
-    console.log('Shopping list init');
+  constructor(private HttpService: HttpService) {
   }
   @ViewChild('inputField2') input!: ElementRef;
   ngOnInit(): void {
@@ -38,33 +28,10 @@ export class ShoppingListComponent {
         error: (error: HttpErrorResponse) => console.error(error),
       });
     this.HttpService.getSpecificData(1).subscribe((posts) => {
-      console.log('getSpecificData: ', posts);
+      // console.log('getSpecificData: ', posts);
     });
     this.HttpService.getDataById(1).subscribe((posts) => {
-      console.log('getDataById: ', posts);
+      // console.log('getDataById: ', posts);
     });
-    console.log(
-      '#addTaskRef: ',
-      this.AddTaskComponent,
-      '#inputField: ',
-      this.input
-    );
   }
-  /* Main app logic */ // - not necessary with services
-  // add(task: string):void {
-  //   this.taskList.push(task);
-  //   console.log("#addTaskRef: ", this.AddTaskComponent, "#inputField: ", this.input);
-  // }
-  // remove(task: string) {
-  //   this.taskList = this.taskList.filter(element =>  element !== task );
-  //   console.log("task removed: ", task);
-  // }
-  // done(task: string){
-  //   this.remove(task);
-  //   this.taskDone.push(task);
-  //   console.log("task done: ", task);
-  // }
-  // calcDone(list: Array<string>): number {
-  //   return list.length;
-  // }
 }

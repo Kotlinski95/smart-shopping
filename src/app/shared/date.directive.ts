@@ -15,13 +15,11 @@ export class DateDirective {
   }
 
   @HostListener('mouseenter') mouseEnter(eventDate: Event) {
-    console.log("mouseenter: ", this.date);
     this.paragraph.innerHTML = `${this.date}`;
     this.renderer.appendChild(this.element.nativeElement, this.paragraph);
   }
 
   @HostListener('mouseleave') mouseLeave(eventDate: Event) {
-    console.log("mouseleave");
     this.renderer.removeChild(this.element.nativeElement, this.paragraph);
   }
 

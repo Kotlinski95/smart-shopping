@@ -8,7 +8,6 @@ import { Task } from 'src/app/models/task';
   styleUrls: ['./done-task.component.scss']
 })
 export class DoneTaskComponent{
-
   tasksDone: Task[] = []
   constructor(private tasksService: TaskService) {
     this.tasksService

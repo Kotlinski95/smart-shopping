@@ -1,7 +1,5 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
-import { Firestore, collection} from '@angular/fire/firestore';
-import { doc, setDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-add-task',
@@ -10,23 +8,11 @@ import { doc, setDoc } from 'firebase/firestore';
 })
 export class AddTaskComponent implements OnInit {
   newTask: string = '';
-  collectionFb: any;
-  myDoc: any;
-
-  firestre: any;
-  constructor(
-    private tasksTaskService: TaskService,
-    firestore: Firestore,
-
-  ) {
-    this.collectionFb = collection(firestore, 'tasks');
-    this.firestre = firestore;
-  }
+  constructor(private tasksTaskService: TaskService) {}
 
   ngOnInit(): void {}
 
-  add(inputField: HTMLInputElement) {
-    console.log('Inputfield: ', inputField);
+  add() {
     const task = {
       name: this.newTask,
       created: new Date().toLocaleString(),
@@ -34,7 +20,5 @@ export class AddTaskComponent implements OnInit {
     };
     this.tasksTaskService.add(task);
     this.newTask = '';
-
-    setDoc(doc(this.firestre, 'tasks', `${task.name}`), task);
   }
 }
