@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "smart-shopping-d3bd1"
+  },
+  "targets": {
+    "smart-shopping-d3bd1": {
+      "hosting": {
+        "smart-shopping": [
+          "smart-shopping-d3bd1"
+        ]
+      }
+    }
+  }
+}

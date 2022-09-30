@@ -40,8 +40,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -105,11 +105,13 @@
           }
         },
         "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
+          "builder": "@angular/fire:deploy",
           "options": {
-            "outputPath": "dist",
-            "netlifyToken": "TlrpkDSQe0zt8TsyAnAZ96TyUYEu1jb3icDyGogTVzM",
-            "siteId": "f306ccac-16ad-44a0-8657-ebf280c1aced"
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "smart-shopping:build:production",
+            "firebaseProject": "smart-shopping-d3bd1",
+            "firebaseHostingSite": "smart-shopping-d3bd1"
           }
         }
       }

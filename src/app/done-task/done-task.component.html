@@ -1,0 +1,6 @@
+Produkty dodane ({{calcDone(tasksDone)}}):
+<ul>
+  <li appChecked appDate [date]="task.end" *ngFor="let task of tasksDone">
+    {{ task.name }}
+  </li>
+</ul>
