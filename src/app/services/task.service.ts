@@ -40,6 +40,23 @@ export class TaskService {
       }
     );
   }
+
+  undo(task: Task) {
+    this.fireBaseService.updateCollectionData(
+      config.firebase.collectionName,
+      `${task.name}`,
+      {
+        ...task,
+        end: null,
+        isDone: false,
+      }
+    );
+  }
+
+  clearDoneList(list: Array<Task>): void {
+    list.forEach((task: Task) => this.remove(task));
+  }
+
   calcDone(list: Array<Task>): number {
     return list.length;
   }

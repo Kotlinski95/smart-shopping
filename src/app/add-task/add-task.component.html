@@ -1,4 +1,12 @@
 <ng-container>
-  <input type="text" placeholder="Nazwa zadania" [(ngModel)]="newTask" #inputField>
-  <button (click)="add()">Dodaj zadanie</button>
+  <form (ngSubmit)="add()" [formGroup]="newTaskForm">
+    <input
+      type="text"
+      placeholder="Nazwa zadania"
+      [(ngModel)]="newTask"
+      formControlName="newTask"
+      #inputField
+    />
+    <button type="submit">Dodaj zadanie</button>
+  </form>
 </ng-container>
