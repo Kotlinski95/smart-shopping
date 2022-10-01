@@ -3,23 +3,29 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getData(): Observable<Array<Post>> {
-    return this.http.get<Array<Post>>('https://jsonplaceholder.typicode.com/posts');
+    return this.http.get<Array<Post>>(
+      'https://jsonplaceholder.typicode.com/posts'
+    );
   }
 
-  getSpecificData(id: number): Observable<Post>{
-    return this.http.get<Post>('https://jsonplaceholder.typicode.com/posts/' + id);
+  getSpecificData(id: number): Observable<Post> {
+    return this.http.get<Post>(
+      'https://jsonplaceholder.typicode.com/posts/' + id
+    );
   }
 
-  getDataById(id: number): Observable<Array<Post>>{
+  getDataById(id: number): Observable<Array<Post>> {
     const params = new HttpParams().set('userId', `${id}`);
-    return this.http.get<Array<Post>>('https://jsonplaceholder.typicode.com/posts/', { params: params});
+    return this.http.get<Array<Post>>(
+      'https://jsonplaceholder.typicode.com/posts/',
+      { params: params }
+    );
   }
 }
 

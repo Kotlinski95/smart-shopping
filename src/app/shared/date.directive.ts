@@ -1,7 +1,13 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  Renderer2,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appDate]'
+  selector: '[appDate]',
 })
 export class DateDirective {
   @Input()
@@ -11,7 +17,6 @@ export class DateDirective {
 
   constructor(private element: ElementRef, private renderer: Renderer2) {
     this.paragraph = this.renderer.createElement('p');
-
   }
 
   @HostListener('mouseenter') mouseEnter(eventDate: Event) {
@@ -22,5 +27,4 @@ export class DateDirective {
   @HostListener('mouseleave') mouseLeave(eventDate: Event) {
     this.renderer.removeChild(this.element.nativeElement, this.paragraph);
   }
-
 }
