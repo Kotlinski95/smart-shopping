@@ -27,7 +27,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'smart-shopping app is running!'
+      'smart-shopping Smart-shopping app is running!'
     );
   });
 });

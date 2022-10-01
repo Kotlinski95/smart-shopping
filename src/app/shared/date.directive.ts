@@ -19,12 +19,12 @@ export class DateDirective {
     this.paragraph = this.renderer.createElement('p');
   }
 
-  @HostListener('mouseenter') mouseEnter(eventDate: Event) {
+  @HostListener('mouseenter') mouseEnter() {
     this.paragraph.innerHTML = `${this.date}`;
     this.renderer.appendChild(this.element.nativeElement, this.paragraph);
   }
 
-  @HostListener('mouseleave') mouseLeave(eventDate: Event) {
+  @HostListener('mouseleave') mouseLeave() {
     this.renderer.removeChild(this.element.nativeElement, this.paragraph);
   }
 }

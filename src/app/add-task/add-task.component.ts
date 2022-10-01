@@ -9,7 +9,7 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class AddTaskComponent implements OnInit {
   public newTaskForm!: FormGroup;
-  public newTask: string = '';
+  public newTask = '';
   constructor(
     private tasksTaskService: TaskService,
     private formBuilder: FormBuilder

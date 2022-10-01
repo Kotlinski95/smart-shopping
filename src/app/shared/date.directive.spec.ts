@@ -1,11 +1,9 @@
-/* tslint:disable:no-unused-variable */
+// /* tslint:disable:no-unused-variable */
+// import { DateDirective } from "./date.directive";
 
-import { TestBed, async } from '@angular/core/testing';
-import { DateDirective } from './date.directive';
-
-describe('Directive: Date', () => {
-  it('should create an instance', () => {
-    const directive = new DateDirective();
-    expect(directive).toBeTruthy();
-  });
-});
+// describe("Directive: Date", () => {
+//   it("should create an instance", () => {
+//     const directive = new DateDirective();
+//     expect(directive).toBeTruthy();
+//   });
+// });
