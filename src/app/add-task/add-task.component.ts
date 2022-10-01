@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -7,10 +8,18 @@ import { TaskService } from 'src/app/services/task.service';
   styleUrls: ['./add-task.component.scss'],
 })
 export class AddTaskComponent implements OnInit {
-  newTask: string = '';
-  constructor(private tasksTaskService: TaskService) {}
+  public newTaskForm!: FormGroup;
+  public newTask: string = '';
+  constructor(
+    private tasksTaskService: TaskService,
+    private formBuilder: FormBuilder
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.newTaskForm = this.formBuilder.group({
+      newTask: ['', [Validators.required, Validators.minLength(3)]],
+    });
+  }
 
   add() {
     const task = {
