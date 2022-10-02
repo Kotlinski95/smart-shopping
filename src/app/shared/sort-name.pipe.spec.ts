@@ -1,8 +1,8 @@
-// import { SortNamePipe } from "./sort-name.pipe";
+import { SortNamePipe } from './sort-name.pipe';
 
-// describe('SortNamePipe', () => {
-//   it("create an instance", () => {
-//     const pipe = new SortNamePipe();
-//     expect(pipe).toBeTruthy();
-//   });
-// });
+describe('SortNamePipe', () => {
+  it('create an instance', () => {
+    const pipe = new SortNamePipe();
+    expect(pipe).toBeTruthy();
+  });
+});
