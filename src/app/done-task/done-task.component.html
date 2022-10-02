@@ -4,8 +4,12 @@ Produkty dodane ({{ calcDone(tasksDone) }}):
   <ul>
     <li appChecked appDate [date]="task.end" *ngFor="let task of tasksDone">
       {{ task.name }}
-      <button type="button" class="btn btn-danger" (click)="remove(task)">Usuń</button>
-      <button type="button" class="btn btn-success" (click)="undo(task)">Cofnij</button>
+      <button type="button" class="btn btn-danger" (click)="remove(task)">
+        Usuń
+      </button>
+      <button type="button" class="btn btn-success" (click)="undo(task)">
+        Cofnij
+      </button>
     </li>
   </ul>
 </ng-container>

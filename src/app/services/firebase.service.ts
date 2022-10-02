@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FirebaseService {
-  private firestore: any;
+  private firestore: Firestore;
   constructor(firestore: Firestore) {
     this.firestore = firestore;
   }
