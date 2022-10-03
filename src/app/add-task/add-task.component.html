@@ -1,11 +1,21 @@
 <ng-container>
-  <form (ngSubmit)="add()" [formGroup]="newTaskForm">
-    <input
-      type="text"
-      placeholder="Nazwa zadania"
-      [(ngModel)]="newTask"
-      formControlName="newTask"
-      #inputField />
-    <button type="submit">Dodaj zadanie</button>
+  <form (ngSubmit)="add()" [formGroup]="newTaskForm" class="container">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        placeholder="Nazwa zadania"
+        [(ngModel)]="newTask"
+        formControlName="newTask"
+        class="rounded col-6"
+        #inputField />
+      <div class="input-group-append d-flex">
+        <button
+          type="submit"
+          class="input-group-text btn btn-dark col-6 w-100"
+          id="basic-addon2">
+          Dodaj zadanie
+        </button>
+      </div>
+    </div>
   </form>
 </ng-container>
