@@ -24,6 +24,9 @@ export class TodoTaskComponent {
   done(task: Task) {
     this.tasksService.done(task);
   }
+  addAll(): void {
+    this.tasksList.forEach((task: Task) => this.tasksService.done(task));
+  }
   getColor(): string {
     return this.tasksList.length > 1 ? 'Red' : 'Green';
   }

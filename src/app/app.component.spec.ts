@@ -26,8 +26,8 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'smart-shopping Smart-shopping app is running!'
+    expect(compiled.querySelector('.toolbar span')?.textContent).toContain(
+      'smart-shopping'
     );
   });
 });
