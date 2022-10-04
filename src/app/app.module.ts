@@ -46,7 +46,7 @@ import { AddTaskModule } from './add-task/add-task.module';
     SortNamePipe,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
