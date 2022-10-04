@@ -1,6 +1,30 @@
-Produkty dodane ({{calcDone(tasksDone)}}):
-<ul>
-  <li appChecked appDate [date]="task.end" *ngFor="let task of tasksDone">
-    {{ task.name }}
-  </li>
-</ul>
+<p
+  class="d-flex justify-content-between align-items-center p-3 bg-dark text-white mt-3 mt-md-0 rounded">
+  Produkty dodane ({{ calcDone(tasksDone) }}):
+  <button (click)="clearDoneList()" class="btn btn-light">Wyczyść listę</button>
+</p>
+<ng-container *ngIf="calcDone(tasksDone) > 0">
+  <ol class="list-group">
+    <li
+      appChecked
+      appDate
+      [date]="task.end"
+      *ngFor="let task of tasksDone; let odd = odd"
+      class="list-group-item"
+      [ngClass]="{ 'odd-li': odd === true, 'li-last': tasksDone.length === 1 }">
+      <div class="d-flex justify-content-between">
+        <div>
+          {{ task.name }}
+        </div>
+        <div class="d-flex flex-nowrap align-self-center">
+          <button type="button" class="btn btn-danger" (click)="remove(task)">
+            Usuń
+          </button>
+          <button type="button" class="btn btn-success" (click)="undo(task)">
+            Cofnij
+          </button>
+        </div>
+      </div>
+    </li>
+  </ol>
+</ng-container>

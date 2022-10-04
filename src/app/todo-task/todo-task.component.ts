@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task';
 
@@ -27,6 +23,9 @@ export class TodoTaskComponent {
   }
   done(task: Task) {
     this.tasksService.done(task);
+  }
+  addAll(): void {
+    this.tasksList.forEach((task: Task) => this.tasksService.done(task));
   }
   getColor(): string {
     return this.tasksList.length > 1 ? 'Red' : 'Green';

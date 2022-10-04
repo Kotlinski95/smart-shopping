@@ -1,14 +1,14 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task';
 
 @Component({
   selector: 'app-done-task',
   templateUrl: './done-task.component.html',
-  styleUrls: ['./done-task.component.scss']
+  styleUrls: ['./done-task.component.scss'],
 })
-export class DoneTaskComponent{
-  tasksDone: Task[] = []
+export class DoneTaskComponent {
+  tasksDone: Task[] = [];
   constructor(private tasksService: TaskService) {
     this.tasksService
       .gettasksListObservableFb()
@@ -17,11 +17,21 @@ export class DoneTaskComponent{
           return task.isDone === true;
         });
       });
-
-   }
+  }
 
   calcDone(list: Array<Task>): number {
     return list.length;
   }
 
+  clearDoneList(): void {
+    this.tasksService.clearDoneList(this.tasksDone);
+  }
+
+  remove(task: Task) {
+    this.tasksService.remove(task);
+  }
+
+  undo(task: Task) {
+    this.tasksService.undo(task);
+  }
 }

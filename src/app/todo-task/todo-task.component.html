@@ -1,14 +1,33 @@
 <!-- conditional display - ngIf  -->
 <ng-container *ngIf="tasksList.length > 0; else noTask">
-  <p [ngStyle]="{color: getColor()}">Lista zakupów ( {{ tasksList.length}}):</p>
-  <ul>
-    <li appDate [date]="task.created" *ngFor="let task of tasksList | sortName; let odd = odd"
-      [ngClass]="{'odd-li': odd === true, 'li-last': tasksList.length === 1}">
-      {{ task.name | transformTask }}
-      <button type="button" class="btn btn-danger" (click)="remove(task)">Usuń</button>
-      <button type="button" class="btn btn-success" (click)="done(task)">Zrobione</button>
+  <p
+    [ngStyle]="{ color: getColor() }"
+    class="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+    Lista zakupów ( {{ tasksList.length }}):
+    <button (click)="addAll()" class="btn btn-dark">Dodaj wszystkie</button>
+  </p>
+  <ol class="list-group">
+    <li
+      appDate
+      [date]="task.created"
+      class="list-group-item"
+      *ngFor="let task of tasksList | sortName; let odd = odd"
+      [ngClass]="{ 'odd-li': odd === true, 'li-last': tasksList.length === 1 }">
+      <div class="d-flex justify-content-between">
+        <div>
+          {{ task.name | transformTask }}
+        </div>
+        <div class="d-flex flex-nowrap align-self-center">
+          <button type="button" class="btn btn-danger" (click)="remove(task)">
+            Usuń
+          </button>
+          <button type="button" class="btn btn-success" (click)="done(task)">
+            Zrobione
+          </button>
+        </div>
+      </div>
     </li>
-  </ul>
+  </ol>
 </ng-container>
 <ng-template #noTask>
   <p>Nie masz zadnych zadan do wykonania!</p>
