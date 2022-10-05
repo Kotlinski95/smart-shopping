@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task';
 
@@ -9,6 +9,11 @@ import { Task } from 'src/app/models/task';
 })
 export class DoneTaskComponent {
   tasksDone: Task[] = [];
+  public doneTaskListGroup!: ElementRef;
+  @ViewChild('toDoTaskListGroup', { static: false })
+  public set TaskListDoneView(content: ElementRef) {
+    this.doneTaskListGroup = content;
+  }
   constructor(private tasksService: TaskService) {
     this.tasksService
       .gettasksListObservableFb()
@@ -33,5 +38,9 @@ export class DoneTaskComponent {
 
   undo(task: Task) {
     this.tasksService.undo(task);
+  }
+
+  public roll(): void {
+    this.doneTaskListGroup?.nativeElement.classList.toggle('d-none');
   }
 }

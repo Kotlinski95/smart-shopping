@@ -1,10 +1,12 @@
 <p
-  class="d-flex justify-content-between align-items-center p-3 bg-dark text-white mt-3 mt-md-0 rounded">
+  class="d-flex justify-content-between align-items-center p-3 bg-dark text-white mt-3 mt-md-0 rounded"
+  role="button"
+  (click)="roll()">
   Produkty dodane ({{ calcDone(tasksDone) }}):
   <button (click)="clearDoneList()" class="btn btn-light">Wyczyść listę</button>
 </p>
 <ng-container *ngIf="calcDone(tasksDone) > 0">
-  <ol class="list-group">
+  <ol class="list-group" #toDoTaskListGroup>
     <li
       appChecked
       appDate
