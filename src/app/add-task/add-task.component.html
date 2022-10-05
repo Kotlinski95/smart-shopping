@@ -1,12 +1,12 @@
 <ng-container>
   <form (ngSubmit)="add()" [formGroup]="newTaskForm" class="container">
-    <div class="input-group mb-3">
+    <div class="input-group mb-3 d-flex flex-nowrap px-3">
       <input
         type="text"
         placeholder="Nazwa zadania"
         [(ngModel)]="newTask"
         formControlName="newTask"
-        class="rounded col-6"
+        class="rounded flex w-100"
         #inputField />
       <div class="input-group-append d-flex">
         <button

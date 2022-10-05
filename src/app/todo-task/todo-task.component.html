@@ -2,11 +2,13 @@
 <ng-container *ngIf="tasksList.length > 0; else noTask">
   <p
     [ngStyle]="{ color: getColor() }"
-    class="d-flex justify-content-between align-items-center p-3 bg-light rounded">
-    Lista zakupów ( {{ tasksList.length }}):
+    (click)="roll()"
+    role="button"
+    class="d-flex justify-content-between align-items-center p-3 bg-light rounded cursor-pointer">
+    Lista zakupów ({{ tasksList.length }}):
     <button (click)="addAll()" class="btn btn-dark">Dodaj wszystkie</button>
   </p>
-  <ol class="list-group">
+  <ol class="list-group" #toDoTaskListGroup>
     <li
       appDate
       [date]="task.created"

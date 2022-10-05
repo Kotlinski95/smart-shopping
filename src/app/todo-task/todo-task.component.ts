@@ -1,4 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task';
 
@@ -10,6 +15,11 @@ import { Task } from 'src/app/models/task';
 })
 export class TodoTaskComponent {
   tasksList: Task[] = [];
+  public toDoTaskListGroup!: ElementRef;
+  @ViewChild('toDoTaskListGroup', { static: false })
+  public set TaskListView(content: ElementRef) {
+    this.toDoTaskListGroup = content;
+  }
   constructor(private tasksService: TaskService) {
     this.tasksService.gettasksListObservableFb().subscribe((tasks: Task[]) => {
       this.tasksList = [...tasks].filter((task: Task) => {
@@ -29,5 +39,9 @@ export class TodoTaskComponent {
   }
   getColor(): string {
     return this.tasksList.length > 1 ? 'Red' : 'Green';
+  }
+
+  public roll(): void {
+    this.toDoTaskListGroup?.nativeElement.classList.toggle('d-none');
   }
 }
