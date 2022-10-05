@@ -13,7 +13,9 @@
     "dev:ssr": "ng run smart-shopping:serve-ssr",
     "serve:ssr": "node dist/smart-shopping/server/main.js",
     "build:ssr": "ng build && ng run smart-shopping:server",
-    "prerender": "ng run smart-shopping:prerender"
+    "prerender": "ng run smart-shopping:prerender",
+    "start:heroku": "node dist/smart-shopping/server/main.js",
+    "postinstall": "npm run build:ssr"
   },
   "private": true,
   "dependencies": {
