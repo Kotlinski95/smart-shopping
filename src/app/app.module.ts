@@ -32,6 +32,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AddTaskModule } from './add-task/add-task.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -46,7 +47,7 @@ import { AddTaskModule } from './add-task/add-task.module';
     SortNamePipe,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
@@ -63,6 +64,12 @@ import { AddTaskModule } from './add-task/add-task.module';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AddTaskModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [HttpService, ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],
