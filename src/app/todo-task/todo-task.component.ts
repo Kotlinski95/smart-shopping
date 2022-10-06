@@ -38,7 +38,7 @@ export class TodoTaskComponent {
     this.tasksList.forEach((task: Task) => this.tasksService.done(task));
   }
   getColor(): string {
-    return this.tasksList.length > 1 ? 'Red' : 'Green';
+    return this.tasksList.length > 1 ? 'Black' : 'Green';
   }
 
   public roll(): void {
