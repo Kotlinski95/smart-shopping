@@ -2,10 +2,12 @@
   "name": "smart-shopping",
   "short_name": "smart-shopping",
   "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "background_color": "#302f2f",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
+  "description": "Shopping app for everyone",
+  "categories": ["shopping", "list"],
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
