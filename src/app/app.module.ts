@@ -33,6 +33,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AddTaskModule } from './add-task/add-task.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AuthService } from './shared/services/auth.service';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -71,7 +72,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
-  providers: [HttpService, ScreenTrackingService, UserTrackingService],
+  providers: [
+    HttpService,
+    ScreenTrackingService,
+    UserTrackingService,
+    AuthService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
