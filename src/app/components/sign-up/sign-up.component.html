@@ -1,49 +1,48 @@
-<div class="displayTable">
-  <div class="displayTableCell">
-    <div class="authBlock">
-      <h3>Sign Up</h3>
-      <div class="formGroup">
-        <input
-          type="email"
-          class="formControl"
-          placeholder="Email Address"
-          #userEmail
-          required />
-      </div>
-      <div class="formGroup">
-        <input
-          type="password"
-          class="formControl"
-          placeholder="Password"
-          #userPwd
-          required />
-      </div>
-      <div class="formGroup">
-        <input
-          type="button"
-          class="btn btnPrimary"
-          value="Sign Up"
-          (click)="authService.SignUp(userEmail.value, userPwd.value)" />
-      </div>
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
-      <!-- Continue with Google -->
-      <div class="formGroup">
-        <button
-          type="button"
-          class="btn googleBtn"
-          (click)="authService.GoogleAuth()">
-          <i class="fab fa-google-plus-g"></i>
-          Continue with Google
-        </button>
-      </div>
+<div class="container p-5 flex-column">
+  <h1>Sign Up</h1>
+  <form (ngSubmit)="signUp()" [formGroup]="signUpForm" class="row flex-column">
+    <div class="formGroup py-1">
+      <input
+        type="email"
+        class="formControl w-100"
+        placeholder="Email Address"
+        formControlName="email"
+        #userEmail
+        required />
     </div>
-    <div class="redirectToLogin">
-      <span
-        >Already have an account?
-        <span class="redirect" routerLink="/sign-in">Log In</span></span
-      >
+    <div class="formGroup py-1">
+      <input
+        type="password"
+        class="formControl w-100"
+        placeholder="Password"
+        formControlName="password"
+        #userPwd
+        required />
     </div>
+    <div class="formGroup">
+      <button
+        class="btn btn-primary w-100 mt-2"
+        value="Log in"
+        type="submit"
+        [disabled]="!signUpForm.valid">
+        Sign Up
+      </button>
+    </div>
+    <div class="formGroup d-flex justify-content-center">
+      <span class="or"><span class="orInner">Or</span></span>
+    </div>
+    <!-- Continue with Google -->
+    <div class="formGroup">
+      <button class="btn btn-success" (click)="authService.GoogleAuth()">
+        <fa-icon [icon]="faUserShield"></fa-icon>
+        Continue with Google
+      </button>
+    </div>
+  </form>
+  <div class="redirectToLogin mt-2">
+    <span
+      >Already have an account?
+      <a class="redirect" routerLink="/login">Log In</a></span
+    >
   </div>
 </div>

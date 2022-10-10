@@ -34,6 +34,11 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AddTaskModule } from './add-task/add-task.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AuthService } from './shared/services/auth.service';
+import { SignInModule } from './components/sign-in/sign-in.module';
+import { DashboardModule } from './components/dashboard/dashboard.module';
+import { ForgotPassowrdModule } from './components/forgot-passoword/forgot-password.module';
+import { SignUpModule } from './components/sign-up/sign-up.module';
+import { VerifyEmailModule } from './components/verify-email/verify-email.module';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -71,6 +76,11 @@ import { AuthService } from './shared/services/auth.service';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    SignInModule,
+    DashboardModule,
+    ForgotPassowrdModule,
+    SignUpModule,
+    VerifyEmailModule,
   ],
   providers: [
     HttpService,

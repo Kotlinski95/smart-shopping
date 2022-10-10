@@ -179,12 +179,15 @@
   </a>
 
   <div class="spacer"></div>
-  <a aria-label="Sign In" rel="noopener" routerLink="/login" title="Sign In">
-    <img
-      src="../assets/svg/user-login-svgrepo-com.svg"
-      height="24"
-      width="24" />
-  </a>
+  <ng-container *ngIf="!this.authService.isLoggedIn">
+    <a aria-label="Sign In" rel="noopener" routerLink="/login" title="Sign In">
+      <img
+        src="../assets/svg/user-login-svgrepo-com.svg"
+        height="24"
+        width="24" />
+    </a>
+  </ng-container>
+
   <ng-container *ngIf="this.authService.isLoggedIn">
     <a
       aria-label="Dashboard"

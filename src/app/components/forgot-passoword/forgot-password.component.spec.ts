@@ -3,6 +3,7 @@ import { provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { initializeApp } from 'firebase/app';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -24,7 +25,7 @@ describe('ForgotPassowrdComponent', () => {
         AngularFireDatabaseModule,
         RouterTestingModule,
       ],
-      providers: [AuthService],
+      providers: [AuthService, FormBuilder],
     }).compileComponents();
   });
 

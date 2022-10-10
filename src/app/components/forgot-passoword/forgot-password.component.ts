@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -7,5 +8,19 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent {
-  constructor(public authService: AuthService) {}
+  public resetPasswordForm!: FormGroup;
+  constructor(
+    public authService: AuthService,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.resetPasswordForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.minLength(3)]],
+    });
+  }
+
+  resetPassword(): void {
+    this.authService.ForgotPassword(this.resetPasswordForm.value.email);
+  }
 }
