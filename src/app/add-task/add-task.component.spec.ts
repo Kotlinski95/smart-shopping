@@ -8,6 +8,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FormBuilder } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AddTaskComponent', () => {
   let component: AddTaskComponent;
@@ -21,6 +22,7 @@ describe('AddTaskComponent', () => {
         provideFirestore(() => getFirestore()),
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        RouterTestingModule,
       ],
       providers: [TaskService, FirebaseService, FormBuilder],
     }).compileComponents();

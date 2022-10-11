@@ -9,18 +9,6 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: '/sign-in',
-  //   pathMatch: 'full',
-  //   data: {
-  //     title: 'Smart Shopping',
-  //     description: 'Smart Shopping for everyone',
-  //     ogUrl: 'your og url',
-  //     author: 'Adrian Kotlinski',
-  //     keywords: 'smart,shopping,list,app,pwa,ssr',
-  //   },
-  // },
   {
     path: '',
     component: ShoppingListComponent,
@@ -31,7 +19,7 @@ const routes: Routes = [
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
     },
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'login',

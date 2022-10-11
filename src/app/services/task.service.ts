@@ -4,53 +4,91 @@ import { Task } from '../models/task';
 import { DocumentData } from 'firebase/firestore';
 import { FirebaseService } from './firebase.service';
 import { config } from '../config';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
+import { AuthService } from '../shared/services/auth.service';
 
 @Injectable()
 export class TaskService {
-  private tasksListObservable$ = new Observable<DocumentData[] | Task[]>();
+  private tasksListObservableLocal = new BehaviorSubject<Task[]>([]);
 
-  constructor(private fireBaseService: FirebaseService) {
-    this.tasksListObservable$ = fireBaseService.getFireBaseCollectionData(
-      config.firebase.collectionName
-    );
+  constructor(
+    private fireBaseService: FirebaseService,
+    private authService: AuthService
+  ) {
+    const taskslist = JSON.parse(localStorage.getItem('taskslist')!);
+    this.tasksListObservableLocal.next(taskslist);
   }
 
   add(task: Task): void {
-    this.fireBaseService.addCollectionData(
-      config.firebase.collectionName,
-      `${task.name}`,
-      task
-    );
+    if (this.authService.isLoggedIn) {
+      this.fireBaseService.addCollectionData(
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${task.name}`,
+        task
+      );
+    } else {
+      // const taskslist = [
+      //   ...new Set([...this.tasksListObservableLocal.value, task]),
+      // ];
+      const key = 'name';
+      const taskslist = [
+        ...new Map(
+          [...this.tasksListObservableLocal.value, task].map((item: any) => [
+            item[key],
+            item,
+          ])
+        ).values(),
+      ];
+      this.tasksListObservableLocal.next(taskslist);
+      localStorage.setItem('taskslist', JSON.stringify(taskslist));
+    }
   }
   remove(task: Task) {
-    this.fireBaseService.removeCollectionData(
-      config.firebase.collectionName,
-      `${task.name}`
-    );
+    if (this.authService.isLoggedIn) {
+      this.fireBaseService.removeCollectionData(
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${task.name}`
+      );
+    } else {
+      const taskslist = this.tasksListObservableLocal.value.filter(
+        taskFromList => taskFromList.name != task.name
+      );
+      this.tasksListObservableLocal.next(taskslist);
+      localStorage.setItem('taskslist', JSON.stringify(taskslist));
+      console.log(
+        'REMOVE: ',
+        task,
+        'tasklist: ',
+        this.tasksListObservableLocal.value
+      );
+    }
   }
   done(task: Task) {
-    this.fireBaseService.updateCollectionData(
-      config.firebase.collectionName,
-      `${task.name}`,
-      {
-        ...task,
-        end: new Date().toLocaleString(),
-        isDone: true,
-      }
-    );
+    if (this.authService.isLoggedIn) {
+      this.fireBaseService.updateCollectionData(
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${task.name}`,
+        {
+          ...task,
+          end: new Date().toLocaleString(),
+          isDone: true,
+        }
+      );
+    }
   }
 
   undo(task: Task) {
-    this.fireBaseService.updateCollectionData(
-      config.firebase.collectionName,
-      `${task.name}`,
-      {
-        ...task,
-        end: null,
-        isDone: false,
-      }
-    );
+    if (this.authService.isLoggedIn) {
+      this.fireBaseService.updateCollectionData(
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${task.name}`,
+        {
+          ...task,
+          end: null,
+          isDone: false,
+        }
+      );
+    }
   }
 
   clearDoneList(list: Array<Task>): void {
@@ -62,10 +100,18 @@ export class TaskService {
   }
 
   gettasksListObservableFb(): Observable<Array<Task>> {
-    return this.tasksListObservable$.pipe(
-      map((data: DocumentData[]) => {
-        return <Task[]>[...data];
-      })
-    );
+    if (this.authService.isLoggedIn) {
+      return this.fireBaseService
+        .getFireBaseCollectionData(
+          `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`
+        )
+        .pipe(
+          map((data: DocumentData[]) => {
+            return <Task[]>[...data];
+          })
+        );
+    } else {
+      return this.tasksListObservableLocal.asObservable();
+    }
   }
 }

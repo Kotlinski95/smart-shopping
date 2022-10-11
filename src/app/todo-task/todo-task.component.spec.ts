@@ -3,6 +3,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
 import { FirebaseService } from '../services/firebase.service';
 import { TaskService } from '../services/task.service';
@@ -21,6 +22,7 @@ describe('TodoTaskComponent', () => {
         provideFirestore(() => getFirestore()),
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        RouterTestingModule,
       ],
       providers: [TaskService, FirebaseService],
     }).compileComponents();
