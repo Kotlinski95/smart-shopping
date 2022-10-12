@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TaskService } from 'src/app/services/task.service';
+import { TaskService } from 'src/app/shared/services/task.service';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',

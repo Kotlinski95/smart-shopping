@@ -1,21 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
-import { TaskService } from '../services/task.service';
+import { FirebaseService } from '../../shared/services/firebase.service';
+import { TaskService } from '../../shared/services/task.service';
+import { AddTaskComponent } from './add-task.component';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { FormBuilder } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { DoneTaskComponent } from './done-task.component';
-
-describe('DoneTaskComponent', () => {
-  let component: DoneTaskComponent;
-  let fixture: ComponentFixture<DoneTaskComponent>;
+describe('AddTaskComponent', () => {
+  let component: AddTaskComponent;
+  let fixture: ComponentFixture<AddTaskComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DoneTaskComponent],
+      declarations: [AddTaskComponent],
       imports: [
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
@@ -23,12 +24,12 @@ describe('DoneTaskComponent', () => {
         AngularFireDatabaseModule,
         RouterTestingModule,
       ],
-      providers: [TaskService],
+      providers: [TaskService, FirebaseService, FormBuilder],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DoneTaskComponent);
+    fixture = TestBed.createComponent(AddTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

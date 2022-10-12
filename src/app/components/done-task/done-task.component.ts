@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { TaskService } from 'src/app/services/task.service';
-import { Task } from 'src/app/models/task';
+import { TaskService } from 'src/app/shared/services/task.service';
+import { Task } from 'src/app/shared/interfaces/task';
 
 @Component({
   selector: 'app-done-task',

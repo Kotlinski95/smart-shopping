@@ -25,7 +25,6 @@ export class SignInComponent implements OnInit {
   }
 
   signIn(): void {
-    console.log('Sign IN! ', this.signInForm.value.login);
     this.authService.SignIn(
       this.signInForm.value.login,
       this.signInForm.value.password

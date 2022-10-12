@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MetaService } from './services/meta.service';
+import { MetaService } from './shared/services/meta.service';
 import { AuthService } from './shared/services/auth.service';
 @Component({
   selector: 'app-root',

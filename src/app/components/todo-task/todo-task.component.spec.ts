@@ -5,8 +5,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
-import { FirebaseService } from '../services/firebase.service';
-import { TaskService } from '../services/task.service';
+import { FirebaseService } from '../../shared/services/firebase.service';
+import { TaskService } from '../../shared/services/task.service';
 
 import { TodoTaskComponent } from './todo-task.component';
 

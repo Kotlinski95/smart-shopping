@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Task } from '../models/task';
+import { Task } from '../interfaces/task';
 import { DocumentData } from 'firebase/firestore';
 import { FirebaseService } from './firebase.service';
-import { config } from '../config';
+import { config } from '../../config';
 import { BehaviorSubject, map } from 'rxjs';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class TaskService {
@@ -27,9 +27,6 @@ export class TaskService {
         task
       );
     } else {
-      // const taskslist = [
-      //   ...new Set([...this.tasksListObservableLocal.value, task]),
-      // ];
       const key = 'name';
       const taskslist = [
         ...new Map(
@@ -55,12 +52,6 @@ export class TaskService {
       );
       this.tasksListObservableLocal.next(taskslist);
       localStorage.setItem('taskslist', JSON.stringify(taskslist));
-      console.log(
-        'REMOVE: ',
-        task,
-        'tasklist: ',
-        this.tasksListObservableLocal.value
-      );
     }
   }
   done(task: Task) {
@@ -74,6 +65,17 @@ export class TaskService {
           isDone: true,
         }
       );
+    } else {
+      const taskslist = this.tasksListObservableLocal.getValue();
+      taskslist[
+        taskslist.findIndex(taskFromList => taskFromList.name === task.name)
+      ] = {
+        ...task,
+        end: new Date().toLocaleString(),
+        isDone: true,
+      };
+      this.tasksListObservableLocal.next(taskslist);
+      localStorage.setItem('taskslist', JSON.stringify(taskslist));
     }
   }
 
@@ -88,6 +90,17 @@ export class TaskService {
           isDone: false,
         }
       );
+    } else {
+      const taskslist = this.tasksListObservableLocal.getValue();
+      taskslist[
+        taskslist.findIndex(taskFromList => taskFromList.name === task.name)
+      ] = {
+        ...task,
+        end: undefined,
+        isDone: false,
+      };
+      this.tasksListObservableLocal.next(taskslist);
+      localStorage.setItem('taskslist', JSON.stringify(taskslist));
     }
   }
 

@@ -1,22 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from 'src/environments/environment';
-import { FirebaseService } from '../services/firebase.service';
-import { TaskService } from '../services/task.service';
-import { AddTaskComponent } from './add-task.component';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { FormBuilder } from '@angular/forms';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
+import { environment } from 'src/environments/environment';
+import { TaskService } from '../../shared/services/task.service';
 
-describe('AddTaskComponent', () => {
-  let component: AddTaskComponent;
-  let fixture: ComponentFixture<AddTaskComponent>;
+import { DoneTaskComponent } from './done-task.component';
+
+describe('DoneTaskComponent', () => {
+  let component: DoneTaskComponent;
+  let fixture: ComponentFixture<DoneTaskComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddTaskComponent],
+      declarations: [DoneTaskComponent],
       imports: [
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
@@ -24,12 +23,12 @@ describe('AddTaskComponent', () => {
         AngularFireDatabaseModule,
         RouterTestingModule,
       ],
-      providers: [TaskService, FirebaseService, FormBuilder],
+      providers: [TaskService],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddTaskComponent);
+    fixture = TestBed.createComponent(DoneTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
