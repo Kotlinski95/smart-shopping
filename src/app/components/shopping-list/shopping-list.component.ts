@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { TaskService } from 'src/app/shared/services/task.service';
 @Component({
   selector: 'app-shopping-list',
@@ -8,4 +9,8 @@ import { TaskService } from 'src/app/shared/services/task.service';
 })
 export class ShoppingListComponent {
   title = 'Shopping List';
+  constructor(private authService: AuthService) {}
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn;
+  }
 }

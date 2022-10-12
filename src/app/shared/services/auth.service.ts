@@ -8,6 +8,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { FacebookAuthProvider } from 'firebase/auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -82,7 +83,10 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return (
+      user !== null &&
+      (user.emailVerified !== false ? true : false || user.isAnonymous)
+    );
   }
 
   get actualUser(): User {
@@ -96,12 +100,34 @@ export class AuthService {
     });
   }
 
+  FacebookAuth() {
+    return this.AuthLogin(new FacebookAuthProvider()).then((res: any) => {
+      this.router.navigate(['dashboard']);
+    });
+  }
+
   AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
       .then(result => {
         this.router.navigate(['dashboard']);
         this.SetUserData(result.user);
+      })
+      .catch(error => {
+        window.alert(error);
+      });
+  }
+
+  AnonymousLogin() {
+    this.afAuth
+      .signInAnonymously()
+      .then(result => {
+        this.SetUserData(result.user);
+        this.afAuth.authState.subscribe(user => {
+          if (user) {
+            this.router.navigate(['dashboard']);
+          }
+        });
       })
       .catch(error => {
         window.alert(error);

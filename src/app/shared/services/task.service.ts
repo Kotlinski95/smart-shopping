@@ -16,7 +16,7 @@ export class TaskService {
     private authService: AuthService
   ) {
     const taskslist = JSON.parse(localStorage.getItem('taskslist')!);
-    this.tasksListObservableLocal.next(taskslist);
+    if (taskslist) this.tasksListObservableLocal.next(taskslist);
   }
 
   add(task: Task): void {

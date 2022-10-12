@@ -39,6 +39,7 @@ import { DashboardModule } from './components/dashboard/dashboard.module';
 import { ForgotPassowrdModule } from './components/forgot-passoword/forgot-password.module';
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { VerifyEmailModule } from './components/verify-email/verify-email.module';
+import { MessageBoxModule } from './components/message-box/message-box.module';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -81,6 +82,7 @@ import { VerifyEmailModule } from './components/verify-email/verify-email.module
     ForgotPassowrdModule,
     SignUpModule,
     VerifyEmailModule,
+    MessageBoxModule,
   ],
   providers: [
     HttpService,

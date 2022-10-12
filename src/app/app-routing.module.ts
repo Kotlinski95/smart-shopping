@@ -19,7 +19,6 @@ const routes: Routes = [
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
     },
-    // canActivate: [AuthGuard],
   },
   {
     path: 'login',
