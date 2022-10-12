@@ -34,10 +34,22 @@
     </div>
     <!-- Calling GoogleAuth Api from AuthService -->
     <div class="formGroup">
-      <button class="btn btn-success" (click)="authService.GoogleAuth()">
+      <span class="btn btn-success w-100" role="button" (click)="authService.GoogleAuth()">
         <fa-icon [icon]="faUserShield"></fa-icon>
         Log in with Google
-      </button>
+      </span>
+    </div>
+    <div class="formGroup mt-2">
+      <span class="btn btn-primary w-100" role="button" (click)="authService.FacebookAuth()">
+        <fa-icon [icon]="faUserShield"></fa-icon>
+        Log in with Facebook
+      </span>
+    </div>
+    <div class="formGroup mt-2">
+      <span class="btn btn-secondary w-100" role="button" (click)="authService.AnonymousLogin()">
+        <fa-icon [icon]="faUserShield"></fa-icon>
+        Log in anonymously
+      </span>
     </div>
   </form>
 
