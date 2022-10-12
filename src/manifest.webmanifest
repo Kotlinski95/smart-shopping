@@ -1,8 +1,8 @@
 {
-  "name": "smart-shopping",
-  "short_name": "smart-shopping",
-  "theme_color": "#1976d2",
-  "background_color": "#302f2f",
+  "name": "Smart Shopping",
+  "short_name": "Smart Shopping",
+  "theme_color": "#212529",
+  "background_color": "#212529",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
