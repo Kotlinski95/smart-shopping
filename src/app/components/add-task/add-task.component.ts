@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TaskService } from 'src/app/services/task.service';
+import { TaskService } from 'src/app/shared/services/task.service';
 
 @Component({
   selector: 'app-add-task',

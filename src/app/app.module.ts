@@ -3,16 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { FormsModule } from '@angular/forms';
-import { TodoTaskComponent } from './todo-task/todo-task.component';
-import { DoneTaskComponent } from './done-task/done-task.component';
+import { TodoTaskComponent } from './components/todo-task/todo-task.component';
+import { DoneTaskComponent } from './components/done-task/done-task.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CheckedDirective } from './shared/checked.directive';
-import { DateDirective } from './shared/date.directive';
-import { TransformTaskPipe } from './shared/transform-task.pipe';
-import { SortNamePipe } from './shared/sort-name.pipe';
-import { HttpService } from './services/http.service';
+import { CheckedDirective } from './shared/directives/checked.directive';
+import { DateDirective } from './shared/directives/date.directive';
+import { TransformTaskPipe } from './shared/pipes/transform-task.pipe';
+import { SortNamePipe } from './shared/pipes/sort-name.pipe';
+import { HttpService } from './shared/services/http.service';
 import { HttpClientModule } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
@@ -31,8 +31,14 @@ import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AddTaskModule } from './add-task/add-task.module';
+import { AddTaskModule } from './components/add-task/add-task.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AuthService } from './shared/services/auth.service';
+import { SignInModule } from './components/sign-in/sign-in.module';
+import { DashboardModule } from './components/dashboard/dashboard.module';
+import { ForgotPassowrdModule } from './components/forgot-passoword/forgot-password.module';
+import { SignUpModule } from './components/sign-up/sign-up.module';
+import { VerifyEmailModule } from './components/verify-email/verify-email.module';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -70,8 +76,18 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    SignInModule,
+    DashboardModule,
+    ForgotPassowrdModule,
+    SignUpModule,
+    VerifyEmailModule,
   ],
-  providers: [HttpService, ScreenTrackingService, UserTrackingService],
+  providers: [
+    HttpService,
+    ScreenTrackingService,
+    UserTrackingService,
+    AuthService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

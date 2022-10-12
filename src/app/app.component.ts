@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MetaService } from './services/meta.service';
+import { MetaService } from './shared/services/meta.service';
+import { AuthService } from './shared/services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +8,7 @@ import { MetaService } from './services/meta.service';
 })
 export class AppComponent {
   title = 'smart-shopping';
-  constructor(private meta: MetaService) {
+  constructor(private meta: MetaService, public authService: AuthService) {
     this.meta.updateMetaData();
   }
 }

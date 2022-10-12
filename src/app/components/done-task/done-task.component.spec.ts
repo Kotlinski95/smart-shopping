@@ -3,8 +3,9 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
-import { TaskService } from '../services/task.service';
+import { TaskService } from '../../shared/services/task.service';
 
 import { DoneTaskComponent } from './done-task.component';
 
@@ -20,6 +21,7 @@ describe('DoneTaskComponent', () => {
         provideFirestore(() => getFirestore()),
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        RouterTestingModule,
       ],
       providers: [TaskService],
     }).compileComponents();

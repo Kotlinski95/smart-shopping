@@ -1,0 +1,55 @@
+<div class="container p-5 flex-column">
+  <h1>Sign In</h1>
+  <form (ngSubmit)="signIn()" [formGroup]="signInForm" class="row flex-column">
+    <div class="formGroup py-1">
+      <input
+        type="text"
+        class="formControl w-100"
+        placeholder="Username"
+        formControlName="login"
+        #userName
+        required />
+    </div>
+    <div class="formGroup py-1">
+      <input
+        type="password"
+        class="formControl w-100"
+        placeholder="Password"
+        formControlName="password"
+        #userPassword
+        required />
+    </div>
+    <!-- Calling SignIn Api from AuthService -->
+    <div class="formGroup">
+      <button
+        class="btn btn-primary w-100 mt-2"
+        value="Log in"
+        type="submit"
+        [disabled]="!signInForm.valid">
+        Log in
+      </button>
+    </div>
+    <div class="formGroup d-flex justify-content-center">
+      <span class="or"><span class="orInner">Or</span></span>
+    </div>
+    <!-- Calling GoogleAuth Api from AuthService -->
+    <div class="formGroup">
+      <button class="btn btn-success" (click)="authService.GoogleAuth()">
+        <fa-icon [icon]="faUserShield"></fa-icon>
+        Log in with Google
+      </button>
+    </div>
+  </form>
+
+  <div class="forgotPassword">
+    <a routerLink="/forgot-password">Forgot Password?</a>
+  </div>
+
+  <div class="redirectToLogin row">
+    <span
+      >Don't have an account?<a class="redirect" routerLink="/register">
+        Sign Up</a
+      ></span
+    >
+  </div>
+</div>
