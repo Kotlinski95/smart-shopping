@@ -1,5 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 
+@import './styles/index.scss';
+
 html {
   height: 100%;
   overflow: hidden;
@@ -9,7 +11,7 @@ body {
   background-size: cover;
   display: block;
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   overflow: auto;
   height: 100%;
 }
