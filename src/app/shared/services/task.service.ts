@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class TaskService {
   private tasksListObservableLocal = new BehaviorSubject<Task[]>([]);
+  private tasksListLoaded = new BehaviorSubject<boolean>(false);
 
   constructor(
     private fireBaseService: FirebaseService,
@@ -120,11 +121,17 @@ export class TaskService {
         )
         .pipe(
           map((data: DocumentData[]) => {
+            this.tasksListLoaded.next(true);
             return <Task[]>[...data];
           })
         );
     } else {
+      this.tasksListLoaded.next(true);
       return this.tasksListObservableLocal.asObservable();
     }
+  }
+
+  isTaskListLoaded(): Observable<boolean> {
+    return this.tasksListLoaded.asObservable();
   }
 }

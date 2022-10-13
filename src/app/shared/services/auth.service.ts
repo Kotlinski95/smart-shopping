@@ -95,22 +95,18 @@ export class AuthService {
   }
 
   GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
-    });
+    return this.AuthLogin(new auth.GoogleAuthProvider());
   }
 
   FacebookAuth() {
-    return this.AuthLogin(new FacebookAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
-    });
+    return this.AuthLogin(new FacebookAuthProvider());
   }
 
   AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
       .then(result => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/']);
         this.SetUserData(result.user);
       })
       .catch(error => {
