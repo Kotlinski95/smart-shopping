@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ForgotPasswordComponent } from './components/forgot-passoword/forgot-password.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthGuard } from './shared/guard/auth.guard';
-import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ShoppingListComponent,
+    loadChildren: () =>
+      import('./components/shopping-list/shopping-list.module').then(
+        m => m.ShoppingListModule
+      ),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',
@@ -22,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: SignInComponent,
+    loadChildren: () =>
+      import('./components/sign-in/sign-in.module').then(m => m.SignInModule),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',
@@ -33,7 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: SignUpComponent,
+    loadChildren: () =>
+      import('./components/sign-up/sign-up.module').then(m => m.SignUpModule),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',
@@ -44,7 +43,10 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadChildren: () =>
+      import('./components/dashboard/dashboard.module').then(
+        m => m.DashboardModule
+      ),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',
@@ -56,7 +58,11 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent,
+
+    loadChildren: () =>
+      import('./components/forgot-passoword/forgot-password.module').then(
+        m => m.ForgotPassowrdModule
+      ),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',
@@ -67,7 +73,10 @@ const routes: Routes = [
   },
   {
     path: 'verify-email-address',
-    component: VerifyEmailComponent,
+    loadChildren: () =>
+      import('./components/verify-email/verify-email.module').then(
+        m => m.VerifyEmailModule
+      ),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',

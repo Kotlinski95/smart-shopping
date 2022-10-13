@@ -3,8 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  {
+    path: '',
+    component: ForgotPasswordComponent,
+  },
+];
 @NgModule({
   declarations: [ForgotPasswordComponent],
   imports: [
@@ -12,7 +18,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
-    RouterModule,
+    RouterModule.forChild(routes),
   ],
 })
 export class ForgotPassowrdModule {}
