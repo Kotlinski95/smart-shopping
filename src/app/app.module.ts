@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,6 +40,10 @@ import { ForgotPassowrdModule } from './components/forgot-passoword/forgot-passw
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { VerifyEmailModule } from './components/verify-email/verify-email.module';
 import { MessageBoxModule } from './components/message-box/message-box.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingSpinnerModule } from './components/loading-spinner/loading-spinner.module';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -83,7 +87,12 @@ import { MessageBoxModule } from './components/message-box/message-box.module';
     SignUpModule,
     VerifyEmailModule,
     MessageBoxModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    LoadingSpinnerModule,
   ],
+  exports: [NgxSpinnerModule],
   providers: [
     HttpService,
     ScreenTrackingService,
@@ -91,5 +100,6 @@ import { MessageBoxModule } from './components/message-box/message-box.module';
     AuthService,
   ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
