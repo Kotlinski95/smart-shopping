@@ -3,7 +3,7 @@
     <div class="input-group mb-3 d-flex flex-nowrap px-3">
       <input
         type="text"
-        placeholder="Nazwa zadania"
+        placeholder="{{ 'shopping_list.add_task.input_placeholder' | translate }}"
         [(ngModel)]="newTask"
         formControlName="newTask"
         class="rounded flex w-100"
@@ -13,7 +13,7 @@
           type="submit"
           class="input-group-text btn btn-dark col-6 w-100"
           id="basic-addon2">
-          Dodaj zadanie
+          {{ 'shopping_list.add_task.button_label' | translate }}
         </button>
       </div>
     </div>
