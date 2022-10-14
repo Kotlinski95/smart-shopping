@@ -15,7 +15,8 @@
     "build:ssr": "ng build && ng run smart-shopping:server",
     "prerender": "ng run smart-shopping:prerender",
     "start:heroku": "node dist/smart-shopping/server/main.js",
-    "postinstall": "npm run build:ssr"
+    "postinstall": "npm run build:ssr",
+    "i18n:extract": "ng extract-i18n --output-path src/locale"
   },
   "private": true,
   "dependencies": {
