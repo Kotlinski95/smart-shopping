@@ -6,6 +6,7 @@ import { FirebaseService } from './firebase.service';
 import { config } from '../../config';
 import { BehaviorSubject, map } from 'rxjs';
 import { AuthService } from './auth.service';
+import { SsrSupportService } from './ssr-support.service';
 
 @Injectable()
 export class TaskService {
@@ -14,9 +15,12 @@ export class TaskService {
 
   constructor(
     private fireBaseService: FirebaseService,
-    private authService: AuthService
+    private authService: AuthService,
+    private ssrSupportService: SsrSupportService
   ) {
-    const taskslist = JSON.parse(localStorage.getItem('taskslist')!);
+    const taskslist = JSON.parse(
+      this.ssrSupportService.getLocalStorageItem('taskslist')!
+    );
     if (taskslist) this.tasksListObservableLocal.next(taskslist);
   }
 
@@ -38,7 +42,10 @@ export class TaskService {
         ).values(),
       ];
       this.tasksListObservableLocal.next(taskslist);
-      localStorage.setItem('taskslist', JSON.stringify(taskslist));
+      this.ssrSupportService.setLocalStorageItem(
+        'taskslist',
+        JSON.stringify(taskslist)
+      );
     }
   }
   remove(task: Task) {
@@ -52,7 +59,10 @@ export class TaskService {
         taskFromList => taskFromList.name != task.name
       );
       this.tasksListObservableLocal.next(taskslist);
-      localStorage.setItem('taskslist', JSON.stringify(taskslist));
+      this.ssrSupportService.setLocalStorageItem(
+        'taskslist',
+        JSON.stringify(taskslist)
+      );
     }
   }
   done(task: Task) {
@@ -76,7 +86,10 @@ export class TaskService {
         isDone: true,
       };
       this.tasksListObservableLocal.next(taskslist);
-      localStorage.setItem('taskslist', JSON.stringify(taskslist));
+      this.ssrSupportService.setLocalStorageItem(
+        'taskslist',
+        JSON.stringify(taskslist)
+      );
     }
   }
 
@@ -101,7 +114,10 @@ export class TaskService {
         isDone: false,
       };
       this.tasksListObservableLocal.next(taskslist);
-      localStorage.setItem('taskslist', JSON.stringify(taskslist));
+      this.ssrSupportService.setLocalStorageItem(
+        'taskslist',
+        JSON.stringify(taskslist)
+      );
     }
   }
 

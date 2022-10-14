@@ -5,11 +5,14 @@ import {
   ViewChild,
   OnInit,
   OnDestroy,
+  Inject,
 } from '@angular/core';
 import { MetaService } from './shared/services/meta.service';
 import { AuthService } from './shared/services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { SsrSupportService } from './shared/services/ssr-support.service';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +22,15 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild('flagSelected') selectedFlag!: ElementRef;
   title = 'smart-shopping';
-  private selectedLanguage: string = localStorage.getItem('language') ?? 'pl';
+  private selectedLanguage: string =
+    this.ssrSupportService.getLocalStorageItem('language') ?? 'pl';
   onLangChange: Subscription = new Subscription();
   constructor(
     private meta: MetaService,
     public authService: AuthService,
     private translate: TranslateService,
-    public el: ElementRef
+    public el: ElementRef,
+    private ssrSupportService: SsrSupportService
   ) {
     this.meta.updateMetaData();
     translate.setDefaultLang(this.selectedLanguage);
@@ -42,7 +47,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       `flag-icon-${languageMap[language]}`
     );
     this.translate.use(language);
-    localStorage.setItem('language', language);
+    this.ssrSupportService.setLocalStorageItem('language', language);
   }
 
   ngAfterViewInit(): void {
@@ -60,7 +65,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   updateLanguage(): void {
-    const lang = document.createAttribute('lang');
+    const documentSsr = this.ssrSupportService.getDocument();
+    const lang = documentSsr.createAttribute('lang');
     lang.value = this.translate.currentLang;
     this.el.nativeElement.parentElement.parentElement.attributes.setNamedItem(
       lang
