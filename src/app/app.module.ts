@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from './shared/services/http.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -33,6 +33,8 @@ import { VerifyEmailModule } from './components/verify-email/verify-email.module
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -56,13 +58,18 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AngularFireAuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
     NgxSpinnerModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   exports: [NgxSpinnerModule],
   providers: [
@@ -75,3 +82,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}

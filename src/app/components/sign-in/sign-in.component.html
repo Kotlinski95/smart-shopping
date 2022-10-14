@@ -1,11 +1,11 @@
 <div class="container p-5 flex-column">
-  <h1>Sign In</h1>
+  <h1>{{ 'sign_in.title' | translate }}</h1>
   <form (ngSubmit)="signIn()" [formGroup]="signInForm" class="row flex-column">
     <div class="formGroup py-1">
       <input
         type="text"
         class="formControl w-100"
-        placeholder="Username"
+        placeholder="{{ 'sign_in.username_label' | translate }}"
         formControlName="login"
         #userName
         required />
@@ -14,7 +14,7 @@
       <input
         type="password"
         class="formControl w-100"
-        placeholder="Password"
+        placeholder="{{ 'sign_in.password_label' | translate }}"
         formControlName="password"
         #userPassword
         required />
@@ -26,41 +26,41 @@
         value="Log in"
         type="submit"
         [disabled]="!signInForm.valid">
-        Log in
+        {{ 'sign_in.login' | translate }}
       </button>
     </div>
     <div class="formGroup d-flex justify-content-center">
-      <span class="or"><span class="orInner">Or</span></span>
+      <span class="or"><span class="orInner">{{ 'sign_in.or' | translate }}</span></span>
     </div>
     <!-- Calling GoogleAuth Api from AuthService -->
     <div class="formGroup">
       <span class="btn btn-success w-100" role="button" (click)="authService.GoogleAuth()">
         <fa-icon [icon]="faUserShield"></fa-icon>
-        Log in with Google
+        {{ 'sign_in.login_google' | translate }}
       </span>
     </div>
     <div class="formGroup mt-2">
       <span class="btn btn-primary w-100" role="button" (click)="authService.FacebookAuth()">
         <fa-icon [icon]="faUserShield"></fa-icon>
-        Log in with Facebook
+        {{ 'sign_in.login_facebook' | translate }}
       </span>
     </div>
     <div class="formGroup mt-2">
       <span class="btn btn-secondary w-100" role="button" (click)="authService.AnonymousLogin()">
         <fa-icon [icon]="faUserShield"></fa-icon>
-        Log in anonymously
+        {{ 'sign_in.login_anonymously' | translate }}
       </span>
     </div>
   </form>
 
   <div class="forgotPassword">
-    <a routerLink="/forgot-password">Forgot Password?</a>
+    <a routerLink="/forgot-password">{{ 'sign_in.forgot_password' | translate }}</a>
   </div>
 
   <div class="redirectToLogin row">
     <span
-      >Don't have an account?<a class="redirect" routerLink="/register">
-        Sign Up</a
+      >{{ 'sign_in.signup_message' | translate }}<a class="redirect" routerLink="/register">
+        {{ 'sign_in.signup_link' | translate }}</a
       ></span
     >
   </div>

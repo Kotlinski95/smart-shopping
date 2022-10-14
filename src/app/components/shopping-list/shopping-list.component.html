@@ -1,15 +1,13 @@
 <ng-container *ngIf="!isLoggedIn()">
   <app-message-box>
-    <p class="mb-0" i18n><a routerLink="/login">Log in</a> if you want to share your list between multiple devices</p>
+    <p class="mb-0" ><a routerLink="/login">{{ 'shopping_list.login' | translate }}</a>{{ 'shopping_list.login_message' | translate }}</p>
   </app-message-box>
 </ng-container>
 
 <section class="shopping-list-component">
-  <h2 i18n="Shopping List Title|Title for the shopping list@@shoppingListTitle">{{ title }}</h2>
-  <div class="header" #inputField2>
-    <app-add-task class="w-100">
-      <p i18n>Dodanie tasków</p>
-    </app-add-task>
+  <h2>{{ 'shopping_list.title' | translate }}</h2>
+  <div class="header">
+    <app-add-task class="w-100"></app-add-task>
   </div>
   <div class="container pb-5" *ngIf="(this.isTaskListLoaded$ | async); else loading">
     <div class="row w-100">
@@ -24,6 +22,4 @@
   <ng-template #loading>
     <app-loading-spinner></app-loading-spinner>
   </ng-template>
-
-
 </section>

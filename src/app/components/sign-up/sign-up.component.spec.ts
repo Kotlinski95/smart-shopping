@@ -5,6 +5,11 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateFakeLoader,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,6 +28,12 @@ describe('SignUpComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader,
+          },
+        }),
       ],
       providers: [AuthService, FormBuilder],
     }).compileComponents();

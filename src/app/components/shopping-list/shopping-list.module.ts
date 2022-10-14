@@ -9,6 +9,7 @@ import { MessageBoxModule } from '../message-box/message-box.module';
 import { ToDoTaskModule } from '../todo-task/todo-task.module';
 import { DoneTaskModule } from '../done-task/done-task.module';
 import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     ToDoTaskModule,
     DoneTaskModule,
     LoadingSpinnerModule,
+    TranslateModule,
   ],
   exports: [ShoppingListComponent],
 })

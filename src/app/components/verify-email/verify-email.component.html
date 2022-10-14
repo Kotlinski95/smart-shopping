@@ -1,14 +1,13 @@
 <div class="container p-5 flex-column">
   <div class="authBlock">
-    <h3 class="text-center">Thank You for Registering</h3>
+    <h3 class="text-center">{{ 'verify_email.title' | translate }}</h3>
     <div class="formGroup" *ngIf="authService.userData as user">
       <p class="text-center">
-        We have sent a confirmation email to <strong>{{ user.email }}</strong
+        {{ 'verify_email.verify' | translate }} <strong>{{ user.email }}</strong
         >.
       </p>
       <p class="text-center">
-        Please check your email and click on the link to verfiy your email
-        address.
+        {{ 'verify_email.check' | translate }}
       </p>
     </div>
 
@@ -17,11 +16,11 @@
         class="btn btn-warning"
         (click)="authService.SendVerificationMail()">
         <fa-icon [icon]="faRedoAlt"></fa-icon>
-        Resend Verification Email
+        {{ 'verify_email.resend' | translate }}
       </button>
     </div>
   </div>
   <div class="redirectToLogin mt-2">
-    <span>Go back to?<a class="redirect" routerLink="/login"> Sign in</a></span>
+    <span>{{ 'verify_email.signin_message' | translate }}<a class="redirect" routerLink="/login">{{ 'verify_email.signin_link' | translate }}</a></span>
   </div>
 </div>

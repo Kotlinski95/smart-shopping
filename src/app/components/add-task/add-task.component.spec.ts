@@ -9,6 +9,12 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateFakeLoader,
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 describe('AddTaskComponent', () => {
   let component: AddTaskComponent;
@@ -23,8 +29,14 @@ describe('AddTaskComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader,
+          },
+        }),
       ],
-      providers: [TaskService, FirebaseService, FormBuilder],
+      providers: [TaskService, FirebaseService, FormBuilder, TranslateService],
     }).compileComponents();
   });
 

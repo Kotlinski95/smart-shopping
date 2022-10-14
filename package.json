@@ -15,8 +15,7 @@
     "build:ssr": "ng build && ng run smart-shopping:server",
     "prerender": "ng run smart-shopping:prerender",
     "start:heroku": "node dist/smart-shopping/server/main.js",
-    "postinstall": "npm run build:ssr",
-    "i18n:extract": "ng extract-i18n --output-path src/locale"
+    "postinstall": "npm run build:ssr"
   },
   "private": true,
   "dependencies": {
@@ -37,12 +36,15 @@
     "@fortawesome/angular-fontawesome": "^0.9.0",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
-    "@ng-bootstrap/ng-bootstrap": "^12.0.2",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "@nguniversal/express-engine": "^13.0.2",
-    "@popperjs/core": "^2.10.2",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
+    "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.1.3",
     "express": "^4.15.2",
     "firebase": "^9.9.0",
+    "flag-icon-css": "^4.1.7",
     "ngx-spinner": "^13.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

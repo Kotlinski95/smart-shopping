@@ -2,8 +2,8 @@
   class="d-flex justify-content-between align-items-center p-3 bg-dark text-white mt-3 mt-md-0 rounded"
   role="button"
   (click)="roll()">
-  Produkty dodane ({{ calcDone(tasksDone) }}):
-  <button (click)="clearDoneList()" class="btn btn-light">Wyczyść listę</button>
+  {{ 'shopping_list.done_task.title' | translate: {tasksDone: calcDone(tasksDone)} }}
+  <button (click)="clearDoneList()" class="btn btn-light">{{ 'shopping_list.done_task.clean' | translate }}</button>
 </p>
 <ng-container *ngIf="calcDone(tasksDone) > 0">
   <ol class="list-group" #toDoTaskListGroup>
@@ -15,15 +15,15 @@
       class="list-group-item"
       [ngClass]="{ 'odd-li': odd === true, 'li-last': tasksDone.length === 1 }">
       <div class="d-flex justify-content-between">
-        <div>
+        <div class="px-2 word-break">
           {{ task.name }}
         </div>
         <div class="d-flex flex-nowrap align-self-center">
           <button type="button" class="btn btn-danger" (click)="remove(task)">
-            Usuń
+            {{ 'shopping_list.done_task.delete' | translate }}
           </button>
           <button type="button" class="btn btn-success" (click)="undo(task)">
-            Cofnij
+            {{ 'shopping_list.done_task.undo' | translate }}
           </button>
         </div>
       </div>
