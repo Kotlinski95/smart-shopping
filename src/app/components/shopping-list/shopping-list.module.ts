@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -10,6 +10,7 @@ import { ToDoTaskModule } from '../todo-task/todo-task.module';
 import { DoneTaskModule } from '../done-task/done-task.module';
 import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ModalModule } from '../modal/modal.module';
 
 const routes: Routes = [
   {
@@ -31,7 +32,9 @@ const routes: Routes = [
     DoneTaskModule,
     LoadingSpinnerModule,
     TranslateModule,
+    ModalModule,
   ],
   exports: [ShoppingListComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ShoppingListModule {}
