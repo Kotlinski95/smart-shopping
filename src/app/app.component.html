@@ -185,7 +185,7 @@
         src="../assets/svg/user-login-svgrepo-com.svg"
         height="24"
         width="24"
-        alt="Sign in logo"/>
+        alt="Sign in logo" />
     </a>
   </ng-container>
 
@@ -195,16 +195,29 @@
       rel="noopener"
       routerLink="/dashboard"
       title="Dashboard">
-      <img src="../assets/svg/dashboard.svg" height="24" width="24" alt="Dashboard logo"/>
+      <img
+        src="../assets/svg/dashboard.svg"
+        height="24"
+        width="24"
+        alt="Dashboard logo" />
     </a>
   </ng-container>
   <div ngbDropdown class="dropdown">
-    <button ngbDropdownToggle class="btn btn-dark" type="button" id="dropdownMenuButton1" aria-expanded="false">
+    <button
+      ngbDropdownToggle
+      class="btn btn-dark"
+      type="button"
+      id="dropdownMenuButton1"
+      aria-expanded="false">
       <span #flagSelected class="flag-icon"></span>
-  </button>
+    </button>
     <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-      <button ngbDropdownItem (click)="useLanguage('pl')"><span class="flag-icon flag-icon-pl"></span></button>
-      <button ngbDropdownItem (click)="useLanguage('en')"><span class="flag-icon flag-icon-gb"></span></button>
+      <button ngbDropdownItem (click)="useLanguage('pl')">
+        <span class="flag-icon flag-icon-pl"></span>
+      </button>
+      <button ngbDropdownItem (click)="useLanguage('en')">
+        <span class="flag-icon flag-icon-gb"></span>
+      </button>
     </ul>
   </div>
 </div>
@@ -212,3 +225,4 @@
 <div class="content" role="main">
   <router-outlet></router-outlet>
 </div>
+<app-modal></app-modal>

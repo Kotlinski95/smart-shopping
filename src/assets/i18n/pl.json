@@ -20,6 +20,12 @@
       "delete": "Usuń",
       "done": "Zrobione",
       "noTask": "Nie masz zadnych zadan do wykonania!"
+    },
+    "remove_task_popup": {
+      "title": "Czy jesteś pewien?",
+      "content": "Chcesz usunąć: {{taskName}} z listy",
+      "btnCloseLabel": "Zamknij",
+      "btnConfirmLabel": "Ssuń"
     }
   },
   "dashboard": {
