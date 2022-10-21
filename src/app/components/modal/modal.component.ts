@@ -13,8 +13,4 @@ export class ModalComponent {
   public closeModal(): void {
     this.modalService.hideModal();
   }
-
-  public buttonAction(): void {
-    this.modalService.modalButtonAction();
-  }
 }

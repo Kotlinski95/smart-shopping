@@ -27,6 +27,18 @@
       "content": "You want to remove: {{taskName}} from list.",
       "btnCloseLabel": "Close",
       "btnConfirmLabel": "Delete"
+    },
+    "clear_tasks_popup": {
+      "title": "Are you sure?",
+      "content": "You want to remove all done tasks :)",
+      "btnCloseLabel": "Close",
+      "btnConfirmLabel": "Delete all"
+    },
+    "add_all_tasks_popup": {
+      "title": "Are you sure?",
+      "content": "You want to mark all tasks as done.",
+      "btnCloseLabel": "Close",
+      "btnConfirmLabel": "Add all"
     }
   },
   "dashboard": {

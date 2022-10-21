@@ -8,8 +8,7 @@ import {
 import { TaskService } from 'src/app/shared/services/task.service';
 import { Task } from 'src/app/shared/interfaces/task';
 import { Subscription } from 'rxjs';
-import { ModalService } from 'src/app/shared/services/modal.service';
-import { TranslateService } from '@ngx-translate/core';
+import { eventNames } from 'process';
 
 @Component({
   selector: 'app-todo-task',
@@ -25,11 +24,7 @@ export class TodoTaskComponent implements OnDestroy {
   public set TaskListView(content: ElementRef) {
     this.toDoTaskListGroup = content;
   }
-  constructor(
-    private tasksService: TaskService,
-    private modalService: ModalService,
-    private translate: TranslateService
-  ) {
+  constructor(private tasksService: TaskService) {
     this.filterToDoTaskList();
   }
 
@@ -46,58 +41,15 @@ export class TodoTaskComponent implements OnDestroy {
   }
 
   public remove(task: Task) {
-    this.createRemoveModal().then(() => {
-      this.setModalContent(task.name).then(() => {
-        this.showModal();
-      });
-    });
-    this.handleRemoveModalAction(task);
-  }
-
-  private createRemoveModal(): Promise<void> {
-    return new Promise(resolve => {
-      this.modalService.createModal({
-        title: this.translate.instant('shopping_list.remove_task_popup.title'),
-        btnClose: true,
-        btnCloseLabel: this.translate.instant(
-          'shopping_list.remove_task_popup.btnCloseLabel'
-        ),
-        btnConfirm: true,
-        btnConfirmLabel: this.translate.instant(
-          'shopping_list.remove_task_popup.btnConfirmLabel'
-        ),
-      });
-      resolve();
-    });
-  }
-
-  private setModalContent(taskName: string): Promise<void> {
-    return new Promise(resolve => {
-      this.modalService.setModalContent(
-        this.translate.instant('shopping_list.remove_task_popup.content', {
-          taskName: taskName,
-        })
-      );
-      resolve();
-    });
-  }
-
-  private showModal(): void {
-    this.modalService.showModal();
-  }
-
-  private handleRemoveModalAction(task: Task): void {
-    this.modalService.setModalCallback(() => {
-      this.tasksService.remove(task);
-      this.modalService.hideModal();
-    });
+    this.tasksService.removeTaskWithModal(task);
   }
 
   public done(task: Task) {
     this.tasksService.done(task);
   }
-  public addAll(): void {
-    this.tasksList.forEach((task: Task) => this.tasksService.done(task));
+  public addAll(event: Event): void {
+    event.stopPropagation();
+    this.tasksService.addAllWithModal(this.tasksList);
   }
   public getColor(): string {
     return this.tasksList.length > 1 ? 'Black' : 'Green';

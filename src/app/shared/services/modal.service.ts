@@ -2,14 +2,12 @@ import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { Modal, ModalParams, ModalType } from '../interfaces/modal';
-import { combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalService {
   private initialModalState: Modal = { isOpen: false, type: ModalType.None };
-  private initialButtonActionState = false;
   private initialModalParams: ModalParams = {
     title: 'Title',
     content: 'Content',
@@ -24,9 +22,6 @@ export class ModalService {
   private modalParams: BehaviorSubject<ModalParams> = new BehaviorSubject(
     this.initialModalParams
   );
-  private modalButtonActionCalled: BehaviorSubject<boolean> =
-    new BehaviorSubject(this.initialButtonActionState);
-  public modalButtonActionCalled$ = this.modalButtonActionCalled.asObservable();
 
   public getModalState(): Observable<Modal> {
     return this.modalState.asObservable();
@@ -39,35 +34,50 @@ export class ModalService {
   }
   public hideModal(): void {
     this.modalState.next({ ...this.modalState.getValue(), isOpen: false });
-    this.modalButtonActionCalled.next(false);
   }
 
-  public createModal(modalParams: ModalParams): void {
-    this.modalParams.next(modalParams);
-    this.modalState.next({
-      ...this.modalState.getValue(),
-      params: modalParams,
-    });
-  }
-  public setModalContent(contentValue: string): void {
-    this.modalState.next({
-      ...this.modalState.getValue(),
-      params: {
-        ...this.modalParams.getValue(),
-        content: contentValue,
-      },
+  private createModal(modalParams: ModalParams): Promise<void> {
+    return new Promise(resolve => {
+      this.modalParams.next(modalParams);
+      this.modalState.next({
+        ...this.modalState.getValue(),
+        params: modalParams,
+      });
+      resolve();
     });
   }
 
-  public setModalCallback(callback: () => void): void {
+  private setModalContent(contentValue: string): Promise<void> {
+    return new Promise(resolve => {
+      this.modalState.next({
+        ...this.modalState.getValue(),
+        params: {
+          ...this.modalParams.getValue(),
+          content: contentValue,
+        },
+      });
+      resolve();
+    });
+  }
+
+  private setModalCallback(callback: () => void): void {
     this.modalState.next({
       ...this.modalState.getValue(),
       callback: callback,
     });
   }
 
-  public modalButtonAction(): void {
-    this.modalButtonActionCalled.next(true);
-    // this.modalButtonActionCalled.next(false);
+  public setModal(modalParams: ModalParams, callback: () => void): void {
+    this.createModal(modalParams).then(() => {
+      this.setModalContent(modalParams.content ? modalParams.content : '').then(
+        () => {
+          this.showModal();
+        }
+      );
+    });
+    this.setModalCallback(() => {
+      callback();
+      this.hideModal();
+    });
   }
 }
