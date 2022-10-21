@@ -5,8 +5,13 @@
     (click)="roll()"
     role="button"
     class="d-flex justify-content-between align-items-center p-3 bg-light rounded cursor-pointer">
-    {{ 'shopping_list.todo_tasks.title' | translate: {tasksListLength: tasksList.length} }}
-    <button (click)="addAll()" class="btn btn-dark">{{ 'shopping_list.todo_tasks.addAll' | translate }}</button>
+    {{
+      'shopping_list.todo_tasks.title'
+        | translate: { tasksListLength: tasksList.length }
+    }}
+    <button (click)="addAll($event)" class="btn btn-dark">
+      {{ 'shopping_list.todo_tasks.addAll' | translate }}
+    </button>
   </p>
   <ol class="list-group" #toDoTaskListGroup>
     <li

@@ -8,6 +8,7 @@ import {
 import { TaskService } from 'src/app/shared/services/task.service';
 import { Task } from 'src/app/shared/interfaces/task';
 import { Subscription } from 'rxjs';
+import { eventNames } from 'process';
 
 @Component({
   selector: 'app-todo-task',
@@ -16,7 +17,7 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class TodoTaskComponent implements OnDestroy {
-  tasksList: Task[] = [];
+  public tasksList: Task[] = [];
   private subscriptions: Subscription = new Subscription();
   public toDoTaskListGroup!: ElementRef;
   @ViewChild('toDoTaskListGroup', { static: false })
@@ -24,6 +25,10 @@ export class TodoTaskComponent implements OnDestroy {
     this.toDoTaskListGroup = content;
   }
   constructor(private tasksService: TaskService) {
+    this.filterToDoTaskList();
+  }
+
+  private filterToDoTaskList(): void {
     this.subscriptions.add(
       this.tasksService
         .gettasksListObservableFb()
@@ -35,16 +40,18 @@ export class TodoTaskComponent implements OnDestroy {
     );
   }
 
-  remove(task: Task) {
-    this.tasksService.remove(task);
+  public remove(task: Task) {
+    this.tasksService.removeTaskWithModal(task);
   }
-  done(task: Task) {
+
+  public done(task: Task) {
     this.tasksService.done(task);
   }
-  addAll(): void {
-    this.tasksList.forEach((task: Task) => this.tasksService.done(task));
+  public addAll(event: Event): void {
+    event.stopPropagation();
+    this.tasksService.addAllWithModal(this.tasksList);
   }
-  getColor(): string {
+  public getColor(): string {
     return this.tasksList.length > 1 ? 'Black' : 'Green';
   }
 
@@ -52,7 +59,7 @@ export class TodoTaskComponent implements OnDestroy {
     this.toDoTaskListGroup?.nativeElement.classList.toggle('d-none');
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 }

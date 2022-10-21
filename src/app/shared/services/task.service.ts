@@ -7,6 +7,9 @@ import { config } from '../../config';
 import { BehaviorSubject, map } from 'rxjs';
 import { AuthService } from './auth.service';
 import { SsrSupportService } from './ssr-support.service';
+import { ModalService } from './modal.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ModalParams } from '../interfaces/modal';
 
 @Injectable()
 export class TaskService {
@@ -16,7 +19,9 @@ export class TaskService {
   constructor(
     private fireBaseService: FirebaseService,
     private authService: AuthService,
-    private ssrSupportService: SsrSupportService
+    private ssrSupportService: SsrSupportService,
+    private modalService: ModalService,
+    private translate: TranslateService
   ) {
     const taskslist = JSON.parse(
       this.ssrSupportService.getLocalStorageItem('taskslist')!
@@ -24,7 +29,7 @@ export class TaskService {
     if (taskslist) this.tasksListObservableLocal.next(taskslist);
   }
 
-  add(task: Task): void {
+  public add(task: Task): void {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.addCollectionData(
         `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
@@ -48,7 +53,7 @@ export class TaskService {
       );
     }
   }
-  remove(task: Task) {
+  public remove(task: Task) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.removeCollectionData(
         `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
@@ -65,7 +70,7 @@ export class TaskService {
       );
     }
   }
-  done(task: Task) {
+  public done(task: Task) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.updateCollectionData(
         `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
@@ -93,7 +98,7 @@ export class TaskService {
     }
   }
 
-  undo(task: Task) {
+  public undo(task: Task) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.updateCollectionData(
         `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
@@ -121,15 +126,15 @@ export class TaskService {
     }
   }
 
-  clearDoneList(list: Array<Task>): void {
+  public clearDoneList(list: Array<Task>): void {
     list.forEach((task: Task) => this.remove(task));
   }
 
-  calcDone(list: Array<Task>): number {
+  public calcDone(list: Array<Task>): number {
     return list.length;
   }
 
-  gettasksListObservableFb(): Observable<Array<Task>> {
+  public gettasksListObservableFb(): Observable<Array<Task>> {
     if (this.authService.isLoggedIn) {
       return this.fireBaseService
         .getFireBaseCollectionData(
@@ -147,7 +152,62 @@ export class TaskService {
     }
   }
 
-  isTaskListLoaded(): Observable<boolean> {
+  public isTaskListLoaded(): Observable<boolean> {
     return this.tasksListLoaded.asObservable();
+  }
+
+  public removeTaskWithModal(task: Task): void {
+    const translationSection = 'shopping_list.remove_task_popup';
+    const modalParams: ModalParams = {
+      title: this.translate.instant(`${translationSection}.title`),
+      btnClose: true,
+      btnCloseLabel: this.translate.instant(
+        `${translationSection}.btnCloseLabel`
+      ),
+      btnConfirm: true,
+      btnConfirmLabel: this.translate.instant(
+        `${translationSection}.btnConfirmLabel`
+      ),
+      content: this.translate.instant(`${translationSection}.content`, {
+        taskName: task.name,
+      }),
+    };
+    this.modalService.setModal(modalParams, () => this.remove(task));
+  }
+
+  public clearTasksWithModal(list: Array<Task>): void {
+    const translationSection = 'shopping_list.clear_tasks_popup';
+    const modalParams: ModalParams = {
+      title: this.translate.instant(`${translationSection}.title`),
+      btnClose: true,
+      btnCloseLabel: this.translate.instant(
+        `${translationSection}.btnCloseLabel`
+      ),
+      btnConfirm: true,
+      btnConfirmLabel: this.translate.instant(
+        `${translationSection}.btnConfirmLabel`
+      ),
+      content: this.translate.instant(`${translationSection}.content`),
+    };
+    this.modalService.setModal(modalParams, () => this.clearDoneList(list));
+  }
+
+  public addAllWithModal(tasksList: Array<Task>): void {
+    const translationSection = 'shopping_list.add_all_tasks_popup';
+    const modalParams: ModalParams = {
+      title: this.translate.instant(`${translationSection}.title`),
+      btnClose: true,
+      btnCloseLabel: this.translate.instant(
+        `${translationSection}.btnCloseLabel`
+      ),
+      btnConfirm: true,
+      btnConfirmLabel: this.translate.instant(
+        `${translationSection}.btnConfirmLabel`
+      ),
+      content: this.translate.instant(`${translationSection}.content`),
+    };
+    this.modalService.setModal(modalParams, () =>
+      tasksList.forEach((task: Task) => this.done(task))
+    );
   }
 }
