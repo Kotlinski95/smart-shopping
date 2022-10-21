@@ -14,9 +14,9 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
+          <h2 class="modal-title mb-0" id="exampleModalLabel">
             {{ modal.params.title }}
-          </h5>
+          </h2>
           <button
             type="button"
             class="btn-close"
@@ -31,6 +31,8 @@
         <div class="modal-footer">
           <ng-container *ngIf="modal.params.btnClose">
             <button
+              #btnClose
+              autofocus
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
@@ -50,5 +52,7 @@
         </div>
       </div>
     </div>
+    <div
+      class="overlay position-absolute w-100 h-100 bg-dark top-0 start-0 opacity-50 z-1"></div>
   </div>
 </ng-container>

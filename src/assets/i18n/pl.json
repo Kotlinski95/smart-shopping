@@ -26,6 +26,18 @@
       "content": "Chcesz usunąć: {{taskName}} z listy",
       "btnCloseLabel": "Zamknij",
       "btnConfirmLabel": "Ssuń"
+    },
+    "clear_tasks_popup": {
+      "title": "Czy jesteś pewien?",
+      "content": "Chcesz wyczyścić całą listę zrealizowanych zadań :)",
+      "btnCloseLabel": "Zamknij",
+      "btnConfirmLabel": "Usuń wszystko"
+    },
+    "add_all_tasks_popup": {
+      "title": "Czy jesteś pewien?",
+      "content": "Chcesz dodać wszystkie zadania do listy zrealizowanych zadań.",
+      "btnCloseLabel": "Zamknij",
+      "btnConfirmLabel": "Dodaj wszystko"
     }
   },
   "dashboard": {
