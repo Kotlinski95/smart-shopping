@@ -1,0 +1,10 @@
+<ng-container *ngIf="alertState$ | async as state">
+  <div
+    *ngIf="state.show"
+    [@alertAnimation]
+    [ngClass]="{ transition: state.show }"
+    class="d-block w-100 alert alert-{{ state.props?.type }}"
+    role="alert">
+    <p class="text-center mb-0">{{ state.props?.message }}</p>
+  </div> </ng-container
+>∂
