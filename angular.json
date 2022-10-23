@@ -20,15 +20,28 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/smart-shopping/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest",
+              "src/robots.txt",
+              "src/sitemap.xml"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "src/styles.scss",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "./node_modules/flag-icon-css/css/flag-icons.min.css"
+            ],
+            "scripts": ["./node_modules/jquery/dist/jquery.min.js"],
+            "serviceWorker": true,
+            "ngswConfigPath": "./ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -89,9 +102,17 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "src/styles.scss",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+            ],
+            "scripts": ["./node_modules/jquery/dist/jquery.min.js"]
           }
         },
         "deploy": {
@@ -109,12 +130,69 @@
           "options": {
             "lintFilePatterns": ["//**/*.ts", "//**/*.html"]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/smart-shopping/server",
+            "main": "./server.ts",
+            "tsConfig": "./tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "smart-shopping:build:development",
+              "serverTarget": "smart-shopping:server:development"
+            },
+            "production": {
+              "browserTarget": "smart-shopping:build:production",
+              "serverTarget": "smart-shopping:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": ["/"]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "smart-shopping:build:production",
+              "serverTarget": "smart-shopping:server:production"
+            },
+            "development": {
+              "browserTarget": "smart-shopping:build:development",
+              "serverTarget": "smart-shopping:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
   },
   "defaultProject": "smart-shopping",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": "@angular-eslint/schematics"
   }
 }

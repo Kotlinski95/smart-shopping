@@ -1,0 +1,67 @@
+<div class="container p-5 flex-column">
+  <h1>{{ 'sign_in.title' | translate }}</h1>
+  <form (ngSubmit)="signIn()" [formGroup]="signInForm" class="row flex-column">
+    <div class="formGroup py-1">
+      <input
+        type="text"
+        class="formControl w-100"
+        placeholder="{{ 'sign_in.username_label' | translate }}"
+        formControlName="login"
+        #userName
+        required />
+    </div>
+    <div class="formGroup py-1">
+      <input
+        type="password"
+        class="formControl w-100"
+        placeholder="{{ 'sign_in.password_label' | translate }}"
+        formControlName="password"
+        #userPassword
+        required />
+    </div>
+    <!-- Calling SignIn Api from AuthService -->
+    <div class="formGroup">
+      <button
+        class="btn btn-primary w-100 mt-2"
+        value="Log in"
+        type="submit"
+        [disabled]="!signInForm.valid">
+        {{ 'sign_in.login' | translate }}
+      </button>
+    </div>
+    <div class="formGroup d-flex justify-content-center">
+      <span class="or"><span class="orInner">{{ 'sign_in.or' | translate }}</span></span>
+    </div>
+    <!-- Calling GoogleAuth Api from AuthService -->
+    <div class="formGroup">
+      <span class="btn btn-success w-100" role="button" (click)="authService.GoogleAuth()">
+        <fa-icon [icon]="faUserShield"></fa-icon>
+        {{ 'sign_in.login_google' | translate }}
+      </span>
+    </div>
+    <div class="formGroup mt-2">
+      <span class="btn btn-primary w-100" role="button" (click)="authService.FacebookAuth()">
+        <fa-icon [icon]="faUserShield"></fa-icon>
+        {{ 'sign_in.login_facebook' | translate }}
+      </span>
+    </div>
+    <div class="formGroup mt-2">
+      <span class="btn btn-secondary w-100" role="button" (click)="authService.AnonymousLogin()">
+        <fa-icon [icon]="faUserShield"></fa-icon>
+        {{ 'sign_in.login_anonymously' | translate }}
+      </span>
+    </div>
+  </form>
+
+  <div class="forgotPassword">
+    <a routerLink="/forgot-password">{{ 'sign_in.forgot_password' | translate }}</a>
+  </div>
+
+  <div class="redirectToLogin row">
+    <span
+      >{{ 'sign_in.signup_message' | translate }}<a class="redirect" routerLink="/register">
+        {{ 'sign_in.signup_link' | translate }}</a
+      ></span
+    >
+  </div>
+</div>

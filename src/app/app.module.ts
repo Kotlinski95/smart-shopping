@@ -1,19 +1,12 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { FormsModule } from '@angular/forms';
-import { TodoTaskComponent } from './todo-task/todo-task.component';
-import { DoneTaskComponent } from './done-task/done-task.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CheckedDirective } from './shared/checked.directive';
-import { DateDirective } from './shared/date.directive';
-import { TransformTaskPipe } from './shared/transform-task.pipe';
-import { SortNamePipe } from './shared/sort-name.pipe';
-import { HttpService } from './services/http.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpService } from './shared/services/http.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -31,22 +24,24 @@ import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AddTaskModule } from './add-task/add-task.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { AuthService } from './shared/services/auth.service';
+import { DashboardModule } from './components/dashboard/dashboard.module';
+import { ForgotPassowrdModule } from './components/forgot-passoword/forgot-password.module';
+import { SignUpModule } from './components/sign-up/sign-up.module';
+import { VerifyEmailModule } from './components/verify-email/verify-email.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ModalModule } from './components/modal/modal.module';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
-  declarations: [
-    AppComponent,
-    ShoppingListComponent,
-    TodoTaskComponent,
-    DoneTaskComponent,
-    CheckedDirective,
-    DateDirective,
-    TransformTaskPipe,
-    SortNamePipe,
-  ],
+  declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
@@ -62,9 +57,34 @@ import { AddTaskModule } from './add-task/add-task.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AddTaskModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
+    ModalModule,
   ],
-  providers: [HttpService, ScreenTrackingService, UserTrackingService],
+  exports: [NgxSpinnerModule],
+  providers: [
+    HttpService,
+    ScreenTrackingService,
+    UserTrackingService,
+    AuthService,
+  ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}

@@ -1,0 +1,91 @@
+{
+  "test": "test",
+  "shopping_list": {
+    "add_task": {
+      "button_label": "Add Task",
+      "input_placeholder": "Task name"
+    },
+    "done_task": {
+      "title": "Added tasks ({{tasksDone}}):",
+      "clean": "Clear",
+      "delete": "Delete",
+      "undo": "Undo"
+    },
+    "login": "Sign in",
+    "login_message": " if you want to share the list between devices.",
+    "loading": "Loading...",
+    "title": "Shopping List",
+    "todo_tasks": {
+      "addAll": "Add All",
+      "title": "Task list ({{tasksListLength}}):",
+      "delete": "Delete",
+      "done": "Done",
+      "noTask": "You have nothing to do!"
+    },
+    "remove_task_popup": {
+      "title": "Are you sure?",
+      "content": "You want to remove: {{taskName}} from list.",
+      "btnCloseLabel": "Close",
+      "btnConfirmLabel": "Delete"
+    },
+    "clear_tasks_popup": {
+      "title": "Are you sure?",
+      "content": "You want to remove all done tasks :)",
+      "btnCloseLabel": "Close",
+      "btnConfirmLabel": "Delete all"
+    },
+    "add_all_tasks_popup": {
+      "title": "Are you sure?",
+      "content": "You want to mark all tasks as done.",
+      "btnCloseLabel": "Close",
+      "btnConfirmLabel": "Add all"
+    }
+  },
+  "dashboard": {
+    "title": "Profile",
+    "id": "User ID: ",
+    "email": "Email: ",
+    "email_verified": "Email verified: ",
+    "shopping_list": "Shopping List",
+    "logout": "Logout"
+  },
+  "reset_password": {
+    "title": "Password Reset",
+    "text": "Enter your email address to request a password reset..",
+    "input_placeholder": "Email",
+    "Button_label": "Reset Password",
+    "go_back": "Would you like to return? ",
+    "login": "Sign In"
+  },
+  "sign_in": {
+    "title": "Sign in",
+    "username_label": "Username",
+    "password_label": "Password",
+    "login": "Sign in",
+    "or": "or",
+    "login_google": "Sign in using Google",
+    "login_facebook": "Sign in using Facebook",
+    "login_anonymously": "Sign in anonymously",
+    "forgot_password": "Forgot password?",
+    "signup_message": "You don't have account yet?",
+    "signup_link": "Sign Up"
+  },
+  "sign_up": {
+    "title": "Sign Up",
+    "username_label": "Email address",
+    "password_label": "Password",
+    "login": "Sign up",
+    "or": "or",
+    "login_google": "Continue with Google",
+    "signin_message": "You already have account?",
+    "signin_link": "Sign In"
+  },
+  "verify_email": {
+    "title": "Thank you for registering!",
+    "verify": "We sent a confirmation email to: ",
+    "check": "Please check your email and click on the link to verify your email address",
+    "resend": "Resend confirmation email",
+    "signin_message": "Do you already have an account? ",
+    "signin_link": "Sign In"
+  }
+}

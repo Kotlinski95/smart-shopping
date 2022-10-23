@@ -1,0 +1,90 @@
+{
+  "shopping_list": {
+    "add_task": {
+      "button_label": "Dodaj zadanie",
+      "input_placeholder": "Nazwa zadania"
+    },
+    "done_task": {
+      "title": "Produkty dodane ({{tasksDone}}):",
+      "clean": "Wyczyść listę",
+      "delete": "Usuń",
+      "undo": "Cofnij"
+    },
+    "login": "Zaloguj się",
+    "login_message": " jeśli chcesz współdzielic listę pomiędzy urządzeniami",
+    "loading": "Ładowanie...",
+    "title": "Lista zakupów",
+    "todo_tasks": {
+      "addAll": "Dodaj wszystkie",
+      "title": "Lista zakupów ({{tasksListLength}}):",
+      "delete": "Usuń",
+      "done": "Zrobione",
+      "noTask": "Nie masz zadnych zadan do wykonania!"
+    },
+    "remove_task_popup": {
+      "title": "Czy jesteś pewien?",
+      "content": "Chcesz usunąć: {{taskName}} z listy",
+      "btnCloseLabel": "Zamknij",
+      "btnConfirmLabel": "Ssuń"
+    },
+    "clear_tasks_popup": {
+      "title": "Czy jesteś pewien?",
+      "content": "Chcesz wyczyścić całą listę zrealizowanych zadań :)",
+      "btnCloseLabel": "Zamknij",
+      "btnConfirmLabel": "Usuń wszystko"
+    },
+    "add_all_tasks_popup": {
+      "title": "Czy jesteś pewien?",
+      "content": "Chcesz dodać wszystkie zadania do listy zrealizowanych zadań.",
+      "btnCloseLabel": "Zamknij",
+      "btnConfirmLabel": "Dodaj wszystko"
+    }
+  },
+  "dashboard": {
+    "title": "Profil",
+    "id": "ID użytkownika: ",
+    "email": "Email: ",
+    "email_verified": "Email zeryfikowano: ",
+    "shopping_list": "Lista zakupów",
+    "logout": "Wyloguj"
+  },
+  "reset_password": {
+    "title": "Zresetuj hasło",
+    "text": "Podaj swój adres e-mail, aby poprosić o zresetowanie hasła.",
+    "input_placeholder": "Email",
+    "Button_label": "Resetuj Hasło",
+    "go_back": "Chcesz powrócić? ",
+    "login": "Zaloguj się"
+  },
+  "sign_in": {
+    "title": "Logowanie",
+    "username_label": "Nazwa użytkownika",
+    "password_label": "Hasło",
+    "login": "Zaloguj",
+    "or": "lub",
+    "login_google": "Zaloguj się z Google",
+    "login_facebook": "Zaloguj się z Facebook",
+    "login_anonymously": "Zaloguj się anonimowo",
+    "forgot_password": "Zapomniałeś hasła?",
+    "signup_message": "Nie posiadasz konta?",
+    "signup_link": "Zarejestruj się"
+  },
+  "sign_up": {
+    "title": "Rejestracja",
+    "username_label": "Adres Email",
+    "password_label": "Hasło",
+    "login": "Zarejestruj",
+    "or": "lub",
+    "login_google": "Kontynuuj z Google",
+    "signin_message": "Posiadasz już konto?",
+    "signin_link": "Zaloguj się"
+  },
+  "verify_email": {
+    "title": "Dziękujemy za rejestrację!",
+    "verify": "Wysłaliśmy e-mail z potwierdzeniem do: ",
+    "check": "Proszę sprawdzić swoją pocztę i kliknąć na link, aby zweryfikować swój adres e-mail",
+    "resend": "Wyślij ponownie email z potwierdzeniem",
+    "signin_message": "Posiadasz już konto? ",
+    "signin_link": "Zaloguj się"
+  }
+}
