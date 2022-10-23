@@ -87,5 +87,11 @@
     "resend": "Resend confirmation email",
     "signin_message": "Do you already have an account? ",
     "signin_link": "Sign In"
+  },
+  "alert": {
+    "shopping_list": {
+      "add_task_success": "Done! Task was added to the list",
+      "add_task_failure": "Ups! Something went wrong with message: {{errorMessage}}"
+    }
   }
 }

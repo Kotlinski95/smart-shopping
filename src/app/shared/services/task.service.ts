@@ -10,6 +10,7 @@ import { SsrSupportService } from './ssr-support.service';
 import { ModalService } from './modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalParams } from '../interfaces/modal';
+import { AlertService } from './alert.service';
 
 @Injectable()
 export class TaskService {
@@ -21,7 +22,8 @@ export class TaskService {
     private authService: AuthService,
     private ssrSupportService: SsrSupportService,
     private modalService: ModalService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private alertService: AlertService
   ) {
     const taskslist = JSON.parse(
       this.ssrSupportService.getLocalStorageItem('taskslist')!

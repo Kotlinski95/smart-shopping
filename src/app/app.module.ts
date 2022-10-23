@@ -36,6 +36,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ModalModule } from './components/modal/modal.module';
+import { AlertModule } from './components/alert/alert.module';
 
 /* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
@@ -72,6 +73,7 @@ import { ModalModule } from './components/modal/modal.module';
       },
     }),
     ModalModule,
+    AlertModule,
   ],
   exports: [NgxSpinnerModule],
   providers: [

@@ -86,5 +86,11 @@
     "resend": "Wyślij ponownie email z potwierdzeniem",
     "signin_message": "Posiadasz już konto? ",
     "signin_link": "Zaloguj się"
+  },
+  "alert": {
+    "shopping_list": {
+      "add_task_success": "Zrobione! Zadanie zostało dodane do listy :)",
+      "add_task_failure": "Ups! Coś poszło nie tak, informacje o błędzie: {{errorMessage}}"
+    }
   }
 }
