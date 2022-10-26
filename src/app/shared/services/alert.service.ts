@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, timer } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, timer } from 'rxjs';
 import { Alert, AlertProps, AlertType } from '../interfaces/alert';
 
 @Injectable({
@@ -17,6 +17,7 @@ export class AlertService {
   private alertState: BehaviorSubject<Alert> = new BehaviorSubject<Alert>(
     this.alertInitialState
   );
+  private subscription: Subscription = new Subscription();
   public getAlertState(): Observable<Alert> {
     return this.alertState.asObservable();
   }
@@ -39,8 +40,9 @@ export class AlertService {
   }
 
   public delay(time: number, callback: () => void): void {
+    this.subscription?.unsubscribe();
     const source = timer(time);
-    source.subscribe(() => {
+    this.subscription = source.subscribe(() => {
       callback();
     });
   }
