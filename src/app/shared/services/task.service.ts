@@ -107,7 +107,7 @@ export class TaskService {
         `${task.name}`,
         {
           ...task,
-          end: null,
+          end: '',
           isDone: false,
         }
       );
@@ -117,7 +117,7 @@ export class TaskService {
         taskslist.findIndex(taskFromList => taskFromList.name === task.name)
       ] = {
         ...task,
-        end: undefined,
+        end: '',
         isDone: false,
       };
       this.tasksListObservableLocal.next(taskslist);

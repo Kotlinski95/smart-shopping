@@ -25,7 +25,7 @@
       "title": "Czy jesteś pewien?",
       "content": "Chcesz usunąć: {{taskName}} z listy",
       "btnCloseLabel": "Zamknij",
-      "btnConfirmLabel": "Ssuń"
+      "btnConfirmLabel": "Usuń"
     },
     "clear_tasks_popup": {
       "title": "Czy jesteś pewien?",
@@ -89,8 +89,14 @@
   },
   "alert": {
     "shopping_list": {
-      "add_task_success": "Zrobione! Zadanie zostało dodane do listy :)",
-      "add_task_failure": "Ups! Coś poszło nie tak, informacje o błędzie: {{errorMessage}}"
+      "add_task_success": "Zrobione! Zadanie {{task}} zostało dodane do listy :)",
+      "add_task_failure": "Ups! Coś poszło nie tak podczas dodawania, informacje o błędzie: {{errorMessage}}",
+      "remove_task_success": "Zrobione! Zadanie {{task}} zostało usunięte z listy :)",
+      "remove_task_failure": "Ups! Coś poszło nie tak podczas usuwania, informacje o błędzie: {{errorMessage}}",
+      "task_to_done_success": "Zrobione! Zadanie {{task}} zostało pomyślnie dodane do listy zrealizowanych zadań.",
+      "task_to_done_failure": "Ups! Coś poszło nie tak podczas aktualizacji, informacje o błędzie: {{errorMessage}}",
+      "task_to_todo_success": "Zrobione! Zadanie {{task}} pomyślnie wróciło na listę zadań.",
+      "task_to_todo_failure": "Ups! Coś poszło nie tak podczas aktualizacji, informacje o błędzie: {{errorMessage}}"
     }
   }
 }

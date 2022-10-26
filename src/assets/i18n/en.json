@@ -90,8 +90,14 @@
   },
   "alert": {
     "shopping_list": {
-      "add_task_success": "Done! Task was added to the list",
-      "add_task_failure": "Ups! Something went wrong with message: {{errorMessage}}"
+      "add_task_success": "Done! Task {{task}} was added to the list",
+      "add_task_failure": "Ups! Something went wrong while adding data with message: {{errorMessage}}",
+      "remove_task_success": "Done! Task {{task}} was removed from the list",
+      "remove_task_failure": "Ups! Something went wrong while removing data with message: {{errorMessage}}",
+      "task_to_done_success": "Done! Task {{task}} was successfully added to done list.",
+      "task_to_done_failure": "Ups! Something went wrong while updating data with message: {{errorMessage}}",
+      "task_to_todo_success": "Done! Task {{task}} was successfully returned to the task list.",
+      "task_to_todo_failure": "Ups! Something went wrong while updating data with message: {{errorMessage}}"
     }
   }
 }
