@@ -33,89 +33,109 @@ export class FirebaseService {
     return collectionData(collection(this.firestore, collectionName));
   }
 
-  addCollectionData(collectionName: string, field: string, data: Task) {
+  addCollectionData(
+    collectionName: string,
+    field: string,
+    data: Task,
+    alert = true
+  ) {
     setDoc(doc(this.firestore, collectionName, field), data)
       .then(() => {
-        this.alertService.setAlert({
-          type: AlertType.Success,
-          message: this.translate.instant(
-            `${this.translationSection}.add_task_success`,
-            {
-              task: data.name,
-            }
-          ),
-          duration: 3000,
-        });
+        if (alert) {
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.add_task_success`,
+              {
+                task: data.name,
+              }
+            ),
+            duration: 3000,
+          });
+        }
       })
       .catch(error => {
-        this.alertService.setAlert({
-          type: AlertType.Error,
-          message: this.translate.instant(
-            `${this.translationSection}.add_task_failure`,
-            { errorMessage: error.message }
-          ),
-          duration: 3000,
-        });
+        if (alert) {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.add_task_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 3000,
+          });
+        }
       });
   }
 
-  removeCollectionData(collectionName: string, field: string) {
+  removeCollectionData(collectionName: string, field: string, alert = true) {
     deleteDoc(doc(this.firestore, collectionName, field))
       .then(() => {
-        this.alertService.setAlert({
-          type: AlertType.Success,
-          message: this.translate.instant(
-            `${this.translationSection}.remove_task_success`,
-            {
-              task: field,
-            }
-          ),
-          duration: 3000,
-        });
+        if (alert) {
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.remove_task_success`,
+              {
+                task: field,
+              }
+            ),
+            duration: 3000,
+          });
+        }
       })
       .catch(error => {
-        this.alertService.setAlert({
-          type: AlertType.Error,
-          message: this.translate.instant(
-            `${this.translationSection}.remove_task_failure`,
-            { errorMessage: error.message }
-          ),
-          duration: 3000,
-        });
+        if (alert) {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.remove_task_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 3000,
+          });
+        }
       });
   }
 
-  updateCollectionData(collectionName: string, field: string, newData: Task) {
+  updateCollectionData(
+    collectionName: string,
+    field: string,
+    newData: Task,
+    alert = true
+  ) {
     updateDoc(doc(this.firestore, collectionName, field), {
       ...newData,
     })
       .then(() => {
-        console.log('UPDATE Collection data ', newData, ' , field: ', field);
-        this.alertService.setAlert({
-          type: AlertType.Success,
-          message: this.translate.instant(
-            newData.isDone
-              ? `${this.translationSection}.task_to_done_success`
-              : `${this.translationSection}.task_to_todo_success`,
-            {
-              task: field,
-            }
-          ),
-          duration: 3000,
-        });
+        if (alert) {
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              newData.isDone
+                ? `${this.translationSection}.task_to_done_success`
+                : `${this.translationSection}.task_to_todo_success`,
+              {
+                task: field,
+              }
+            ),
+            duration: 3000,
+          });
+        }
       })
       .catch(error => {
-        console.error('Error');
-        this.alertService.setAlert({
-          type: AlertType.Error,
-          message: this.translate.instant(
-            newData.isDone
-              ? `${this.translationSection}.task_to_done_failure`
-              : `${this.translationSection}.task_to_todo_failure`,
-            { errorMessage: error.message }
-          ),
-          duration: 3000,
-        });
+        if (alert) {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              newData.isDone
+                ? `${this.translationSection}.task_to_done_failure`
+                : `${this.translationSection}.task_to_todo_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 3000,
+          });
+        }
       });
   }
 }

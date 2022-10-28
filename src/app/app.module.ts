@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
@@ -26,10 +25,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AuthService } from './shared/services/auth.service';
-import { DashboardModule } from './components/dashboard/dashboard.module';
-import { ForgotPassowrdModule } from './components/forgot-passoword/forgot-password.module';
-import { SignUpModule } from './components/sign-up/sign-up.module';
-import { VerifyEmailModule } from './components/verify-email/verify-email.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -37,8 +32,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ModalModule } from './components/modal/modal.module';
 import { AlertModule } from './components/alert/alert.module';
+import { LanguageSelectorModule } from './components/language-selector/language-selector.module';
+import { LanguageService } from './shared/services/language.service';
 
-/* Decorator NgModule - information about components, directives and servises in our application */
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -74,6 +70,7 @@ import { AlertModule } from './components/alert/alert.module';
     }),
     ModalModule,
     AlertModule,
+    LanguageSelectorModule,
   ],
   exports: [NgxSpinnerModule],
   providers: [
@@ -81,6 +78,7 @@ import { AlertModule } from './components/alert/alert.module';
     ScreenTrackingService,
     UserTrackingService,
     AuthService,
+    LanguageService,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

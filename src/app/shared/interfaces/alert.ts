@@ -13,4 +13,9 @@ export enum AlertType {
   None,
   Success = 'success',
   Error = 'danger',
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Info = 'info',
+  Light = 'light',
+  Dark = 'dark',
 }

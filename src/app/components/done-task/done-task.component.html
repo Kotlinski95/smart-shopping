@@ -1,16 +1,16 @@
-<p
-  class="d-flex justify-content-between align-items-center p-3 bg-dark text-white mt-3 mt-md-0 rounded"
-  role="button"
-  (click)="roll()">
-  {{
-    'shopping_list.done_task.title'
-      | translate: { tasksDone: calcDone(tasksDone) }
-  }}
-  <button (click)="clearDoneList($event)" class="btn btn-light">
-    {{ 'shopping_list.done_task.clean' | translate }}
-  </button>
-</p>
 <ng-container *ngIf="calcDone(tasksDone) > 0">
+  <p
+    class="d-flex justify-content-between align-items-center p-3 bg-dark text-white mt-3 mt-md-0 rounded"
+    role="button"
+    (click)="roll()">
+    {{
+      'shopping_list.done_task.title'
+        | translate: { tasksDone: calcDone(tasksDone) }
+    }}
+    <button (click)="clearDoneList($event)" class="btn btn-light">
+      {{ 'shopping_list.done_task.clean' | translate }}
+    </button>
+  </p>
   <ol class="list-group" #toDoTaskListGroup>
     <li
       appChecked

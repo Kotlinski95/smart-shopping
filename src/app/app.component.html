@@ -202,24 +202,7 @@
         alt="Dashboard logo" />
     </a>
   </ng-container>
-  <div ngbDropdown class="dropdown">
-    <button
-      ngbDropdownToggle
-      class="btn btn-dark"
-      type="button"
-      id="dropdownMenuButton1"
-      aria-expanded="false">
-      <span #flagSelected class="flag-icon"></span>
-    </button>
-    <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-      <button ngbDropdownItem (click)="useLanguage('pl')">
-        <span class="flag-icon flag-icon-pl"></span>
-      </button>
-      <button ngbDropdownItem (click)="useLanguage('en')">
-        <span class="flag-icon flag-icon-gb"></span>
-      </button>
-    </ul>
-  </div>
+  <app-language-selector></app-language-selector>
 </div>
 
 <div class="content" role="main">
