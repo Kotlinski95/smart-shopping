@@ -96,7 +96,27 @@
       "task_to_done_success": "Zrobione! Zadanie {{task}} zostało pomyślnie dodane do listy zrealizowanych zadań.",
       "task_to_done_failure": "Ups! Coś poszło nie tak podczas aktualizacji, informacje o błędzie: {{errorMessage}}",
       "task_to_todo_success": "Zrobione! Zadanie {{task}} pomyślnie wróciło na listę zadań.",
-      "task_to_todo_failure": "Ups! Coś poszło nie tak podczas aktualizacji, informacje o błędzie: {{errorMessage}}"
+      "task_to_todo_failure": "Ups! Coś poszło nie tak podczas aktualizacji, informacje o błędzie: {{errorMessage}}",
+      "add_all_tasks_success": "Gotowe! Wszystkie zadania zostały oznaczone jako wykonane!",
+      "add_all_tasks_failue": "Ups! Coś poszło nie tak podczas dodawania zadań, informacje o błędzie: {{errorMessage}}",
+      "remove_all_tasks_success": "Gotowe! Wszystkie zadania zostały usunięte z listy!",
+      "remove_all_tasks_failue": "Ups! Coś poszło nie tak podczas usuwania zadań, informacje o błędzie: {{errorMessage}}"
+    },
+    "authorization": {
+      "login_success": "Logowanie zakończone pomyślnie",
+      "login_failure": "Ups! Coś poszło nie tak podczas logowania z wiadomością: {{errorMessage}}",
+      "register_success": "Rejestracja zakończona pomyślnie",
+      "register_failure": "Ups! Coś poszło nie tak podczas rejestracji z wiadomością: {{errorMessage}}",
+      "reset_password_success": "Wysłano prośbę o zresetowanie hasła na podany adres mailowy",
+      "reset_password_failure": "Ups! Coś poszło nie tak podczas resetowania hasła z wiadomością: {{errorMessage}}",
+      "auth_login_success": "Autoryzacja użytkownika zakończona pomyślnie",
+      "auth_login_failure": "Ups! Coś poszło nie tak podczas autoryzacji z wiadomością: {{errorMessage}}",
+      "anonymous_login_success": "Logowanie anonimowe zakończone pomyślnie",
+      "anonymous_login_failure": "Ups! Coś poszło nie tak podczas logowania anonimowego z wiadomością: {{errorMessage}}",
+      "logout_success": "Użytkownik wylogowany pomyślnie"
+    },
+    "internationalization": {
+      "language_change": "Język został pomyślnie zmieniony na {{language}}"
     }
   }
 }

@@ -11,11 +11,13 @@ import { ModalService } from './modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalParams } from '../interfaces/modal';
 import { AlertService } from './alert.service';
+import { AlertType } from '../interfaces/alert';
 
 @Injectable()
 export class TaskService {
   private tasksListObservableLocal = new BehaviorSubject<Task[]>([]);
   private tasksListLoaded = new BehaviorSubject<boolean>(false);
+  private translationSection = 'alert.shopping_list';
 
   constructor(
     private fireBaseService: FirebaseService,
@@ -55,11 +57,12 @@ export class TaskService {
       );
     }
   }
-  public remove(task: Task) {
+  public remove(task: Task, showAlert = true) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.removeCollectionData(
         `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
-        `${task.name}`
+        `${task.name}`,
+        showAlert
       );
     } else {
       const taskslist = this.tasksListObservableLocal.value.filter(
@@ -72,7 +75,7 @@ export class TaskService {
       );
     }
   }
-  public done(task: Task) {
+  public done(task: Task, showAlert = true) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.updateCollectionData(
         `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
@@ -81,7 +84,8 @@ export class TaskService {
           ...task,
           end: new Date().toLocaleString(),
           isDone: true,
-        }
+        },
+        showAlert
       );
     } else {
       const taskslist = this.tasksListObservableLocal.getValue();
@@ -128,8 +132,11 @@ export class TaskService {
     }
   }
 
-  public clearDoneList(list: Array<Task>): void {
-    list.forEach((task: Task) => this.remove(task));
+  public clearDoneList(list: Array<Task>, showAlert = true): Promise<void> {
+    return new Promise(resolve => {
+      list.forEach((task: Task) => this.remove(task, showAlert));
+      resolve();
+    });
   }
 
   public calcDone(list: Array<Task>): number {
@@ -191,7 +198,30 @@ export class TaskService {
       ),
       content: this.translate.instant(`${translationSection}.content`),
     };
-    this.modalService.setModal(modalParams, () => this.clearDoneList(list));
+    this.modalService.setModal(modalParams, () => {
+      this.clearDoneList(list, false)
+        .then(() => {
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.remove_all_tasks_success`
+            ),
+            duration: 3000,
+          });
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.remove_all_tasks_failue`,
+              {
+                errorMessage: error,
+              }
+            ),
+            duration: 3000,
+          });
+        });
+    });
   }
 
   public addAllWithModal(tasksList: Array<Task>): void {
@@ -208,8 +238,36 @@ export class TaskService {
       ),
       content: this.translate.instant(`${translationSection}.content`),
     };
-    this.modalService.setModal(modalParams, () =>
-      tasksList.forEach((task: Task) => this.done(task))
-    );
+    this.modalService.setModal(modalParams, () => {
+      this.addAllTasks(tasksList)
+        .then(() => {
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.add_all_tasks_success`
+            ),
+            duration: 3000,
+          });
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.add_all_tasks_failue`,
+              {
+                errorMessage: error,
+              }
+            ),
+            duration: 3000,
+          });
+        });
+    });
+  }
+
+  public addAllTasks(tasksList: Array<Task>): Promise<void> {
+    return new Promise(resolve => {
+      tasksList.forEach((task: Task) => this.done(task, false));
+      resolve();
+    });
   }
 }

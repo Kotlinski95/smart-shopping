@@ -10,17 +10,23 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { FacebookAuthProvider } from 'firebase/auth';
 import { SsrSupportService } from './ssr-support.service';
+import { AlertService } from './alert.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AlertType } from '../interfaces/alert';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  private translationSection = 'alert.authorization';
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    public ssrSupportService: SsrSupportService
+    public ssrSupportService: SsrSupportService,
+    private alertService: AlertService,
+    private translate: TranslateService
   ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
@@ -49,9 +55,23 @@ export class AuthService {
             this.router.navigate(['dashboard']);
           }
         });
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.login_success`
+          ),
+          duration: 3000,
+        });
       })
       .catch(error => {
-        window.alert(error.message);
+        this.alertService.setAlert({
+          type: AlertType.Error,
+          message: this.translate.instant(
+            `${this.translationSection}.login_failure`,
+            { errorMessage: error.message }
+          ),
+          duration: 4000,
+        });
       });
   }
 
@@ -61,9 +81,23 @@ export class AuthService {
       .then(result => {
         this.SendVerificationMail();
         this.SetUserData(result.user);
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.register_success`
+          ),
+          duration: 3000,
+        });
       })
       .catch(error => {
-        window.alert(error.message);
+        this.alertService.setAlert({
+          type: AlertType.Error,
+          message: this.translate.instant(
+            `${this.translationSection}.register_failure`,
+            { errorMessage: error.message }
+          ),
+          duration: 4000,
+        });
       });
   }
 
@@ -79,10 +113,23 @@ export class AuthService {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.reset_password_success`
+          ),
+          duration: 3000,
+        });
       })
       .catch(error => {
-        window.alert(error);
+        this.alertService.setAlert({
+          type: AlertType.Error,
+          message: this.translate.instant(
+            `${this.translationSection}.reset_password_failure`,
+            { errorMessage: error.message }
+          ),
+          duration: 4000,
+        });
       });
   }
 
@@ -119,11 +166,25 @@ export class AuthService {
         this.afAuth.authState.subscribe(user => {
           if (user) {
             this.router.navigate(['dashboard']);
+            this.alertService.setAlert({
+              type: AlertType.Success,
+              message: this.translate.instant(
+                `${this.translationSection}.auth_login_success`
+              ),
+              duration: 3000,
+            });
           }
         });
       })
       .catch(error => {
-        window.alert(error);
+        this.alertService.setAlert({
+          type: AlertType.Error,
+          message: this.translate.instant(
+            `${this.translationSection}.auth_login_failure`,
+            { errorMessage: error.message }
+          ),
+          duration: 4000,
+        });
       });
   }
 
@@ -135,11 +196,25 @@ export class AuthService {
         this.afAuth.authState.subscribe(user => {
           if (user) {
             this.router.navigate(['dashboard']);
+            this.alertService.setAlert({
+              type: AlertType.Success,
+              message: this.translate.instant(
+                `${this.translationSection}.anonymous_login_success`
+              ),
+              duration: 3000,
+            });
           }
         });
       })
       .catch(error => {
-        window.alert(error);
+        this.alertService.setAlert({
+          type: AlertType.Error,
+          message: this.translate.instant(
+            `${this.translationSection}.anonymous_login_failure`,
+            { errorMessage: error.message }
+          ),
+          duration: 4000,
+        });
       });
   }
 
@@ -170,6 +245,13 @@ export class AuthService {
     return this.afAuth.signOut().then(() => {
       this.ssrSupportService.removeLocalStorageItem('user');
       this.router.navigate(['login']);
+      this.alertService.setAlert({
+        type: AlertType.Success,
+        message: this.translate.instant(
+          `${this.translationSection}.logout_success`
+        ),
+        duration: 3000,
+      });
     });
   }
 }

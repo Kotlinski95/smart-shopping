@@ -97,7 +97,27 @@
       "task_to_done_success": "Done! Task {{task}} was successfully added to done list.",
       "task_to_done_failure": "Ups! Something went wrong while updating data with message: {{errorMessage}}",
       "task_to_todo_success": "Done! Task {{task}} was successfully returned to the task list.",
-      "task_to_todo_failure": "Ups! Something went wrong while updating data with message: {{errorMessage}}"
+      "task_to_todo_failure": "Ups! Something went wrong while updating data with message: {{errorMessage}}",
+      "add_all_tasks_success": "Done! All tasks were added to the list",
+      "add_all_tasks_failue": "Ups! Something went wrong while adding data with message: {{errorMessage}}",
+      "remove_all_tasks_success": "Done! All tasks were removed from the list",
+      "remove_all_tasks_failue": "Ups! Something went wrong while removing data with message: {{errorMessage}}"
+    },
+    "authorization": {
+      "login_success": "User successfully sign in",
+      "login_failure": "Ups! Something went wrong while signing in with message: {{errorMessage}}",
+      "register_success": "User successfully created",
+      "register_failure": "Ups! Something went wrong while signing up with message: {{errorMessage}}",
+      "reset_password_success": "Password reset email sent, check your inbox.",
+      "reset_password_failure": "Ups! Something went wrong while requesting password reset with message: {{errorMessage}}",
+      "auth_login_success": "User successfully authorizated",
+      "auth_login_failure": "Ups! Something went wrong while authorizing login with message: {{errorMessage}}",
+      "anonymous_login_success": "User successfully login anonymously",
+      "anonymous_login_failure": "Ups! Something went wrong while signing in anonymously with message: {{errorMessage}}",
+      "logout_success": "User successfully logged out"
+    },
+    "internationalization": {
+      "language_change": "Language successfully changed to {{language}}"
     }
   }
 }

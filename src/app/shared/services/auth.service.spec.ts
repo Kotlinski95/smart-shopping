@@ -8,6 +8,11 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { provideFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateFakeLoader,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getFirestore } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 
@@ -24,6 +29,12 @@ describe('AuthService', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader,
+          },
+        }),
       ],
       providers: [AuthService],
     });
