@@ -1,0 +1,46 @@
+<div class="footer-wrapper">
+  <div class="row h-100">
+    <div
+      class="col-sm d-flex flex-column justify-content-start align-items-center text-light p-3">
+      &copy; {{ actualYeat }} {{ hostName }}
+    </div>
+    <div
+      class="col-sm d-flex flex-column justify-content-start align-items-center text-light p-3">
+      <div>
+        <a routerLink="/privacy"> {{ 'footer.policy' | translate }} </a>
+      </div>
+      <div class="p-1">
+        <a routerLink="/terms-and-conditions">
+          {{ 'footer.terms' | translate }}
+        </a>
+      </div>
+      <div class="p-1">
+        <a routerLink="/cookies">
+          {{ 'footer.cookies' | translate }}
+        </a>
+      </div>
+    </div>
+    <div
+      class="col-sm d-flex flex-column justify-content-start align-items-center text-light p-3">
+      <div>
+        <a
+          routerLink="/about"
+          aria-label="Dashboard"
+          rel="noopener"
+          title="Dashboard">
+          {{ 'footer.about' | translate }}
+        </a>
+      </div>
+
+      <div class="p-1">
+        <a
+          routerLink="/contact"
+          aria-label="Dashboard"
+          rel="noopener"
+          title="Dashboard">
+          {{ 'footer.contact' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.footer-wrapper {
+  background-color: #212529;
+  width: 100%;
+  .row {
+    min-height: 60px;
+  }
+  a {
+    text-decoration: initial;
+    color: inherit;
+    &:hover {
+      color: inherit;
+    }
+  }
+}
