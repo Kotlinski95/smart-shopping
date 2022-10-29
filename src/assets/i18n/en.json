@@ -88,6 +88,17 @@
     "signin_message": "Do you already have an account? ",
     "signin_link": "Sign In"
   },
+  "policy": {
+    "title": "Privacy policy"
+  },
+  "about": {
+    "title": "About Us",
+    "description": "The application is designed to streamline the process of planning the completion of specific tasks, e.g. shopping lists.<br> It is possible to efficiently manage the task list, add, delete and mark completed tasks."
+  },
+  "footer": {
+    "policy": "Privacy policy",
+    "about": "About Us"
+  },
   "alert": {
     "shopping_list": {
       "add_task_success": "Done! Task {{task}} was added to the list",

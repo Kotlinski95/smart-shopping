@@ -1,9 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrivacyComponent } from './privacy.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: PrivacyComponent,
+  },
+];
 
 @NgModule({
   declarations: [PrivacyComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class PrivacyModule {}

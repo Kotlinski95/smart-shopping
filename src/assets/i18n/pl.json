@@ -87,6 +87,17 @@
     "signin_message": "Posiadasz już konto? ",
     "signin_link": "Zaloguj się"
   },
+  "policy": {
+    "title": "Polityka prywatności"
+  },
+  "about": {
+    "title": "O aplikacji",
+    "description": "Aplikacja powstała z myślą o usprawnieniu procesu planowania wykonania określonych zadań np. listy zakupów.<br> Mozliwe jest sprawne zarządzanie listą zadań, dodawanie, usuwania oraz oznaczanie wykonanych zadań."
+  },
+  "footer": {
+    "policy": "Polityka prywatności",
+    "about": "O aplikacji"
+  },
   "alert": {
     "shopping_list": {
       "add_task_success": "Zrobione! Zadanie {{task}} zostało dodane do listy :)",

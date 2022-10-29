@@ -2,15 +2,21 @@
   <div class="row h-100">
     <div
       class="col-sm d-flex justify-content-center align-items-center text-light">
-      &copy; {{ actualYeat }} smartshopping4everyone.herokuapp.com
+      &copy; {{ actualYeat }} {{ hostName }}
     </div>
     <div
       class="col-sm d-flex justify-content-center align-items-center text-light">
-      Privacy policy
+      <a routerLink="/privacy"> {{ 'footer.policy' | translate }} </a>
     </div>
     <div
       class="col-sm d-flex justify-content-center align-items-center text-light">
-      About Us
+      <a
+        routerLink="/about"
+        aria-label="Dashboard"
+        rel="noopener"
+        title="Dashboard">
+        {{ 'footer.about' | translate }}
+      </a>
     </div>
   </div>
 </div>

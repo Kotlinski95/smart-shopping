@@ -85,6 +85,30 @@ const routes: Routes = [
       keywords: 'smart,shopping,list,app,pwa,ssr',
     },
   },
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('./pages/about/about.module').then(m => m.AboutModule),
+    data: {
+      title: 'Smart Shopping',
+      description: 'Smart Shopping for everyone',
+      ogUrl: 'your og url',
+      author: 'Adrian Kotlinski',
+      keywords: 'smart,shopping,list,app,pwa,ssr',
+    },
+  },
+  {
+    path: 'privacy',
+    loadChildren: () =>
+      import('./pages/privacy/privacy.module').then(m => m.PrivacyModule),
+    data: {
+      title: 'Smart Shopping',
+      description: 'Smart Shopping for everyone',
+      ogUrl: 'your og url',
+      author: 'Adrian Kotlinski',
+      keywords: 'smart,shopping,list,app,pwa,ssr',
+    },
+  },
 ];
 
 @NgModule({
