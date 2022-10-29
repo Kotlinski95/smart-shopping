@@ -88,15 +88,22 @@
     "signin_link": "Zaloguj się"
   },
   "policy": {
-    "title": "Polityka prywatności"
+    "title": "Polityka prywatności",
+    "description": "Aplikacja powstała z myślą o usprawnieniu procesu planowania wykonania określonych zadań np. listy zakupów.<br> Mozliwe jest sprawne zarządzanie listą zadań, dodawanie, usuwania oraz oznaczanie wykonanych zadań."
   },
   "about": {
     "title": "O aplikacji",
     "description": "Aplikacja powstała z myślą o usprawnieniu procesu planowania wykonania określonych zadań np. listy zakupów.<br> Mozliwe jest sprawne zarządzanie listą zadań, dodawanie, usuwania oraz oznaczanie wykonanych zadań."
   },
+  "contact": {
+    "title": "Kontakt"
+  },
   "footer": {
     "policy": "Polityka prywatności",
-    "about": "O aplikacji"
+    "about": "O aplikacji",
+    "terms": "Zasady i warunki",
+    "cookies": "Polityka plików cookie",
+    "contact": "Kontakt"
   },
   "alert": {
     "shopping_list": {
@@ -129,5 +136,8 @@
     "internationalization": {
       "language_change": "Język został pomyślnie zmieniony na {{language}}"
     }
+  },
+  "development": {
+    "message": "Przepraszam, trwają pracę nad tą stroną."
   }
 }

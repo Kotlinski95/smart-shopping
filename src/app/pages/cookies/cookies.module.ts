@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrivacyComponent } from './privacy.component';
+import { CookiesComponent } from './cookies.component';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
     path: '',
-    component: PrivacyComponent,
+    component: CookiesComponent,
   },
 ];
 
 @NgModule({
-  declarations: [PrivacyComponent],
+  declarations: [CookiesComponent],
   imports: [CommonModule, RouterModule.forChild(routes), TranslateModule],
 })
-export class PrivacyModule {}
+export class CookiesModule {}

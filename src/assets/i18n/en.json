@@ -95,9 +95,15 @@
     "title": "About Us",
     "description": "The application is designed to streamline the process of planning the completion of specific tasks, e.g. shopping lists.<br> It is possible to efficiently manage the task list, add, delete and mark completed tasks."
   },
+  "contact": {
+    "title": "Contact"
+  },
   "footer": {
     "policy": "Privacy policy",
-    "about": "About Us"
+    "about": "About Us",
+    "terms": "Terms and conditions",
+    "cookies": "Cookie Policy",
+    "contact": "Contact Us"
   },
   "alert": {
     "shopping_list": {
@@ -130,5 +136,8 @@
     "internationalization": {
       "language_change": "Language successfully changed to {{language}}"
     }
+  },
+  "development": {
+    "message": "Sorry, site is still under development."
   }
 }
