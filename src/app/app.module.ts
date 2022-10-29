@@ -34,6 +34,7 @@ import { ModalModule } from './components/modal/modal.module';
 import { AlertModule } from './components/alert/alert.module';
 import { LanguageSelectorModule } from './components/language-selector/language-selector.module';
 import { LanguageService } from './shared/services/language.service';
+import { FooterModule } from './components/footer/footer.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -71,6 +72,7 @@ import { LanguageService } from './shared/services/language.service';
     ModalModule,
     AlertModule,
     LanguageSelectorModule,
+    FooterModule,
   ],
   exports: [NgxSpinnerModule],
   providers: [
