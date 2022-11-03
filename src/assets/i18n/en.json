@@ -47,6 +47,7 @@
     "email": "Email: ",
     "email_verified": "Email verified: ",
     "shopping_list": "Shopping List",
+    "shopping_lists": "All lists",
     "logout": "Logout"
   },
   "reset_password": {

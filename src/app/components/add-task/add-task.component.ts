@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { List } from 'src/app/shared/interfaces/list';
 import { TaskService } from 'src/app/shared/services/task.service';
 
 @Component({
@@ -10,10 +11,16 @@ import { TaskService } from 'src/app/shared/services/task.service';
 export class AddTaskComponent implements OnInit {
   public newTaskForm!: FormGroup;
   public newTask = '';
+  public selectedList: List = { name: '' };
   constructor(
-    private tasksTaskService: TaskService,
+    private tasksService: TaskService,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.tasksService.getActualSelectedList().subscribe(selectedList => {
+      this.selectedList = selectedList;
+      console.log('AddTaskComponent selectedList: ', this.selectedList);
+    });
+  }
 
   ngOnInit(): void {
     this.newTaskForm = this.formBuilder.group({
@@ -27,7 +34,7 @@ export class AddTaskComponent implements OnInit {
       created: new Date().toLocaleString(),
       isDone: false,
     };
-    this.tasksTaskService.add(task);
+    this.tasksService.add(task, this.selectedList.name);
     this.newTask = '';
   }
 }

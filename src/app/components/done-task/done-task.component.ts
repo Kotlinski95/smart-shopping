@@ -29,7 +29,7 @@ export class DoneTaskComponent implements OnDestroy {
   private filterDoneTaskList(): void {
     this.subscriptions.add(
       this.tasksService
-        .gettasksListObservableFb()
+        .getTasksListObservableFb()
         .subscribe((tasksDone: Task[]) => {
           this.tasksDone = tasksDone.filter((task: Task) => {
             return task.isDone === true;

@@ -9,6 +9,7 @@ import { TaskService } from 'src/app/shared/services/task.service';
 import { Task } from 'src/app/shared/interfaces/task';
 import { Subscription } from 'rxjs';
 import { eventNames } from 'process';
+import { List } from 'src/app/shared/interfaces/list';
 
 @Component({
   selector: 'app-todo-task',
@@ -18,6 +19,7 @@ import { eventNames } from 'process';
 })
 export class TodoTaskComponent implements OnDestroy {
   public tasksList: Task[] = [];
+  public selectedList: List = { name: '' };
   private subscriptions: Subscription = new Subscription();
   public toDoTaskListGroup!: ElementRef;
   @ViewChild('toDoTaskListGroup', { static: false })
@@ -26,12 +28,15 @@ export class TodoTaskComponent implements OnDestroy {
   }
   constructor(private tasksService: TaskService) {
     this.filterToDoTaskList();
+    this.tasksService.getActualSelectedList().subscribe(selectedList => {
+      this.selectedList = selectedList;
+    });
   }
 
   private filterToDoTaskList(): void {
     this.subscriptions.add(
       this.tasksService
-        .gettasksListObservableFb()
+        .getTasksListObservableFb(this.selectedList.name)
         .subscribe((tasks: Task[]) => {
           this.tasksList = [...tasks].filter((task: Task) => {
             return task.isDone === false;

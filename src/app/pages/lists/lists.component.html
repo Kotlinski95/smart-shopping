@@ -1,0 +1,45 @@
+<div class="container p-5 flex-column">
+  <form (ngSubmit)="addList()" [formGroup]="newTaskForm">
+    <div class="input-group mb-3 d-flex flex-nowrap px-3">
+      <input
+        type="text"
+        placeholder="{{
+          'shopping_list.add_task.input_placeholder' | translate
+        }}"
+        [(ngModel)]="newList"
+        formControlName="newList"
+        class="rounded flex w-100"
+        #inputField />
+      <div class="input-group-append d-flex">
+        <button
+          type="submit"
+          class="input-group-text btn btn-dark col-6 w-100"
+          id="basic-addon2"
+          [disabled]="!newTaskForm.valid">
+          {{ 'shopping_list.add_task.button_label' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+  <h1>Tasks Lists:</h1>
+  <ol class="list-group" #toDoTaskListGroup>
+    <li *ngFor="let list of tasksList" class="list-group-item">
+      <div class="d-flex justify-content-between">
+        <div class="px-2 word-break">
+          {{ list.name }}
+        </div>
+        <div class="d-flex flex-nowrap align-self-center">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="selectList(list)">
+            {{ 'shopping_list.todo_tasks.done' | translate }}
+          </button>
+          <button type="button" class="btn btn-danger" (click)="remove(list)">
+            {{ 'shopping_list.todo_tasks.delete' | translate }}
+          </button>
+        </div>
+      </div>
+    </li>
+  </ol>
+</div>

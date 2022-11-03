@@ -147,6 +147,18 @@ const routes: Routes = [
       keywords: 'smart,shopping,list,app,pwa,ssr',
     },
   },
+  {
+    path: 'lists',
+    loadChildren: () =>
+      import('./pages/lists/lists.module').then(m => m.ListsModule),
+    data: {
+      title: 'Smart Shopping',
+      description: 'Smart Shopping for everyone',
+      ogUrl: 'your og url',
+      author: 'Adrian Kotlinski',
+      keywords: 'smart,shopping,list,app,pwa,ssr',
+    },
+  },
 ];
 
 @NgModule({

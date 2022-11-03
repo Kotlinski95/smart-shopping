@@ -18,7 +18,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     private tasksService: TaskService
   ) {
     this.subscripion.add(
-      this.tasksService.gettasksListObservableFb().subscribe()
+      this.tasksService.getTasksListObservableFb().subscribe()
     );
   }
   isLoggedIn(): boolean {

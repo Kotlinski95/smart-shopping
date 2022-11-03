@@ -35,6 +35,7 @@ import { AlertModule } from './components/alert/alert.module';
 import { LanguageSelectorModule } from './components/language-selector/language-selector.module';
 import { LanguageService } from './shared/services/language.service';
 import { FooterModule } from './components/footer/footer.module';
+import { SharedModule } from './shared/modules/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -73,6 +74,7 @@ import { FooterModule } from './components/footer/footer.module';
     AlertModule,
     LanguageSelectorModule,
     FooterModule,
+    SharedModule.forRoot(),
   ],
   exports: [NgxSpinnerModule],
   providers: [

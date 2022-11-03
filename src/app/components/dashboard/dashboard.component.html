@@ -13,7 +13,9 @@
                 src="{{
                   user.photoURL ? user.photoURL : '/assets/dummy-user.png'
                 }}"
-                alt="{{ user.displayName }}" width="100px" height="100px"/>
+                alt="{{ user.displayName }}"
+                width="100px"
+                height="100px" />
               <div class="media-body">
                 <h1>
                   <strong>{{
@@ -21,21 +23,30 @@
                   }}</strong>
                 </h1>
                 <p>
-                  {{ 'dashboard.id' | translate }}<strong>{{ user.uid }}</strong>
+                  {{ 'dashboard.id' | translate
+                  }}<strong>{{ user.uid }}</strong>
                 </p>
                 <p>
-                  {{ 'dashboard.email' | translate }}<strong>{{ user.email }}</strong>
+                  {{ 'dashboard.email' | translate
+                  }}<strong>{{ user.email }}</strong>
                 </p>
                 <p>
-                  {{ 'dashboard.email_verified' | translate }}<strong>{{ user.emailVerified }}</strong>
+                  {{ 'dashboard.email_verified' | translate
+                  }}<strong>{{ user.emailVerified }}</strong>
                 </p>
               </div>
             </div>
           </div>
           <div class="d-flex justify-content-between mb-2">
-            <a class="btn btn-dark" routerLink="/">{{ 'dashboard.shopping_list' | translate }}</a>
+            <a class="btn btn-dark" routerLink="/">{{
+              'dashboard.shopping_list' | translate
+            }}</a>
+            <a class="btn btn-dark" routerLink="/lists">{{
+              'dashboard.shopping_lists' | translate
+            }}</a>
             <button class="btn btn-danger" (click)="authService.SignOut()">
-              <fa-icon [icon]="faSignOutAlt"></fa-icon>{{ 'dashboard.logout' | translate }}
+              <fa-icon [icon]="faSignOutAlt"></fa-icon
+              >{{ 'dashboard.logout' | translate }}
             </button>
           </div>
         </div>

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { AlertType } from '../interfaces/alert';
 import { AlertService } from './alert.service';
 import { Task } from '../interfaces/task';
+import { List } from '../interfaces/list';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +37,7 @@ export class FirebaseService {
   addCollectionData(
     collectionName: string,
     field: string,
-    data: Task,
+    data: Task | List,
     alert = true
   ) {
     setDoc(doc(this.firestore, collectionName, field), data)
