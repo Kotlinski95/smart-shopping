@@ -36,6 +36,9 @@ import { LanguageSelectorModule } from './components/language-selector/language-
 import { LanguageService } from './shared/services/language.service';
 import { FooterModule } from './components/footer/footer.module';
 import { SharedModule } from './shared/modules/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -75,6 +78,13 @@ import { SharedModule } from './shared/modules/shared.module';
     LanguageSelectorModule,
     FooterModule,
     SharedModule.forRoot(),
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      name: 'SmartShopping DevTools',
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   exports: [NgxSpinnerModule],
   providers: [

@@ -13,6 +13,8 @@ import { ModalParams } from '../interfaces/modal';
 import { AlertService } from './alert.service';
 import { AlertType } from '../interfaces/alert';
 import { List } from '../interfaces/list';
+import { Store } from '@ngrx/store';
+import { ListsActions } from '../../state/actions';
 
 @Injectable()
 export class TaskService {
@@ -28,13 +30,13 @@ export class TaskService {
     private ssrSupportService: SsrSupportService,
     private modalService: ModalService,
     private translate: TranslateService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store
   ) {
     const taskslist = JSON.parse(
       this.ssrSupportService.getLocalStorageItem('taskslist')!
     );
     if (taskslist) this.tasksObservableLocal.next(taskslist);
-    console.log(' TASK SERVICE INIT');
   }
 
   public add(
@@ -329,13 +331,11 @@ export class TaskService {
   }
 
   public getActualSelectedList(): Observable<List> {
-    // console.log('ACTUAL LIST: ', this.tasksListSelected.getValue());
     return this.tasksListSelected.asObservable();
   }
 
   public setActualSelectedList(list: List): void {
-    console.log('SET ACTUAL LIST: ', list);
     this.tasksListSelected.next(list);
-    console.log('SET ACTUAL LIST GET: ', this.tasksListSelected.getValue());
+    this.store.dispatch(ListsActions.setList({ list: list }));
   }
 }

@@ -10,12 +10,15 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 
 import { ShoppingListComponent } from './shopping-list.component';
 
 describe('ShoppingListComponent', () => {
   let component: ShoppingListComponent;
   let fixture: ComponentFixture<ShoppingListComponent>;
+  const initialState = {};
+  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -33,10 +36,12 @@ describe('ShoppingListComponent', () => {
           },
         }),
       ],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
   });
 
   beforeEach(() => {
+    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(ShoppingListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

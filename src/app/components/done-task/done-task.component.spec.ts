@@ -11,12 +11,14 @@ import {
 } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { TaskService } from '../../shared/services/task.service';
-
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { DoneTaskComponent } from './done-task.component';
 
 describe('DoneTaskComponent', () => {
   let component: DoneTaskComponent;
   let fixture: ComponentFixture<DoneTaskComponent>;
+  const initialState = {};
+  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -34,11 +36,12 @@ describe('DoneTaskComponent', () => {
           },
         }),
       ],
-      providers: [TaskService],
+      providers: [TaskService, provideMockStore({ initialState })],
     }).compileComponents();
   });
 
   beforeEach(() => {
+    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(DoneTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

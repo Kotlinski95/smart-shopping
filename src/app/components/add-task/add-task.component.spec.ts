@@ -9,6 +9,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import {
   TranslateFakeLoader,
   TranslateLoader,
@@ -19,6 +20,8 @@ import {
 describe('AddTaskComponent', () => {
   let component: AddTaskComponent;
   let fixture: ComponentFixture<AddTaskComponent>;
+  const initialState = {};
+  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -36,11 +39,18 @@ describe('AddTaskComponent', () => {
           },
         }),
       ],
-      providers: [TaskService, FirebaseService, FormBuilder, TranslateService],
+      providers: [
+        TaskService,
+        FirebaseService,
+        FormBuilder,
+        TranslateService,
+        provideMockStore({ initialState }),
+      ],
     }).compileComponents();
   });
 
   beforeEach(() => {
+    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(AddTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

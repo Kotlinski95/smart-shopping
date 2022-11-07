@@ -24,7 +24,6 @@ export class ListsComponent implements OnDestroy, OnInit {
   private filterDoneTaskList(): void {
     this.subscriptions.add(
       this.tasksService.getListObservableFb().subscribe((tasksList: List[]) => {
-        console.log('TASK LIST: ', tasksList);
         this.tasksList = tasksList;
       })
     );

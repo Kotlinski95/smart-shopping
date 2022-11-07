@@ -18,7 +18,6 @@ export class AddTaskComponent implements OnInit {
   ) {
     this.tasksService.getActualSelectedList().subscribe(selectedList => {
       this.selectedList = selectedList;
-      console.log('AddTaskComponent selectedList: ', this.selectedList);
     });
   }
 

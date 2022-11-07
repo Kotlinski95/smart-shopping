@@ -15,12 +15,15 @@ import { getFirestore } from 'firebase/firestore';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { TaskService } from 'src/app/shared/services/task.service';
 import { environment } from 'src/environments/environment';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 
 import { ListsComponent } from './lists.component';
 
 describe('ListsComponent', () => {
   let component: ListsComponent;
   let fixture: ComponentFixture<ListsComponent>;
+  const initialState = {};
+  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -38,11 +41,18 @@ describe('ListsComponent', () => {
           },
         }),
       ],
-      providers: [TaskService, FirebaseService, FormBuilder, TranslateService],
+      providers: [
+        TaskService,
+        FirebaseService,
+        FormBuilder,
+        TranslateService,
+        provideMockStore({ initialState }),
+      ],
     }).compileComponents();
   });
 
   beforeEach(() => {
+    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(ListsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
