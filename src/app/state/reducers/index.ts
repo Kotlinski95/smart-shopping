@@ -1,3 +1,2 @@
-import * as ListsReducer from './lists.reducer';
-
-export { ListsReducer };
+export * from './lists.reducer';
+export * from './tasks.reducer';

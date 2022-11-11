@@ -1,3 +1,2 @@
-import * as ListEffects from './lists.effects';
-
-export { ListEffects };
+export * from './lists.effects';
+export * from './tasks.effects';

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { ListGuard } from './shared/guard/list.guard';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
     },
+    canActivate: [ListGuard],
   },
   {
     path: 'login',

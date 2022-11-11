@@ -119,7 +119,9 @@
       "add_all_tasks_success": "Done! All tasks were added to the list",
       "add_all_tasks_failue": "Ups! Something went wrong while adding data with message: {{errorMessage}}",
       "remove_all_tasks_success": "Done! All tasks were removed from the list",
-      "remove_all_tasks_failue": "Ups! Something went wrong while removing data with message: {{errorMessage}}"
+      "remove_all_tasks_failue": "Ups! Something went wrong while removing data with message: {{errorMessage}}",
+      "create_list_success": "Done! Collection {{collectonName}} was added to the database",
+      "create_list_failure": "Ups! Something went wrong while creating collection data with message: {{errorMessage}}"
     },
     "authorization": {
       "login_success": "User successfully sign in",

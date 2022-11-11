@@ -1,15 +1,16 @@
 import {
   Component,
   ElementRef,
+  Input,
   OnDestroy,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { TaskService } from 'src/app/shared/services/task.service';
 import { Task } from 'src/app/shared/interfaces/task';
-import { Subscription } from 'rxjs';
-import { eventNames } from 'process';
-import { List } from 'src/app/shared/interfaces/list';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { getTasksState } from 'src/app/state/selectors';
 
 @Component({
   selector: 'app-todo-task',
@@ -18,31 +19,25 @@ import { List } from 'src/app/shared/interfaces/list';
   encapsulation: ViewEncapsulation.None,
 })
 export class TodoTaskComponent implements OnDestroy {
-  public tasksList: Task[] = [];
-  public selectedList: List = { name: '' };
-  private subscriptions: Subscription = new Subscription();
-  public toDoTaskListGroup!: ElementRef;
+  @Input() TasksList!: Task[];
   @ViewChild('toDoTaskListGroup', { static: false })
   public set TaskListView(content: ElementRef) {
     this.toDoTaskListGroup = content;
   }
-  constructor(private tasksService: TaskService) {
-    this.filterToDoTaskList();
-    this.tasksService.getActualSelectedList().subscribe(selectedList => {
-      this.selectedList = selectedList;
-    });
+  public tasksListFiltered: Task[] = [];
+  private subscriptions: Subscription = new Subscription();
+  public toDoTaskListGroup!: ElementRef;
+  public tasksList$: Observable<Task[]>;
+
+  constructor(private tasksService: TaskService, private store: Store) {
+    this.tasksList$ = this.store.select(getTasksState);
+    this.tasksList$.subscribe(tasks => this.filterToDoTaskList(tasks));
   }
 
-  private filterToDoTaskList(): void {
-    this.subscriptions.add(
-      this.tasksService
-        .getTasksListObservableFb(this.selectedList.name)
-        .subscribe((tasks: Task[]) => {
-          this.tasksList = [...tasks].filter((task: Task) => {
-            return task.isDone === false;
-          });
-        })
-    );
+  private filterToDoTaskList(tasks: Array<Task>): void {
+    this.tasksListFiltered = [...tasks].filter((task: Task) => {
+      return task.isDone === false;
+    });
   }
 
   public remove(task: Task) {
@@ -54,10 +49,10 @@ export class TodoTaskComponent implements OnDestroy {
   }
   public addAll(event: Event): void {
     event.stopPropagation();
-    this.tasksService.addAllWithModal(this.tasksList);
+    this.tasksService.addAllWithModal(this.tasksListFiltered);
   }
   public getColor(): string {
-    return this.tasksList.length > 1 ? 'Black' : 'Green';
+    return this.tasksListFiltered.length > 1 ? 'Black' : 'Green';
   }
 
   public roll(): void {

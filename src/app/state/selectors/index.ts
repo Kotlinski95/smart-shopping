@@ -1,3 +1,2 @@
-import * as ListsSelectors from './lists.selectors';
-
-export { ListsSelectors };
+export * from './lists.selectors';
+export * from './tasks.selectors';

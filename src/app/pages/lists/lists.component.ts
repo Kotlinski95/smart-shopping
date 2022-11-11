@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { TaskService } from 'src/app/shared/services/task.service';
 import { List } from 'src/app/shared/interfaces/list';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ListService } from 'src/app/shared/services/list.service';
 
 @Component({
   selector: 'app-lists',
@@ -15,7 +15,7 @@ export class ListsComponent implements OnDestroy, OnInit {
   public newList = '';
   private subscriptions: Subscription = new Subscription();
   constructor(
-    private tasksService: TaskService,
+    private listService: ListService,
     private formBuilder: FormBuilder
   ) {
     this.filterDoneTaskList();
@@ -23,7 +23,7 @@ export class ListsComponent implements OnDestroy, OnInit {
 
   private filterDoneTaskList(): void {
     this.subscriptions.add(
-      this.tasksService.getListObservableFb().subscribe((tasksList: List[]) => {
+      this.listService.getListObservableFb().subscribe((tasksList: List[]) => {
         this.tasksList = tasksList;
       })
     );
@@ -40,18 +40,18 @@ export class ListsComponent implements OnDestroy, OnInit {
   }
 
   public selectList(list: List): void {
-    this.tasksService.setActualSelectedList(list);
+    this.listService.setActualSelectedList(list);
   }
 
   public remove(list: List): void {
-    this.tasksService.remove(list);
+    this.listService.removeList(list);
   }
 
-  addList() {
+  public addList() {
     const list: List = {
       name: this.newList,
     };
-    this.tasksService.addList(list);
+    this.listService.createList(list);
     this.newList = '';
   }
 }

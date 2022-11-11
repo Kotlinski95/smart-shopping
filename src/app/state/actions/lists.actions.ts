@@ -11,6 +11,6 @@ export const setListSuccess = createAction(
 );
 
 export const setListFailure = createAction(
-  '[Newsletter] Create Subscription failure',
+  '[Task-Lists] Create Subscription failure',
   props<{ error: string }>()
 );

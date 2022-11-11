@@ -12,9 +12,10 @@
   <div class="header">
     <app-add-task class="w-100"></app-add-task>
   </div>
-  <div
+  <!-- <div
     class="container pb-5"
-    *ngIf="this.isTaskListLoaded$ | async; else loading">
+    *ngIf="this.isTaskListLoaded$ | async; else loading"> -->
+  <div class="container pb-5">
     <div class="row w-100">
       <div class="col-12 col-md-6">
         <app-todo-task></app-todo-task>
@@ -28,4 +29,3 @@
     <app-loading-spinner></app-loading-spinner>
   </ng-template>
 </section>
-

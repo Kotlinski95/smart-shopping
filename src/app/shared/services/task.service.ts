@@ -15,13 +15,15 @@ import { AlertType } from '../interfaces/alert';
 import { List } from '../interfaces/list';
 import { Store } from '@ngrx/store';
 import { ListsActions } from '../../state/actions';
+import { ListService } from './list.service';
+import { getListState } from 'src/app/state/selectors/lists.selectors';
 
 @Injectable()
 export class TaskService {
   private tasksObservableLocal = new BehaviorSubject<Task[]>([]);
-  private ListsObservableLocal = new BehaviorSubject<List[]>([]);
+  private initList: List = { name: config.firebase.collectionName };
+  private currentList = new BehaviorSubject(this.initList);
   private tasksListLoaded = new BehaviorSubject<boolean>(false);
-  private tasksListSelected = new BehaviorSubject<List>({ name: '' });
   private translationSection = 'alert.shopping_list';
 
   constructor(
@@ -37,15 +39,17 @@ export class TaskService {
       this.ssrSupportService.getLocalStorageItem('taskslist')!
     );
     if (taskslist) this.tasksObservableLocal.next(taskslist);
+    this.store.select(getListState)?.subscribe(list => {
+      this.currentList.next(list);
+    });
   }
 
-  public add(
-    task: Task,
-    collectionName: string = config.firebase.collectionName
-  ): void {
+  public add(task: Task): void {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.addCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${collectionName}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+          this.currentList.getValue().name
+        }`,
         `${task.name}`,
         task
       );
@@ -67,39 +71,12 @@ export class TaskService {
     }
   }
 
-  public addList(list: List): void {
-    if (this.authService.isLoggedIn) {
-      this.fireBaseService.addCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
-        `${list.name}`,
-        list
-      );
-    } else {
-      const key = 'name';
-      const taskslist = [
-        ...new Map(
-          [...this.ListsObservableLocal.value, list].map((item: any) => [
-            item[key],
-            item,
-          ])
-        ).values(),
-      ];
-      this.ListsObservableLocal.next(taskslist);
-      this.ssrSupportService.setLocalStorageItem(
-        'taskslist',
-        JSON.stringify(taskslist)
-      );
-    }
-  }
-
-  public remove(
-    task: Task | List,
-    showAlert = true,
-    collectionName: string = config.firebase.collectionName
-  ) {
+  public remove(task: Task | List, showAlert = true) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.removeCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${collectionName}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+          this.currentList.getValue().name
+        }`,
         `${task.name}`,
         showAlert
       );
@@ -117,7 +94,9 @@ export class TaskService {
   public done(task: Task, showAlert = true) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.updateCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+          this.currentList.getValue().name
+        }`,
         `${task.name}`,
         {
           ...task,
@@ -146,7 +125,9 @@ export class TaskService {
   public undo(task: Task) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.updateCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+          this.currentList.getValue().name
+        }`,
         `${task.name}`,
         {
           ...task,
@@ -182,13 +163,13 @@ export class TaskService {
     return list.length;
   }
 
-  public getTasksListObservableFb(
-    collectionName = config.firebase.collectionName
-  ): Observable<Array<Task>> {
+  public getTasksListObservableFb(listName?: string): Observable<Array<Task>> {
     if (this.authService.isLoggedIn) {
       return this.fireBaseService
         .getFireBaseCollectionData(
-          `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${collectionName}`
+          `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+            listName ? listName : this.currentList.getValue().name
+          }`
         )
         .pipe(
           map((data: DocumentData[]) => {
@@ -199,24 +180,6 @@ export class TaskService {
     } else {
       this.tasksListLoaded.next(true);
       return this.tasksObservableLocal.asObservable();
-    }
-  }
-
-  public getListObservableFb(): Observable<Array<List>> {
-    if (this.authService.isLoggedIn) {
-      return this.fireBaseService
-        .getFireBaseCollectionData(
-          `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`
-        )
-        .pipe(
-          map((data: DocumentData[]) => {
-            this.tasksListLoaded.next(true);
-            return <List[]>[...data];
-          })
-        );
-    } else {
-      this.tasksListLoaded.next(true);
-      return this.ListsObservableLocal.asObservable();
     }
   }
 
@@ -328,14 +291,5 @@ export class TaskService {
       tasksList.forEach((task: Task) => this.done(task, false));
       resolve();
     });
-  }
-
-  public getActualSelectedList(): Observable<List> {
-    return this.tasksListSelected.asObservable();
-  }
-
-  public setActualSelectedList(list: List): void {
-    this.tasksListSelected.next(list);
-    this.store.dispatch(ListsActions.setList({ list: list }));
   }
 }

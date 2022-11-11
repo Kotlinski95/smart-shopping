@@ -119,7 +119,9 @@
       "add_all_tasks_success": "Gotowe! Wszystkie zadania zostały oznaczone jako wykonane!",
       "add_all_tasks_failue": "Ups! Coś poszło nie tak podczas dodawania zadań, informacje o błędzie: {{errorMessage}}",
       "remove_all_tasks_success": "Gotowe! Wszystkie zadania zostały usunięte z listy!",
-      "remove_all_tasks_failue": "Ups! Coś poszło nie tak podczas usuwania zadań, informacje o błędzie: {{errorMessage}}"
+      "remove_all_tasks_failue": "Ups! Coś poszło nie tak podczas usuwania zadań, informacje o błędzie: {{errorMessage}}",
+      "create_list_success": "Gotowe! Kolekcja {{collectonName}} została dodana do bazy danych!",
+      "create_list_failure": "Ups! Coś poszło nie tak podczas tworzenia nowej listy, informacja o błędzie: {{errorMessage}}"
     },
     "authorization": {
       "login_success": "Logowanie zakończone pomyślnie",

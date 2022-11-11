@@ -1,5 +1,4 @@
-<!-- conditional display - ngIf  -->
-<ng-container *ngIf="tasksList.length > 0; else noTask">
+<ng-container *ngIf="tasksListFiltered.length > 0; else noTask">
   <p
     [ngStyle]="{ color: getColor() }"
     (click)="roll()"
@@ -7,7 +6,7 @@
     class="d-flex justify-content-between align-items-center p-3 bg-light rounded cursor-pointer">
     {{
       'shopping_list.todo_tasks.title'
-        | translate: { tasksListLength: tasksList.length }
+        | translate: { tasksListLength: tasksListFiltered.length }
     }}
     <button (click)="addAll($event)" class="btn btn-dark">
       {{ 'shopping_list.todo_tasks.addAll' | translate }}
@@ -18,8 +17,11 @@
       appDate
       [date]="task.created"
       class="list-group-item"
-      *ngFor="let task of tasksList | sortName; let odd = odd"
-      [ngClass]="{ 'odd-li': odd === true, 'li-last': tasksList.length === 1 }">
+      *ngFor="let task of tasksListFiltered | sortName; let odd = odd"
+      [ngClass]="{
+        'odd-li': odd === true,
+        'li-last': tasksListFiltered.length === 1
+      }">
       <div class="d-flex justify-content-between">
         <div class="px-2 word-break">
           {{ task.name | transformTask }}

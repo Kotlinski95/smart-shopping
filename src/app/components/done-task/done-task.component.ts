@@ -1,9 +1,15 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { TaskService } from 'src/app/shared/services/task.service';
 import { Task } from 'src/app/shared/interfaces/task';
-import { Subscription } from 'rxjs';
-import { ModalService } from 'src/app/shared/services/modal.service';
-import { TranslateService } from '@ngx-translate/core';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { getTasksState } from 'src/app/state/selectors';
 
 @Component({
   selector: 'app-done-task',
@@ -11,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./done-task.component.scss'],
 })
 export class DoneTaskComponent implements OnDestroy {
+  @Input() TasksList!: Task[];
   tasksDone: Task[] = [];
   public doneTaskListGroup!: ElementRef;
   private subscriptions: Subscription = new Subscription();
@@ -18,24 +25,16 @@ export class DoneTaskComponent implements OnDestroy {
   public set TaskListDoneView(content: ElementRef) {
     this.doneTaskListGroup = content;
   }
-  constructor(
-    private tasksService: TaskService,
-    private modalService: ModalService,
-    private translate: TranslateService
-  ) {
-    this.filterDoneTaskList();
+  public tasksList$: Observable<Task[]>;
+  constructor(private tasksService: TaskService, private store: Store) {
+    this.tasksList$ = this.store.select(getTasksState);
+    this.tasksList$.subscribe(tasks => this.filterDoneTaskList(tasks));
   }
 
-  private filterDoneTaskList(): void {
-    this.subscriptions.add(
-      this.tasksService
-        .getTasksListObservableFb()
-        .subscribe((tasksDone: Task[]) => {
-          this.tasksDone = tasksDone.filter((task: Task) => {
-            return task.isDone === true;
-          });
-        })
-    );
+  private filterDoneTaskList(tasks: Array<Task>): void {
+    this.tasksDone = tasks.filter((task: Task) => {
+      return task.isDone === true;
+    });
   }
 
   public calcDone(list: Array<Task>): number {

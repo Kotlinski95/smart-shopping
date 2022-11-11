@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { List } from 'src/app/shared/interfaces/list';
 import { TaskService } from 'src/app/shared/services/task.service';
+import { getListState } from 'src/app/state/selectors/lists.selectors';
 
 @Component({
   selector: 'app-add-task',
@@ -11,14 +14,21 @@ import { TaskService } from 'src/app/shared/services/task.service';
 export class AddTaskComponent implements OnInit {
   public newTaskForm!: FormGroup;
   public newTask = '';
-  public selectedList: List = { name: '' };
+  public initList: List = { name: '' };
+  public currentList: BehaviorSubject<List> = new BehaviorSubject(
+    this.initList
+  );
+  private subscripion: Subscription = new Subscription();
   constructor(
     private tasksService: TaskService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private store: Store
   ) {
-    this.tasksService.getActualSelectedList().subscribe(selectedList => {
-      this.selectedList = selectedList;
-    });
+    this.subscripion.add(
+      this.store.select(getListState)?.subscribe(list => {
+        this.currentList.next(list);
+      })
+    );
   }
 
   ngOnInit(): void {
@@ -33,7 +43,7 @@ export class AddTaskComponent implements OnInit {
       created: new Date().toLocaleString(),
       isDone: false,
     };
-    this.tasksService.add(task, this.selectedList.name);
+    this.tasksService.add(task);
     this.newTask = '';
   }
 }

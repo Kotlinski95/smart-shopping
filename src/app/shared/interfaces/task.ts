@@ -5,3 +5,8 @@ export interface Task {
   end?: string;
   isDone: boolean;
 }
+
+export interface TasksState {
+  tasks: Task[];
+  error: string;
+}
