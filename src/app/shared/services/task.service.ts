@@ -1,3 +1,4 @@
+import { TasksActions } from 'src/app/state/actions';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Task } from '../interfaces/task';
@@ -71,7 +72,7 @@ export class TaskService {
     }
   }
 
-  public remove(task: Task | List, showAlert = true) {
+  public remove(task: Task, showAlert = true) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.removeCollectionData(
         `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
@@ -203,7 +204,9 @@ export class TaskService {
         taskName: task.name,
       }),
     };
-    this.modalService.setModal(modalParams, () => this.remove(task));
+    this.modalService.setModal(modalParams, () =>
+      this.store.dispatch(TasksActions.removeTask({ task: task }))
+    );
   }
 
   public clearTasksWithModal(list: Array<Task>): void {
@@ -221,29 +224,33 @@ export class TaskService {
       content: this.translate.instant(`${translationSection}.content`),
     };
     this.modalService.setModal(modalParams, () => {
-      this.clearDoneList(list, false)
-        .then(() => {
-          this.alertService.setAlert({
-            type: AlertType.Success,
-            message: this.translate.instant(
-              `${this.translationSection}.remove_all_tasks_success`
-            ),
-            duration: 3000,
-          });
-        })
-        .catch(error => {
-          this.alertService.setAlert({
-            type: AlertType.Success,
-            message: this.translate.instant(
-              `${this.translationSection}.remove_all_tasks_failue`,
-              {
-                errorMessage: error,
-              }
-            ),
-            duration: 3000,
-          });
-        });
+      this.store.dispatch(TasksActions.removeAllTasks({ list: list }));
     });
+  }
+
+  public clearTasksPromise(list: Array<Task>) {
+    this.clearDoneList(list, false)
+      .then(() => {
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.remove_all_tasks_success`
+          ),
+          duration: 3000,
+        });
+      })
+      .catch(error => {
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.remove_all_tasks_failue`,
+            {
+              errorMessage: error,
+            }
+          ),
+          duration: 3000,
+        });
+      });
   }
 
   public addAllWithModal(tasksList: Array<Task>): void {
@@ -260,30 +267,33 @@ export class TaskService {
       ),
       content: this.translate.instant(`${translationSection}.content`),
     };
-    this.modalService.setModal(modalParams, () => {
-      this.addAllTasks(tasksList)
-        .then(() => {
-          this.alertService.setAlert({
-            type: AlertType.Success,
-            message: this.translate.instant(
-              `${this.translationSection}.add_all_tasks_success`
-            ),
-            duration: 3000,
-          });
-        })
-        .catch(error => {
-          this.alertService.setAlert({
-            type: AlertType.Success,
-            message: this.translate.instant(
-              `${this.translationSection}.add_all_tasks_failue`,
-              {
-                errorMessage: error,
-              }
-            ),
-            duration: 3000,
-          });
+    this.modalService.setModal(modalParams, () =>
+      this.store.dispatch(TasksActions.addAllTasks({ list: tasksList }))
+    );
+  }
+  public addAllTasksPromise(tasksList: Array<Task>) {
+    this.addAllTasks(tasksList)
+      .then(() => {
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.add_all_tasks_success`
+          ),
+          duration: 3000,
         });
-    });
+      })
+      .catch(error => {
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.add_all_tasks_failue`,
+            {
+              errorMessage: error,
+            }
+          ),
+          duration: 3000,
+        });
+      });
   }
 
   public addAllTasks(tasksList: Array<Task>): Promise<void> {

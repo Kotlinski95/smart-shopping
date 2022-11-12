@@ -1,4 +1,3 @@
-import { TaskService } from 'src/app/shared/services/task.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -7,6 +6,7 @@ import { ListService } from '../services/list.service';
 import { Store } from '@ngrx/store';
 import { getListState } from 'src/app/state/selectors';
 import { List } from '../interfaces/list';
+import { SsrSupportService } from '../services/ssr-support.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +16,8 @@ export class ListGuard implements CanActivate {
   private isListLoaded: BehaviorSubject<boolean> = new BehaviorSubject(
     this.initLoadedState
   );
-  private selectedList$: Observable<List>;
-  constructor(
-    public listService: ListService,
-    public router: Router,
-    private store: Store
-  ) {
+  private selectedList$!: Observable<List>;
+  constructor(private router: Router, private store: Store) {
     this.selectedList$ = this.store.select(getListState);
     this.selectedList$?.subscribe(list => {
       if (list?.name) this.isListLoaded.next(true);

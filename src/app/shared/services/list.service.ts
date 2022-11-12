@@ -30,6 +30,10 @@ export class ListService {
     this.store.select(getListState)?.subscribe(list => {
       this.currentList.next(list);
     });
+    const listsLocal = JSON.parse(
+      this.ssrSupportService.getLocalStorageItem('lists')!
+    );
+    if (listsLocal) this.ListsObservableLocal.next(listsLocal);
   }
 
   public setActualSelectedList(list: List): void {
@@ -62,7 +66,7 @@ export class ListService {
       );
     } else {
       const key = 'name';
-      const taskslist = [
+      const lists = [
         ...new Map(
           [...this.ListsObservableLocal.value, list].map((item: any) => [
             item[key],
@@ -70,30 +74,35 @@ export class ListService {
           ])
         ).values(),
       ];
-      this.ListsObservableLocal.next(taskslist);
+      this.ListsObservableLocal.next(lists);
       this.ssrSupportService.setLocalStorageItem(
-        'taskslist',
-        JSON.stringify(taskslist)
+        'lists',
+        JSON.stringify(lists)
       );
     }
   }
 
   public createList(list: List): void {
-    this.fireBaseService.createCollection(
-      `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${list.name}/${list.name}`,
-      list.name,
-      true
-    );
+    if (this.authService.isLoggedIn) {
+      this.fireBaseService.createCollection(
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${list.name}/${list.name}`,
+        list.name,
+        true
+      );
+    }
     this.addList(list, false);
   }
 
-  public removeList(task: List, showAlert = true) {
+  public removeList(list: List, showAlert = true) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.removeCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
-          this.currentList.getValue().name
-        }`,
-        `${task.name}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${list.name}`,
+        showAlert
+      );
+      this.fireBaseService.removeCollectionData(
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${list.name}`,
+        `${list.name}`,
         showAlert
       );
     }

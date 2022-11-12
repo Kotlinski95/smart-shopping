@@ -3,6 +3,7 @@ export interface List {
   name: string;
 }
 export interface ListsState {
+  lists: Array<List>;
   list: List;
   error: string;
 }

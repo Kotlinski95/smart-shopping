@@ -11,6 +11,7 @@ import { Task } from 'src/app/shared/interfaces/task';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getTasksState } from 'src/app/state/selectors';
+import { TasksActions } from 'src/app/state/actions';
 
 @Component({
   selector: 'app-todo-task',
@@ -45,7 +46,7 @@ export class TodoTaskComponent implements OnDestroy {
   }
 
   public done(task: Task) {
-    this.tasksService.done(task);
+    this.store.dispatch(TasksActions.doneTask({ task: task }));
   }
   public addAll(event: Event): void {
     event.stopPropagation();

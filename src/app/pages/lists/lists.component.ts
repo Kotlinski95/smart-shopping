@@ -1,8 +1,10 @@
+import { ListsActions } from 'src/app/state/actions';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { List } from 'src/app/shared/interfaces/list';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListService } from 'src/app/shared/services/list.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-lists',
@@ -16,7 +18,8 @@ export class ListsComponent implements OnDestroy, OnInit {
   private subscriptions: Subscription = new Subscription();
   constructor(
     private listService: ListService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private store: Store
   ) {
     this.filterDoneTaskList();
   }
@@ -51,7 +54,7 @@ export class ListsComponent implements OnDestroy, OnInit {
     const list: List = {
       name: this.newList,
     };
-    this.listService.createList(list);
+    this.store.dispatch(ListsActions.createList({ list: list }));
     this.newList = '';
   }
 }

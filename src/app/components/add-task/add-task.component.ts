@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { List } from 'src/app/shared/interfaces/list';
 import { TaskService } from 'src/app/shared/services/task.service';
+import { TasksActions } from 'src/app/state/actions';
 import { getListState } from 'src/app/state/selectors/lists.selectors';
 
 @Component({
@@ -43,7 +44,8 @@ export class AddTaskComponent implements OnInit {
       created: new Date().toLocaleString(),
       isDone: false,
     };
-    this.tasksService.add(task);
+    this.store.dispatch(TasksActions.addTask({ task: task }));
+    // this.tasksService.add(task);
     this.newTask = '';
   }
 }

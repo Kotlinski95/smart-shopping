@@ -10,6 +10,7 @@ import { Task } from 'src/app/shared/interfaces/task';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getTasksState } from 'src/app/state/selectors';
+import { TasksActions } from 'src/app/state/actions';
 
 @Component({
   selector: 'app-done-task',
@@ -51,7 +52,7 @@ export class DoneTaskComponent implements OnDestroy {
   }
 
   public undo(task: Task) {
-    this.tasksService.undo(task);
+    this.store.dispatch(TasksActions.undoTask({ task: task }));
   }
 
   public roll(): void {
