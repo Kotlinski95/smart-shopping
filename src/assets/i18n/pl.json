@@ -13,7 +13,7 @@
     "login": "Zaloguj się",
     "login_message": " jeśli chcesz współdzielic listę pomiędzy urządzeniami",
     "loading": "Ładowanie...",
-    "title": "Lista zakupów",
+    "title": "Lista: {{ listname }}",
     "todo_tasks": {
       "addAll": "Dodaj wszystkie",
       "title": "Lista zakupów ({{tasksListLength}}):",
@@ -38,6 +38,17 @@
       "content": "Chcesz dodać wszystkie zadania do listy zrealizowanych zadań.",
       "btnCloseLabel": "Zamknij",
       "btnConfirmLabel": "Dodaj wszystko"
+    }
+  },
+  "lists": {
+    "title": "Listy",
+    "add_list": {
+      "button_label": "Dodaj Listę",
+      "input_placeholder": "Nazwa listy"
+    },
+    "list": {
+      "open": "Otwórz",
+      "remove": "Usuń"
     }
   },
   "dashboard": {

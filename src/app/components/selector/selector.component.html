@@ -1,0 +1,17 @@
+<form [formGroup]="newListForm" class="container">
+  <div class="input-group mb-3 d-flex flex-nowrap px-3">
+    <ng-container *ngIf="list$ | async as list">
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        (change)="onChange($event)">
+        <option
+          *ngFor="let option of lists"
+          [value]="option.name"
+          [selected]="option === list ? true : false">
+          {{ option.name }}
+        </option>
+      </select>
+    </ng-container>
+  </div>
+</form>

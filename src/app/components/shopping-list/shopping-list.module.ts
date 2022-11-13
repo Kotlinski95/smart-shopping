@@ -11,6 +11,7 @@ import { DoneTaskModule } from '../done-task/done-task.module';
 import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/modules/shared.module';
+import { SelectorModule } from '../selector/selector.module';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
     LoadingSpinnerModule,
     TranslateModule,
     SharedModule,
+    SelectorModule,
   ],
   exports: [ShoppingListComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

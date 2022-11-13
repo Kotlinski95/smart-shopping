@@ -7,8 +7,12 @@
   </app-message-box>
 </ng-container>
 
-<section class="shopping-list-component">
-  <h2>{{ 'shopping_list.title' | translate }}</h2>
+<section class="shopping-list-component" *ngIf="list$ | async as list">
+  <h2>{{ 'shopping_list.title' | translate: { listname: list.name } }}</h2>
+  <ng-container *ngIf="lists$ | async as lists">
+    <app-selector [lists]="lists"></app-selector>
+  </ng-container>
+
   <div class="header">
     <app-add-task class="w-100"></app-add-task>
   </div>
