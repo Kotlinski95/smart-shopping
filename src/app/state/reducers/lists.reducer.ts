@@ -21,6 +21,17 @@ export const ListsReducer = createReducer<ListsState>(
       list: action.list,
     };
   }),
+  on(ListsActions.setListsSuccess, (state, action): ListsState => {
+    return {
+      ...state,
+      lists: action.lists,
+    };
+  }),
+  on(ListsActions.setLists, (state): ListsState => {
+    return {
+      ...state,
+    };
+  }),
   on(ListsActions.createListSuccess, (state): ListsState => {
     return {
       ...state,
@@ -30,6 +41,17 @@ export const ListsReducer = createReducer<ListsState>(
     return {
       ...state,
       lists: [...state.lists, action.list],
+    };
+  }),
+  on(ListsActions.removeListSuccess, (state): ListsState => {
+    return {
+      ...state,
+    };
+  }),
+  on(ListsActions.removeList, (state, action): ListsState => {
+    return {
+      ...state,
+      lists: [...state.lists.filter(list => list !== action.list)],
     };
   })
 );

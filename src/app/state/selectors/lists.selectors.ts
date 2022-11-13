@@ -8,6 +8,11 @@ export const getListState = createSelector(
   state => state && state.list
 );
 
+export const getListsState = createSelector(
+  getTaskListsState,
+  state => state && state.lists
+);
+
 export const getListError = createSelector(
   getTaskListsState,
   state => state && state.error

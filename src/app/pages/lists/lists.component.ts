@@ -5,6 +5,7 @@ import { List } from 'src/app/shared/interfaces/list';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListService } from 'src/app/shared/services/list.service';
 import { Store } from '@ngrx/store';
+import { getListsState } from 'src/app/state/selectors';
 
 @Component({
   selector: 'app-lists',
@@ -22,12 +23,13 @@ export class ListsComponent implements OnDestroy, OnInit {
     private store: Store
   ) {
     this.filterDoneTaskList();
+    this.store.dispatch(ListsActions.setLists());
   }
 
   private filterDoneTaskList(): void {
     this.subscriptions.add(
-      this.listService.getListObservableFb().subscribe((tasksList: List[]) => {
-        this.tasksList = tasksList;
+      this.store.select(getListsState)?.subscribe(lists => {
+        this.tasksList = lists;
       })
     );
   }
@@ -47,7 +49,7 @@ export class ListsComponent implements OnDestroy, OnInit {
   }
 
   public remove(list: List): void {
-    this.listService.removeList(list);
+    this.store.dispatch(ListsActions.removeList({ list: list }));
   }
 
   public addList() {

@@ -4,12 +4,12 @@ import { Task } from 'src/app/shared/interfaces/task';
 export const setTasks = createAction('[Tasks] Set all tasks to show');
 
 export const setTasksSuccess = createAction(
-  '[Tasks] Set all tasks to show success',
+  '[Tasks] Set all tasks to show - success',
   props<{ tasks: Task[] }>()
 );
 
 export const setTasksFailure = createAction(
-  '[Tasks] Set all tasks to show failure',
+  '[Tasks] Set all tasks to show - failure',
   props<{ error: string }>()
 );
 
@@ -18,10 +18,12 @@ export const addTask = createAction(
   props<{ task: Task }>()
 );
 
-export const addTaskSuccess = createAction('[Tasks] Add task to list success');
+export const addTaskSuccess = createAction(
+  '[Tasks] Add task to list - success'
+);
 
 export const addTaskFailure = createAction(
-  '[Tasks] Add task to list failure',
+  '[Tasks] Add task to list - failure',
   props<{ error: string }>()
 );
 
@@ -31,11 +33,11 @@ export const removeTask = createAction(
 );
 
 export const removeTaskSuccess = createAction(
-  '[Tasks] Remove task from the list success'
+  '[Tasks] Remove task from the list - success'
 );
 
 export const removeTaskFailure = createAction(
-  '[Tasks] Remove task from the list failure',
+  '[Tasks] Remove task from the list - failure',
   props<{ error: string }>()
 );
 
@@ -44,10 +46,12 @@ export const doneTask = createAction(
   props<{ task: Task }>()
 );
 
-export const doneTaskSuccess = createAction('[Tasks] Set task as done success');
+export const doneTaskSuccess = createAction(
+  '[Tasks] Set task as done - success'
+);
 
 export const doneTaskFailure = createAction(
-  '[Tasks] Set task as done failure',
+  '[Tasks] Set task as done - failure',
   props<{ error: string }>()
 );
 
@@ -57,11 +61,11 @@ export const undoTask = createAction(
 );
 
 export const undoTaskSuccess = createAction(
-  '[Tasks] Task restored to shopping list success'
+  '[Tasks] Task restored to shopping list - success'
 );
 
 export const undoTaskFailure = createAction(
-  '[Tasks] Task restored to shopping list failure',
+  '[Tasks] Task restored to shopping list - failure',
   props<{ error: string }>()
 );
 
@@ -71,11 +75,11 @@ export const addAllTasks = createAction(
 );
 
 export const addAllTasksSuccess = createAction(
-  '[Tasks] Add all tasks to list success'
+  '[Tasks] Add all tasks to list - success'
 );
 
 export const addAllTasksFailure = createAction(
-  '[Tasks] Add all tasks to list failure',
+  '[Tasks] Add all tasks to list - failure',
   props<{ error: string }>()
 );
 
@@ -85,10 +89,10 @@ export const removeAllTasks = createAction(
 );
 
 export const removeAllTasksSuccess = createAction(
-  '[Tasks] Remove all tasks from the list success'
+  '[Tasks] Remove all tasks from the list - success'
 );
 
 export const removeAllTasksFailure = createAction(
-  '[Tasks] Remove all tasks from the list failure',
+  '[Tasks] Remove all tasks from the list - failure',
   props<{ error: string }>()
 );

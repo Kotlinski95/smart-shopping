@@ -7,11 +7,23 @@ export const setList = createAction(
 );
 
 export const setListSuccess = createAction(
-  '[Task-Lists] Set task list to show success'
+  '[Task-Lists] Set task list to show - success'
 );
 
 export const setListFailure = createAction(
-  '[Task-Lists] Create Subscription failure',
+  '[Task-Lists] Set task list to show - failure',
+  props<{ error: string }>()
+);
+
+export const setLists = createAction('[Task-Lists] Set lists to show');
+
+export const setListsSuccess = createAction(
+  '[Task-Lists] Set lists to show - success',
+  props<{ lists: List[] }>()
+);
+
+export const setListsFailure = createAction(
+  '[Task-Lists] Set lists to show - failure',
   props<{ error: string }>()
 );
 
@@ -21,10 +33,24 @@ export const createList = createAction(
 );
 
 export const createListSuccess = createAction(
-  '[Task-Lists] Create new task list success'
+  '[Task-Lists] Create new task list - success'
 );
 
 export const createListFailure = createAction(
-  '[Task-Lists] Create new task list failure',
+  '[Task-Lists] Create new task list - failure',
+  props<{ error: string }>()
+);
+
+export const removeList = createAction(
+  '[Task-Lists] Remove task from the list',
+  props<{ list: List }>()
+);
+
+export const removeListSuccess = createAction(
+  '[Task-Lists] Remove task from the list - success'
+);
+
+export const removeListFailure = createAction(
+  '[Task-Lists] Remove task from the list - failure',
   props<{ error: string }>()
 );
