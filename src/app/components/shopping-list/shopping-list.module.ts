@@ -12,6 +12,10 @@ import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module'
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/modules/shared.module';
 import { SelectorModule } from '../selector/selector.module';
+import * as Effects from 'src/app/state/effects';
+import * as Reducers from 'src/app/state/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 const routes: Routes = [
   {
@@ -35,6 +39,9 @@ const routes: Routes = [
     TranslateModule,
     SharedModule,
     SelectorModule,
+    EffectsModule.forFeature([Effects.ListsEffects, Effects.TasksEffects]),
+    StoreModule.forFeature('Shopping-Lists', Reducers.ListsReducer),
+    StoreModule.forFeature('Tasks', Reducers.TasksReducer),
   ],
   exports: [ShoppingListComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -38,8 +38,8 @@ export class ListsEffects {
     )
   );
 
-  setTasksList$ = createEffect(() =>
-    this.actions$.pipe(
+  setTasksList$ = createEffect(() => {
+    return this.actions$.pipe(
       ofType(ListsActions.setList),
       tap(action => {
         this.ssrSupportService.setLocalStorageItem(
@@ -51,8 +51,8 @@ export class ListsEffects {
       tap(() => {
         this.router.navigate(['/']);
       })
-    )
-  );
+    );
+  });
 
   createTasksList$ = createEffect(() =>
     this.actions$.pipe(

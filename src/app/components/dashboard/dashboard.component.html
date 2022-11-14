@@ -38,9 +38,15 @@
             </div>
           </div>
           <div class="d-flex justify-content-between mb-2">
-            <a class="btn btn-dark" routerLink="/">{{
-              'dashboard.shopping_list' | translate
-            }}</a>
+            <ng-container *ngIf="selectedList$ | async as selectedList">
+              <a
+                class="btn btn-dark"
+                routerLink="/"
+                *ngIf="selectedList.name"
+                >{{ 'dashboard.shopping_list' | translate }}</a
+              >
+            </ng-container>
+
             <a class="btn btn-dark" routerLink="/lists">{{
               'dashboard.shopping_lists' | translate
             }}</a>

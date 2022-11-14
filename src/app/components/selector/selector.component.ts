@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { List } from 'src/app/shared/interfaces/list';
 import { ListService } from 'src/app/shared/services/list.service';
+import { TasksActions } from 'src/app/state/actions';
 import { getListState } from 'src/app/state/selectors';
 
 @Component({
@@ -35,6 +36,7 @@ export class SelectorComponent implements OnInit {
 
   public selectList(list: List): void {
     this.listService.setActualSelectedList(list);
+    this.store.dispatch(TasksActions.setTasks());
   }
 
   public ngOnInit(): void {
