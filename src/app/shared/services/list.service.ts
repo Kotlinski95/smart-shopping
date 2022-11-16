@@ -9,13 +9,12 @@ import { AuthService } from './auth.service';
 import { FirebaseService } from './firebase.service';
 import { DocumentData } from 'firebase/firestore';
 import { config } from '../../config';
-import { SsrSupportService } from './ssr-support.service';
+import { LocalService } from './local.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ListService {
-  private ListsObservableLocal = new BehaviorSubject<List[]>([]);
   private initList: List = { name: '' };
   private currentList: BehaviorSubject<List> = new BehaviorSubject(
     this.initList
@@ -25,15 +24,11 @@ export class ListService {
     private store: Store,
     private authService: AuthService,
     private fireBaseService: FirebaseService,
-    private ssrSupportService: SsrSupportService
+    private localService: LocalService
   ) {
     this.store.select(getListState)?.subscribe(list => {
       this.currentList.next(list);
     });
-    const listsLocal = JSON.parse(
-      this.ssrSupportService.getLocalStorageItem('lists')!
-    );
-    if (listsLocal) this.ListsObservableLocal.next(listsLocal);
   }
 
   public setActualSelectedList(list: List): void {
@@ -52,7 +47,7 @@ export class ListService {
           })
         );
     } else {
-      return this.ListsObservableLocal.asObservable();
+      return this.localService.ListsObservableLocal$;
     }
   }
 
@@ -65,20 +60,7 @@ export class ListService {
         alert
       );
     } else {
-      const key = 'name';
-      const lists = [
-        ...new Map(
-          [...this.ListsObservableLocal.value, list].map((item: any) => [
-            item[key],
-            item,
-          ])
-        ).values(),
-      ];
-      this.ListsObservableLocal.next(lists);
-      this.ssrSupportService.setLocalStorageItem(
-        'lists',
-        JSON.stringify(lists)
-      );
+      this.localService.addList(list, alert);
     }
   }
 
@@ -105,6 +87,8 @@ export class ListService {
         `${list.name}`,
         showAlert
       );
+    } else {
+      this.localService.removeList(list, showAlert);
     }
   }
 }

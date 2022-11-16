@@ -8,7 +8,14 @@
 </ng-container>
 
 <section class="shopping-list-component" *ngIf="list$ | async as list">
-  <h2>{{ 'shopping_list.title' | translate: { listname: list.name } }}</h2>
+  <p class="manage-lists">
+    <a routerLink="/lists"
+      >{{ 'shopping_list.manage_lists' | translate }} &#10144;</a
+    >
+  </p>
+  <h2>
+    {{ 'shopping_list.title' | translate: { listname: list.name } }}
+  </h2>
   <ng-container *ngIf="lists$ | async as lists">
     <app-selector [lists]="lists"></app-selector>
   </ng-container>
