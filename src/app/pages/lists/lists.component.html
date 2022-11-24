@@ -1,0 +1,48 @@
+<div class="container p-5 flex-column">
+  <form (ngSubmit)="addList()" [formGroup]="newTaskForm">
+    <div class="input-group mb-3 d-flex flex-nowrap px-3">
+      <input
+        type="text"
+        placeholder="{{ 'lists.add_list.input_placeholder' | translate }}"
+        [(ngModel)]="newList"
+        formControlName="newList"
+        class="rounded flex w-100"
+        #inputField />
+      <div class="input-group-append d-flex">
+        <button
+          type="submit"
+          class="input-group-text btn btn-dark col-6 w-100"
+          id="basic-addon2"
+          [disabled]="!newTaskForm.valid">
+          {{ 'lists.add_list.button_label' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+  <h1>{{ 'lists.title' | translate }}</h1>
+  <div *ngIf="this.isListLoaded$ | async; else loading">
+    <ol class="list-group" #toDoTaskListGroup>
+      <li *ngFor="let list of tasksList" class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <div class="px-2 word-break">
+            {{ list.name }}
+          </div>
+          <div class="d-flex flex-nowrap align-self-center">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="selectList(list)">
+              {{ 'lists.list.open' | translate }}
+            </button>
+            <button type="button" class="btn btn-danger" (click)="remove(list)">
+              {{ 'lists.list.remove' | translate }}
+            </button>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <ng-template #loading>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+</div>

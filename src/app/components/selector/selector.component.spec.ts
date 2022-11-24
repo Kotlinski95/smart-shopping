@@ -1,31 +1,33 @@
-import { NgZone } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { provideFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateFakeLoader,
   TranslateLoader,
   TranslateModule,
+  TranslateService,
 } from '@ngx-translate/core';
 import { getFirestore } from 'firebase/firestore';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { TaskService } from 'src/app/shared/services/task.service';
 import { environment } from 'src/environments/environment';
 
-import { AuthService } from './auth.service';
+import { SelectorComponent } from './selector.component';
 
-describe('AuthService', () => {
-  let service: AuthService;
+describe('SelectorComponent', () => {
+  let component: SelectorComponent;
+  let fixture: ComponentFixture<SelectorComponent>;
   const initialState = {};
   let store: MockStore;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [SelectorComponent],
       imports: [
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
@@ -39,13 +41,23 @@ describe('AuthService', () => {
           },
         }),
       ],
-      providers: [AuthService, provideMockStore({ initialState })],
-    });
-    store = TestBed.inject(MockStore);
-    service = TestBed.inject(AuthService);
+      providers: [
+        FirebaseService,
+        FormBuilder,
+        TranslateService,
+        TaskService,
+        provideMockStore({ initialState }),
+      ],
+    }).compileComponents();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SelectorComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

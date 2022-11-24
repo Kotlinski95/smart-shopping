@@ -1,12 +1,8 @@
-import { NgZone } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { provideFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
@@ -15,17 +11,20 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { getFirestore } from 'firebase/firestore';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { environment } from 'src/environments/environment';
 
-import { AuthService } from './auth.service';
+import { VerifyEmailComponent } from './verify-email.component';
 
-describe('AuthService', () => {
-  let service: AuthService;
+describe('VerifyEmailComponent', () => {
+  let component: VerifyEmailComponent;
+  let fixture: ComponentFixture<VerifyEmailComponent>;
   const initialState = {};
   let store: MockStore;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [VerifyEmailComponent],
       imports: [
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
@@ -40,12 +39,17 @@ describe('AuthService', () => {
         }),
       ],
       providers: [AuthService, provideMockStore({ initialState })],
-    });
-    store = TestBed.inject(MockStore);
-    service = TestBed.inject(AuthService);
+    }).compileComponents();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    store = TestBed.inject(MockStore);
+    fixture = TestBed.createComponent(VerifyEmailComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

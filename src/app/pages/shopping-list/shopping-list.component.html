@@ -1,0 +1,41 @@
+<ng-container *ngIf="!isLoggedIn()">
+  <app-message-box>
+    <p class="mb-0">
+      <a routerLink="/login">{{ 'shopping_list.login' | translate }}</a
+      >{{ 'shopping_list.login_message' | translate }}
+    </p>
+  </app-message-box>
+</ng-container>
+
+<section class="shopping-list-component" *ngIf="list$ | async as list">
+  <p class="manage-lists">
+    <a routerLink="/lists"
+      >{{ 'shopping_list.manage_lists' | translate }} &#10144;</a
+    >
+  </p>
+  <h2>
+    {{ 'shopping_list.title' | translate: { listname: list.name } }}
+  </h2>
+  <div *ngIf="this.isTaskListLoaded$ | async; else loading">
+    <ng-container *ngIf="lists$ | async as lists">
+      <app-selector [lists]="lists"></app-selector>
+    </ng-container>
+
+    <div class="header">
+      <app-add-task class="w-100"></app-add-task>
+    </div>
+    <div class="container pb-5 px-3">
+      <div class="row w-100">
+        <div class="col-12 col-md-6">
+          <app-todo-task></app-todo-task>
+        </div>
+        <div class="col-12 col-md-6">
+          <app-done-task></app-done-task>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+</section>

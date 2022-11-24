@@ -1,5 +1,4 @@
 {
-  "test": "test",
   "shopping_list": {
     "add_task": {
       "button_label": "Add Task",
@@ -14,7 +13,8 @@
     "login": "Sign in",
     "login_message": " if you want to share the list between devices.",
     "loading": "Loading...",
-    "title": "Shopping List",
+    "title": "List: {{ listname }}",
+    "manage_lists": "Manage Lists",
     "todo_tasks": {
       "addAll": "Add All",
       "title": "Task list ({{tasksListLength}}):",
@@ -41,12 +41,24 @@
       "btnConfirmLabel": "Add all"
     }
   },
+  "lists": {
+    "title": "Lists",
+    "add_list": {
+      "button_label": "Add List",
+      "input_placeholder": "List name"
+    },
+    "list": {
+      "open": "Open",
+      "remove": "Remove"
+    }
+  },
   "dashboard": {
     "title": "Profile",
     "id": "User ID: ",
     "email": "Email: ",
     "email_verified": "Email verified: ",
     "shopping_list": "Shopping List",
+    "shopping_lists": "All lists",
     "logout": "Logout"
   },
   "reset_password": {
@@ -118,7 +130,9 @@
       "add_all_tasks_success": "Done! All tasks were added to the list",
       "add_all_tasks_failue": "Ups! Something went wrong while adding data with message: {{errorMessage}}",
       "remove_all_tasks_success": "Done! All tasks were removed from the list",
-      "remove_all_tasks_failue": "Ups! Something went wrong while removing data with message: {{errorMessage}}"
+      "remove_all_tasks_failue": "Ups! Something went wrong while removing data with message: {{errorMessage}}",
+      "create_list_success": "Done! Collection {{collectonName}} was added to the database",
+      "create_list_failure": "Ups! Something went wrong while creating collection data with message: {{errorMessage}}"
     },
     "authorization": {
       "login_success": "User successfully sign in",

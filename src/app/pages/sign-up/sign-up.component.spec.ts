@@ -1,12 +1,9 @@
-import { NgZone } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { provideFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
@@ -14,18 +11,20 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { getFirestore } from 'firebase/firestore';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { environment } from 'src/environments/environment';
 
-import { AuthService } from './auth.service';
+import { SignUpComponent } from './sign-up.component';
 
-describe('AuthService', () => {
-  let service: AuthService;
+describe('SignUpComponent', () => {
+  let component: SignUpComponent;
+  let fixture: ComponentFixture<SignUpComponent>;
   const initialState = {};
   let store: MockStore;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [SignUpComponent],
       imports: [
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
@@ -39,13 +38,18 @@ describe('AuthService', () => {
           },
         }),
       ],
-      providers: [AuthService, provideMockStore({ initialState })],
-    });
-    store = TestBed.inject(MockStore);
-    service = TestBed.inject(AuthService);
+      providers: [AuthService, FormBuilder, provideMockStore({ initialState })],
+    }).compileComponents();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    store = TestBed.inject(MockStore);
+    fixture = TestBed.createComponent(SignUpComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

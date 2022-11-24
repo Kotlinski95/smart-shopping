@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { ListGuard } from './shared/guard/list.guard';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./components/shopping-list/shopping-list.module').then(
+      import('./pages/shopping-list/shopping-list.module').then(
         m => m.ShoppingListModule
       ),
     data: {
@@ -16,11 +17,12 @@ const routes: Routes = [
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
     },
+    canActivate: [ListGuard],
   },
   {
     path: 'login',
     loadChildren: () =>
-      import('./components/sign-in/sign-in.module').then(m => m.SignInModule),
+      import('./pages/sign-in/sign-in.module').then(m => m.SignInModule),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',
@@ -32,7 +34,7 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () =>
-      import('./components/sign-up/sign-up.module').then(m => m.SignUpModule),
+      import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',
@@ -44,9 +46,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./components/dashboard/dashboard.module').then(
-        m => m.DashboardModule
-      ),
+      import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',
@@ -60,7 +60,7 @@ const routes: Routes = [
     path: 'forgot-password',
 
     loadChildren: () =>
-      import('./components/forgot-passoword/forgot-password.module').then(
+      import('./pages/forgot-passoword/forgot-password.module').then(
         m => m.ForgotPassowrdModule
       ),
     data: {
@@ -74,7 +74,7 @@ const routes: Routes = [
   {
     path: 'verify-email-address',
     loadChildren: () =>
-      import('./components/verify-email/verify-email.module').then(
+      import('./pages/verify-email/verify-email.module').then(
         m => m.VerifyEmailModule
       ),
     data: {
@@ -139,6 +139,18 @@ const routes: Routes = [
     path: 'contact',
     loadChildren: () =>
       import('./pages/contact/contact.module').then(m => m.ContactModule),
+    data: {
+      title: 'Smart Shopping',
+      description: 'Smart Shopping for everyone',
+      ogUrl: 'your og url',
+      author: 'Adrian Kotlinski',
+      keywords: 'smart,shopping,list,app,pwa,ssr',
+    },
+  },
+  {
+    path: 'lists',
+    loadChildren: () =>
+      import('./pages/lists/lists.module').then(m => m.ListsModule),
     data: {
       title: 'Smart Shopping',
       description: 'Smart Shopping for everyone',

@@ -1,3 +1,4 @@
+import { TasksActions } from 'src/app/state/actions';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Task } from '../interfaces/task';
@@ -6,79 +7,70 @@ import { FirebaseService } from './firebase.service';
 import { config } from '../../config';
 import { BehaviorSubject, map } from 'rxjs';
 import { AuthService } from './auth.service';
-import { SsrSupportService } from './ssr-support.service';
 import { ModalService } from './modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalParams } from '../interfaces/modal';
 import { AlertService } from './alert.service';
 import { AlertType } from '../interfaces/alert';
+import { List } from '../interfaces/list';
+import { Store } from '@ngrx/store';
+import { getListState } from 'src/app/state/selectors/lists.selectors';
+import { LocalService } from './local.service';
 
 @Injectable()
 export class TaskService {
-  private tasksListObservableLocal = new BehaviorSubject<Task[]>([]);
+  private initList: List = { name: config.firebase.collectionName };
+  private currentList = new BehaviorSubject(this.initList);
   private tasksListLoaded = new BehaviorSubject<boolean>(false);
   private translationSection = 'alert.shopping_list';
 
   constructor(
     private fireBaseService: FirebaseService,
     private authService: AuthService,
-    private ssrSupportService: SsrSupportService,
     private modalService: ModalService,
     private translate: TranslateService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store,
+    private localService: LocalService
   ) {
-    const taskslist = JSON.parse(
-      this.ssrSupportService.getLocalStorageItem('taskslist')!
-    );
-    if (taskslist) this.tasksListObservableLocal.next(taskslist);
+    this.store.select(getListState)?.subscribe(list => {
+      this.currentList.next(list);
+    });
   }
 
   public add(task: Task): void {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.addCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+          this.currentList.getValue().name
+        }`,
         `${task.name}`,
         task
       );
     } else {
-      const key = 'name';
-      const taskslist = [
-        ...new Map(
-          [...this.tasksListObservableLocal.value, task].map((item: any) => [
-            item[key],
-            item,
-          ])
-        ).values(),
-      ];
-      this.tasksListObservableLocal.next(taskslist);
-      this.ssrSupportService.setLocalStorageItem(
-        'taskslist',
-        JSON.stringify(taskslist)
-      );
+      this.localService.add(task);
     }
   }
+
   public remove(task: Task, showAlert = true) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.removeCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+          this.currentList.getValue().name
+        }`,
         `${task.name}`,
         showAlert
       );
     } else {
-      const taskslist = this.tasksListObservableLocal.value.filter(
-        taskFromList => taskFromList.name != task.name
-      );
-      this.tasksListObservableLocal.next(taskslist);
-      this.ssrSupportService.setLocalStorageItem(
-        'taskslist',
-        JSON.stringify(taskslist)
-      );
+      this.localService.remove(task);
     }
   }
   public done(task: Task, showAlert = true) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.updateCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+          this.currentList.getValue().name
+        }`,
         `${task.name}`,
         {
           ...task,
@@ -88,26 +80,16 @@ export class TaskService {
         showAlert
       );
     } else {
-      const taskslist = this.tasksListObservableLocal.getValue();
-      taskslist[
-        taskslist.findIndex(taskFromList => taskFromList.name === task.name)
-      ] = {
-        ...task,
-        end: new Date().toLocaleString(),
-        isDone: true,
-      };
-      this.tasksListObservableLocal.next(taskslist);
-      this.ssrSupportService.setLocalStorageItem(
-        'taskslist',
-        JSON.stringify(taskslist)
-      );
+      this.localService.done(task);
     }
   }
 
   public undo(task: Task) {
     if (this.authService.isLoggedIn) {
       this.fireBaseService.updateCollectionData(
-        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`,
+        `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+          this.currentList.getValue().name
+        }`,
         `${task.name}`,
         {
           ...task,
@@ -116,19 +98,7 @@ export class TaskService {
         }
       );
     } else {
-      const taskslist = this.tasksListObservableLocal.getValue();
-      taskslist[
-        taskslist.findIndex(taskFromList => taskFromList.name === task.name)
-      ] = {
-        ...task,
-        end: '',
-        isDone: false,
-      };
-      this.tasksListObservableLocal.next(taskslist);
-      this.ssrSupportService.setLocalStorageItem(
-        'taskslist',
-        JSON.stringify(taskslist)
-      );
+      this.localService.undo(task);
     }
   }
 
@@ -143,21 +113,21 @@ export class TaskService {
     return list.length;
   }
 
-  public gettasksListObservableFb(): Observable<Array<Task>> {
+  public getTasksListObservableFb(listName?: string): Observable<Array<Task>> {
     if (this.authService.isLoggedIn) {
       return this.fireBaseService
         .getFireBaseCollectionData(
-          `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${config.firebase.collectionName}`
+          `${config.firebase.usersPrefix}/${this.authService.actualUser.uid}/${
+            listName ? listName : this.currentList.getValue().name
+          }`
         )
         .pipe(
           map((data: DocumentData[]) => {
-            this.tasksListLoaded.next(true);
             return <Task[]>[...data];
           })
         );
     } else {
-      this.tasksListLoaded.next(true);
-      return this.tasksListObservableLocal.asObservable();
+      return this.localService.tasksObservableLocal$;
     }
   }
 
@@ -181,7 +151,9 @@ export class TaskService {
         taskName: task.name,
       }),
     };
-    this.modalService.setModal(modalParams, () => this.remove(task));
+    this.modalService.setModal(modalParams, () =>
+      this.store.dispatch(TasksActions.removeTask({ task: task }))
+    );
   }
 
   public clearTasksWithModal(list: Array<Task>): void {
@@ -199,29 +171,33 @@ export class TaskService {
       content: this.translate.instant(`${translationSection}.content`),
     };
     this.modalService.setModal(modalParams, () => {
-      this.clearDoneList(list, false)
-        .then(() => {
-          this.alertService.setAlert({
-            type: AlertType.Success,
-            message: this.translate.instant(
-              `${this.translationSection}.remove_all_tasks_success`
-            ),
-            duration: 3000,
-          });
-        })
-        .catch(error => {
-          this.alertService.setAlert({
-            type: AlertType.Success,
-            message: this.translate.instant(
-              `${this.translationSection}.remove_all_tasks_failue`,
-              {
-                errorMessage: error,
-              }
-            ),
-            duration: 3000,
-          });
-        });
+      this.store.dispatch(TasksActions.removeAllTasks({ list: list }));
     });
+  }
+
+  public clearTasksPromise(list: Array<Task>) {
+    this.clearDoneList(list, false)
+      .then(() => {
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.remove_all_tasks_success`
+          ),
+          duration: 3000,
+        });
+      })
+      .catch(error => {
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.remove_all_tasks_failue`,
+            {
+              errorMessage: error,
+            }
+          ),
+          duration: 3000,
+        });
+      });
   }
 
   public addAllWithModal(tasksList: Array<Task>): void {
@@ -238,30 +214,33 @@ export class TaskService {
       ),
       content: this.translate.instant(`${translationSection}.content`),
     };
-    this.modalService.setModal(modalParams, () => {
-      this.addAllTasks(tasksList)
-        .then(() => {
-          this.alertService.setAlert({
-            type: AlertType.Success,
-            message: this.translate.instant(
-              `${this.translationSection}.add_all_tasks_success`
-            ),
-            duration: 3000,
-          });
-        })
-        .catch(error => {
-          this.alertService.setAlert({
-            type: AlertType.Success,
-            message: this.translate.instant(
-              `${this.translationSection}.add_all_tasks_failue`,
-              {
-                errorMessage: error,
-              }
-            ),
-            duration: 3000,
-          });
+    this.modalService.setModal(modalParams, () =>
+      this.store.dispatch(TasksActions.addAllTasks({ list: tasksList }))
+    );
+  }
+  public addAllTasksPromise(tasksList: Array<Task>) {
+    this.addAllTasks(tasksList)
+      .then(() => {
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.add_all_tasks_success`
+          ),
+          duration: 3000,
         });
-    });
+      })
+      .catch(error => {
+        this.alertService.setAlert({
+          type: AlertType.Success,
+          message: this.translate.instant(
+            `${this.translationSection}.add_all_tasks_failue`,
+            {
+              errorMessage: error,
+            }
+          ),
+          duration: 3000,
+        });
+      });
   }
 
   public addAllTasks(tasksList: Array<Task>): Promise<void> {

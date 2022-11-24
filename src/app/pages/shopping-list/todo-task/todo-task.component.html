@@ -1,0 +1,43 @@
+<ng-container *ngIf="tasksListFiltered.length > 0; else noTask">
+  <p
+    [ngStyle]="{ color: getColor() }"
+    (click)="roll()"
+    role="button"
+    class="d-flex justify-content-between align-items-center p-3 bg-light rounded cursor-pointer">
+    {{
+      'shopping_list.todo_tasks.title'
+        | translate: { tasksListLength: tasksListFiltered.length }
+    }}
+    <button (click)="addAll($event)" class="btn btn-dark">
+      {{ 'shopping_list.todo_tasks.addAll' | translate }}
+    </button>
+  </p>
+  <ol class="list-group" #toDoTaskListGroup>
+    <li
+      appDate
+      [date]="task.created"
+      class="list-group-item"
+      *ngFor="let task of tasksListFiltered | sortName; let odd = odd"
+      [ngClass]="{
+        'odd-li': odd === true,
+        'li-last': tasksListFiltered.length === 1
+      }">
+      <div class="d-flex justify-content-between">
+        <div class="px-2 word-break">
+          {{ task.name | transformTask }}
+        </div>
+        <div class="d-flex flex-nowrap align-self-center">
+          <button type="button" class="btn btn-danger" (click)="remove(task)">
+            {{ 'shopping_list.todo_tasks.delete' | translate }}
+          </button>
+          <button type="button" class="btn btn-success" (click)="done(task)">
+            {{ 'shopping_list.todo_tasks.done' | translate }}
+          </button>
+        </div>
+      </div>
+    </li>
+  </ol>
+</ng-container>
+<ng-template #noTask>
+  <p>{{ 'shopping_list.todo_tasks.noTask' | translate }}</p>
+</ng-template>

@@ -1,12 +1,8 @@
-import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { provideFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
@@ -16,12 +12,12 @@ import {
 } from '@ngx-translate/core';
 import { getFirestore } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
+import { FirebaseService } from './firebase.service';
 
-import { AuthService } from './auth.service';
+import { LocalService } from './local.service';
 
-describe('AuthService', () => {
-  let service: AuthService;
-  const initialState = {};
+describe('LocalService', () => {
+  let service: LocalService;
   let store: MockStore;
 
   beforeEach(() => {
@@ -39,10 +35,10 @@ describe('AuthService', () => {
           },
         }),
       ],
-      providers: [AuthService, provideMockStore({ initialState })],
+      providers: [FirebaseService, provideMockStore()],
     });
     store = TestBed.inject(MockStore);
-    service = TestBed.inject(AuthService);
+    service = TestBed.inject(LocalService);
   });
 
   it('should be created', () => {
