@@ -4,6 +4,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { provideFirestore } from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateFakeLoader,
   TranslateLoader,
@@ -15,6 +16,9 @@ import { AppComponent } from './app.component';
 import { AuthService } from './shared/services/auth.service';
 
 describe('AppComponent', () => {
+  const initialState = {};
+  let store: MockStore;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
@@ -31,11 +35,12 @@ describe('AppComponent', () => {
           },
         }),
       ],
-      providers: [AuthService],
+      providers: [AuthService, provideMockStore({ initialState })],
     }).compileComponents();
   });
 
   it('should create the app', () => {
+    store = TestBed.inject(MockStore);
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();

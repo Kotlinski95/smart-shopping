@@ -1,3 +1,4 @@
+import { ListsActions } from 'src/app/state/actions';
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../interfaces/user';
 import * as auth from 'firebase/auth';
@@ -13,6 +14,7 @@ import { SsrSupportService } from './ssr-support.service';
 import { AlertService } from './alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertType } from '../interfaces/alert';
+import { Store } from '@ngrx/store';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,7 +28,8 @@ export class AuthService {
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     public ssrSupportService: SsrSupportService,
     private alertService: AlertService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private store: Store
   ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
@@ -62,6 +65,7 @@ export class AuthService {
           ),
           duration: 3000,
         });
+        this.store.dispatch(ListsActions.cleanSelectedList());
       })
       .catch(error => {
         this.alertService.setAlert({
@@ -88,6 +92,7 @@ export class AuthService {
           ),
           duration: 3000,
         });
+        this.store.dispatch(ListsActions.cleanSelectedList());
       })
       .catch(error => {
         this.alertService.setAlert({
@@ -175,6 +180,7 @@ export class AuthService {
             });
           }
         });
+        this.store.dispatch(ListsActions.cleanSelectedList());
       })
       .catch(error => {
         this.alertService.setAlert({
@@ -205,6 +211,7 @@ export class AuthService {
             });
           }
         });
+        this.store.dispatch(ListsActions.cleanSelectedList());
       })
       .catch(error => {
         this.alertService.setAlert({
@@ -252,6 +259,7 @@ export class AuthService {
         ),
         duration: 3000,
       });
+      this.store.dispatch(ListsActions.cleanSelectedList());
     });
   }
 }

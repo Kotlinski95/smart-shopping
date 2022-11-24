@@ -11,7 +11,6 @@ import { faUserShield } from '@fortawesome/free-solid-svg-icons';
 export class SignInComponent implements OnInit {
   faUserShield = faUserShield;
   public signInForm!: FormGroup;
-  // public login: any = '';
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder

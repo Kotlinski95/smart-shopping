@@ -23,7 +23,6 @@ export class ListsComponent implements OnDestroy, OnInit {
     private store: Store
   ) {
     this.filterDoneTaskList();
-    this.store.dispatch(ListsActions.setLists());
   }
 
   private filterDoneTaskList(): void {
@@ -38,6 +37,8 @@ export class ListsComponent implements OnDestroy, OnInit {
     this.newTaskForm = this.formBuilder.group({
       newList: ['', [Validators.required, Validators.minLength(3)]],
     });
+
+    this.store.dispatch(ListsActions.setLists());
   }
 
   public ngOnDestroy(): void {

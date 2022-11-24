@@ -8,7 +8,7 @@
         <option
           *ngFor="let option of lists"
           [value]="option.name"
-          [selected]="option === list ? true : false">
+          [selected]="option.name === list.name ? true : false">
           {{ option.name }}
         </option>
       </select>

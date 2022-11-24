@@ -27,7 +27,6 @@ const routes: Routes = [
     SharedModule,
     EffectsModule.forFeature([Effects.ListsEffects, Effects.TasksEffects]),
     StoreModule.forFeature('Shopping-Lists', Reducers.ListsReducer),
-    StoreModule.forFeature('Tasks', Reducers.TasksReducer),
   ],
   exports: [ListsComponent],
   providers: [TaskService],

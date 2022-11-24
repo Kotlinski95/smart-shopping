@@ -1,14 +1,15 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TasksState } from 'src/app/shared/interfaces/task';
+import { ListsState } from 'src/app/shared/interfaces/list';
 
-const getTasksStateSelector = createFeatureSelector<TasksState>('Tasks');
+const getTasksStateSelector =
+  createFeatureSelector<ListsState>('Shopping-Lists');
 
 export const getTasksState = createSelector(
   getTasksStateSelector,
-  state => state.tasks
+  state => state && state.list.tasks
 );
 
 export const getTasksError = createSelector(
   getTasksStateSelector,
-  state => state.error
+  state => state && state.error
 );

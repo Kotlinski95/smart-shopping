@@ -28,11 +28,13 @@ export class TodoTaskComponent implements OnDestroy {
   public tasksListFiltered: Task[] = [];
   private subscriptions: Subscription = new Subscription();
   public toDoTaskListGroup!: ElementRef;
-  public tasksList$: Observable<Task[]>;
+  public tasksList$: Observable<Task[] | undefined>;
 
   constructor(private tasksService: TaskService, private store: Store) {
     this.tasksList$ = this.store.select(getTasksState);
-    this.tasksList$.subscribe(tasks => this.filterToDoTaskList(tasks));
+    this.tasksList$.subscribe(tasks => {
+      if (tasks) this.filterToDoTaskList(tasks);
+    });
   }
 
   private filterToDoTaskList(tasks: Array<Task>): void {

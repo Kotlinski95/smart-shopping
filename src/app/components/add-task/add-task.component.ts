@@ -15,7 +15,7 @@ import { getListState } from 'src/app/state/selectors/lists.selectors';
 export class AddTaskComponent implements OnInit {
   public newTaskForm!: FormGroup;
   public newTask = '';
-  public initList: List = { name: '' };
+  public initList: List = { name: '', tasks: [] };
   public currentList: BehaviorSubject<List> = new BehaviorSubject(
     this.initList
   );
@@ -45,7 +45,6 @@ export class AddTaskComponent implements OnInit {
       isDone: false,
     };
     this.store.dispatch(TasksActions.addTask({ task: task }));
-    // this.tasksService.add(task);
     this.newTask = '';
   }
 }

@@ -8,6 +8,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { provideFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateFakeLoader,
   TranslateLoader,
@@ -20,6 +21,8 @@ import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
+  const initialState = {};
+  let store: MockStore;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -36,8 +39,9 @@ describe('AuthService', () => {
           },
         }),
       ],
-      providers: [AuthService],
+      providers: [AuthService, provideMockStore({ initialState })],
     });
+    store = TestBed.inject(MockStore);
     service = TestBed.inject(AuthService);
   });
 

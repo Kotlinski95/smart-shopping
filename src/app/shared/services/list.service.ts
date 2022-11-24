@@ -15,7 +15,7 @@ import { LocalService } from './local.service';
   providedIn: 'root',
 })
 export class ListService {
-  private initList: List = { name: '' };
+  private initList: List = { name: '', tasks: [] };
   private currentList: BehaviorSubject<List> = new BehaviorSubject(
     this.initList
   );

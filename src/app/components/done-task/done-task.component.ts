@@ -26,10 +26,12 @@ export class DoneTaskComponent implements OnDestroy {
   public set TaskListDoneView(content: ElementRef) {
     this.doneTaskListGroup = content;
   }
-  public tasksList$: Observable<Task[]>;
+  public tasksList$: Observable<Task[] | undefined>;
   constructor(private tasksService: TaskService, private store: Store) {
     this.tasksList$ = this.store.select(getTasksState);
-    this.tasksList$.subscribe(tasks => this.filterDoneTaskList(tasks));
+    this.tasksList$.subscribe(tasks => {
+      if (tasks) this.filterDoneTaskList(tasks);
+    });
   }
 
   private filterDoneTaskList(tasks: Array<Task>): void {

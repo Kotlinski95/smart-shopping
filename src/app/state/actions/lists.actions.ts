@@ -54,3 +54,16 @@ export const removeListFailure = createAction(
   '[Task-Lists] Remove task from the list - failure',
   props<{ error: string }>()
 );
+
+export const cleanSelectedList = createAction(
+  '[Task-Lists] Clean selected list'
+);
+
+export const cleanSelectedListSuccess = createAction(
+  '[Task-Lists] Clean selected list - succes'
+);
+
+export const cleanSelectedListtFailure = createAction(
+  '[Task-Lists] Clean selected list - failure',
+  props<{ error: string }>()
+);

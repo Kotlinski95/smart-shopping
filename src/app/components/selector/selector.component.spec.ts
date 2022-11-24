@@ -14,6 +14,7 @@ import {
 } from '@ngx-translate/core';
 import { getFirestore } from 'firebase/firestore';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { TaskService } from 'src/app/shared/services/task.service';
 import { environment } from 'src/environments/environment';
 
 import { SelectorComponent } from './selector.component';
@@ -44,6 +45,7 @@ describe('SelectorComponent', () => {
         FirebaseService,
         FormBuilder,
         TranslateService,
+        TaskService,
         provideMockStore({ initialState }),
       ],
     }).compileComponents();

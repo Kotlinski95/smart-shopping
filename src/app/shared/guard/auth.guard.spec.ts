@@ -4,6 +4,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { provideFirestore } from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateFakeLoader,
   TranslateLoader,
@@ -17,6 +18,8 @@ import { AuthGuard } from './auth.guard';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
+  const initialState = {};
+  let store: MockStore;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -33,8 +36,9 @@ describe('AuthGuard', () => {
           },
         }),
       ],
-      providers: [AuthService],
+      providers: [AuthService, provideMockStore({ initialState })],
     });
+    store = TestBed.inject(MockStore);
     guard = TestBed.inject(AuthGuard);
   });
 

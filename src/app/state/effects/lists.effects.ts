@@ -17,6 +17,7 @@ import { SsrSupportService } from 'src/app/shared/services/ssr-support.service';
 import { ListService } from 'src/app/shared/services/list.service';
 import { of } from 'rxjs';
 import { getListsState } from '../selectors';
+import { LocalService } from 'src/app/shared/services/local.service';
 
 @Injectable()
 export class ListsEffects {
@@ -70,11 +71,20 @@ export class ListsEffects {
     )
   );
 
+  cleanSelectedList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ListsActions.cleanSelectedList),
+      tap(() => this.localService.cleanList()),
+      map(() => ListsActions.cleanSelectedListSuccess())
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private router: Router,
     private ssrSupportService: SsrSupportService,
     private listService: ListService,
+    private localService: LocalService,
     private store: Store
   ) {}
 }

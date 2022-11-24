@@ -41,7 +41,6 @@ const routes: Routes = [
     SelectorModule,
     EffectsModule.forFeature([Effects.ListsEffects, Effects.TasksEffects]),
     StoreModule.forFeature('Shopping-Lists', Reducers.ListsReducer),
-    StoreModule.forFeature('Tasks', Reducers.TasksReducer),
   ],
   exports: [ShoppingListComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
