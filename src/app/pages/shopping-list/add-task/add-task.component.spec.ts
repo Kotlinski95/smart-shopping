@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
-import { FirebaseService } from '../../shared/services/firebase.service';
-import { TaskService } from '../../shared/services/task.service';
+import { FirebaseService } from '../../../shared/services/firebase.service';
+import { TaskService } from '../../../shared/services/task.service';
 import { AddTaskComponent } from './add-task.component';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';

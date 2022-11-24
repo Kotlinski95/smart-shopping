@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule, Routes } from '@angular/router';
 import { ShoppingListComponent } from './shopping-list.component';
-import { AddTaskModule } from '../add-task/add-task.module';
-import { MessageBoxModule } from '../message-box/message-box.module';
-import { ToDoTaskModule } from '../todo-task/todo-task.module';
-import { DoneTaskModule } from '../done-task/done-task.module';
-import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module';
+import { AddTaskModule } from './add-task/add-task.module';
+import { MessageBoxModule } from '../../components/message-box/message-box.module';
+import { ToDoTaskModule } from './todo-task/todo-task.module';
+import { LoadingSpinnerModule } from '../../components/loading-spinner/loading-spinner.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/modules/shared.module';
-import { SelectorModule } from '../selector/selector.module';
+import { SelectorModule } from '../../components/selector/selector.module';
 import * as Effects from 'src/app/state/effects';
 import * as Reducers from 'src/app/state/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { DoneTaskModule } from './done-task/done-task.module';
 
 const routes: Routes = [
   {

@@ -10,19 +10,20 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
-import { TaskService } from '../../shared/services/task.service';
+import { FirebaseService } from '../../../shared/services/firebase.service';
+import { TaskService } from '../../../shared/services/task.service';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { DoneTaskComponent } from './done-task.component';
+import { TodoTaskComponent } from './todo-task.component';
 
-describe('DoneTaskComponent', () => {
-  let component: DoneTaskComponent;
-  let fixture: ComponentFixture<DoneTaskComponent>;
+describe('TodoTaskComponent', () => {
+  let component: TodoTaskComponent;
+  let fixture: ComponentFixture<TodoTaskComponent>;
   const initialState = {};
   let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DoneTaskComponent],
+      declarations: [TodoTaskComponent],
       imports: [
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
@@ -36,13 +37,17 @@ describe('DoneTaskComponent', () => {
           },
         }),
       ],
-      providers: [TaskService, provideMockStore({ initialState })],
+      providers: [
+        TaskService,
+        FirebaseService,
+        provideMockStore({ initialState }),
+      ],
     }).compileComponents();
   });
 
   beforeEach(() => {
     store = TestBed.inject(MockStore);
-    fixture = TestBed.createComponent(DoneTaskComponent);
+    fixture = TestBed.createComponent(TodoTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
