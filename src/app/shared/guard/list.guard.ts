@@ -23,18 +23,6 @@ export class ListGuard implements CanActivate {
   ) {
     this.lists$ = this.store.select(getListsState);
     this.selectedList$ = this.store.select(getListState);
-
-    combineLatest(this.lists$, this.selectedList$).subscribe(
-      ([lists, selectedList]) => {
-        if (lists?.length > 0 && selectedList.name !== '') {
-          if (lists.find(list => list.name === selectedList.name)) {
-            this.isListLoaded.next(true);
-          } else {
-            this.isListLoaded.next(false);
-          }
-        }
-      }
-    );
     if (!this.isListLoaded.getValue()) {
       this.store.dispatch(ListsActions.setLists());
       const list = this.ssrSupportService.getLocalStorageItem('list');
@@ -46,9 +34,6 @@ export class ListGuard implements CanActivate {
     }
   }
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    // if (this.isListLoaded.getValue() === false) {
-    //   this.router.navigate(['lists']);
-    // }
     combineLatest(this.lists$, this.selectedList$).subscribe(
       ([lists, selectedList]) => {
         if (lists?.length > 0) {
@@ -58,6 +43,8 @@ export class ListGuard implements CanActivate {
             this.isListLoaded.next(false);
           }
         }
+        if (lists?.length === 0 && selectedList.name === '')
+          this.isListLoaded.next(false);
         if (this.isListLoaded.getValue() === false) {
           this.router.navigate(['lists']);
         }

@@ -20,24 +20,29 @@
     </div>
   </form>
   <h1>{{ 'lists.title' | translate }}</h1>
-  <ol class="list-group" #toDoTaskListGroup>
-    <li *ngFor="let list of tasksList" class="list-group-item">
-      <div class="d-flex justify-content-between">
-        <div class="px-2 word-break">
-          {{ list.name }}
+  <div *ngIf="this.isListLoaded$ | async; else loading">
+    <ol class="list-group" #toDoTaskListGroup>
+      <li *ngFor="let list of tasksList" class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <div class="px-2 word-break">
+            {{ list.name }}
+          </div>
+          <div class="d-flex flex-nowrap align-self-center">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="selectList(list)">
+              {{ 'lists.list.open' | translate }}
+            </button>
+            <button type="button" class="btn btn-danger" (click)="remove(list)">
+              {{ 'lists.list.remove' | translate }}
+            </button>
+          </div>
         </div>
-        <div class="d-flex flex-nowrap align-self-center">
-          <button
-            type="button"
-            class="btn btn-success"
-            (click)="selectList(list)">
-            {{ 'lists.list.open' | translate }}
-          </button>
-          <button type="button" class="btn btn-danger" (click)="remove(list)">
-            {{ 'lists.list.remove' | translate }}
-          </button>
-        </div>
-      </div>
-    </li>
-  </ol>
+      </li>
+    </ol>
+  </div>
+  <ng-template #loading>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
 </div>

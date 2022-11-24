@@ -4,7 +4,11 @@ import { TaskService } from 'src/app/shared/services/task.service';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TasksActions } from 'src/app/state/actions';
-import { getListsState, getListState } from 'src/app/state/selectors';
+import {
+  getListsState,
+  getListState,
+  getLoadedState,
+} from 'src/app/state/selectors';
 import { List } from 'src/app/shared/interfaces/list';
 
 @Component({
@@ -33,7 +37,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isTaskListLoaded$ = this.tasksService.isTaskListLoaded();
+    this.isTaskListLoaded$ = this.store.select(getLoadedState);
   }
 
   ngOnDestroy(): void {

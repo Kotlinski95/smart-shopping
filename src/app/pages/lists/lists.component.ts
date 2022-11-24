@@ -1,11 +1,11 @@
 import { ListsActions } from 'src/app/state/actions';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { List } from 'src/app/shared/interfaces/list';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListService } from 'src/app/shared/services/list.service';
 import { Store } from '@ngrx/store';
-import { getListsState } from 'src/app/state/selectors';
+import { getListsState, getLoadedState } from 'src/app/state/selectors';
 
 @Component({
   selector: 'app-lists',
@@ -17,6 +17,7 @@ export class ListsComponent implements OnDestroy, OnInit {
   public newTaskForm!: FormGroup;
   public newList = '';
   private subscriptions: Subscription = new Subscription();
+  public isListLoaded$: Observable<boolean> = new Observable();
   constructor(
     private listService: ListService,
     private formBuilder: FormBuilder,
@@ -39,6 +40,7 @@ export class ListsComponent implements OnDestroy, OnInit {
     });
 
     this.store.dispatch(ListsActions.setLists());
+    this.isListLoaded$ = this.store.select(getLoadedState);
   }
 
   public ngOnDestroy(): void {

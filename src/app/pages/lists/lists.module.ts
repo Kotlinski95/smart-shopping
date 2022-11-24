@@ -9,6 +9,7 @@ import * as Reducers from 'src/app/state/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import * as Effects from 'src/app/state/effects';
+import { LoadingSpinnerModule } from 'src/app/components/loading-spinner/loading-spinner.module';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
+    LoadingSpinnerModule,
     EffectsModule.forFeature([Effects.ListsEffects, Effects.TasksEffects]),
     StoreModule.forFeature('Shopping-Lists', Reducers.ListsReducer),
   ],

@@ -6,6 +6,7 @@ import * as ListsActions from '../actions/lists.actions';
 const initialState: ListsState = {
   lists: [],
   list: { name: '', tasks: [] },
+  loaded: false,
   error: '',
 };
 
@@ -26,11 +27,13 @@ export const ListsReducer = createReducer<ListsState>(
     return {
       ...state,
       lists: action.lists,
+      loaded: true,
     };
   }),
   on(ListsActions.setLists, (state): ListsState => {
     return {
       ...state,
+      loaded: false,
     };
   }),
   on(ListsActions.createListSuccess, (state): ListsState => {
@@ -52,6 +55,8 @@ export const ListsReducer = createReducer<ListsState>(
   on(ListsActions.removeList, (state, action): ListsState => {
     return {
       ...state,
+      list:
+        state.list.name === action.list.name ? initialState.list : state.list,
       lists: [...state.lists.filter(list => list !== action.list)],
     };
   }),
@@ -60,6 +65,7 @@ export const ListsReducer = createReducer<ListsState>(
       return {
         ...state,
         list: { ...state.list, tasks: action.tasks },
+        loaded: true,
       };
     }
     return {
@@ -77,10 +83,10 @@ export const ListsReducer = createReducer<ListsState>(
         ...state,
         lists: [
           ...state.lists.map(list => {
-            if (list.tasks && list.name === state.list.name) {
+            if (list.name === state.list.name) {
               return {
                 ...state.list,
-                tasks: [...list.tasks, action.task],
+                tasks: [...(list.tasks || []), action.task],
               };
             }
             return list;
@@ -105,7 +111,7 @@ export const ListsReducer = createReducer<ListsState>(
         ...state,
         lists: [
           ...state.lists.map(list => {
-            if (list.tasks && list.name === state.list.name) {
+            if (list.name === state.list.name) {
               return {
                 ...state.list,
                 tasks: [
@@ -138,7 +144,7 @@ export const ListsReducer = createReducer<ListsState>(
         ...state,
         lists: [
           ...state.lists.map(list => {
-            if (list.tasks && list.name === state.list.name) {
+            if (list.name === state.list.name) {
               return {
                 ...state.list,
                 tasks: [
@@ -178,7 +184,7 @@ export const ListsReducer = createReducer<ListsState>(
         ...state,
         lists: [
           ...state.lists.map(list => {
-            if (list.tasks && list.name === state.list.name) {
+            if (list.name === state.list.name) {
               return {
                 ...state.list,
                 tasks: [
@@ -218,7 +224,7 @@ export const ListsReducer = createReducer<ListsState>(
         ...state,
         lists: [
           ...state.lists.map(list => {
-            if (list.tasks && list.name === state.list.name) {
+            if (list.name === state.list.name) {
               return {
                 ...state.list,
                 tasks: [
@@ -258,7 +264,7 @@ export const ListsReducer = createReducer<ListsState>(
         ...state,
         lists: [
           ...state.lists.map(list => {
-            if (list.tasks && list.name === state.list.name) {
+            if (list.name === state.list.name) {
               return {
                 ...state.list,
                 tasks: [

@@ -123,12 +123,10 @@ export class TaskService {
         )
         .pipe(
           map((data: DocumentData[]) => {
-            this.tasksListLoaded.next(true);
             return <Task[]>[...data];
           })
         );
     } else {
-      this.tasksListLoaded.next(true);
       return this.localService.tasksObservableLocal$;
     }
   }

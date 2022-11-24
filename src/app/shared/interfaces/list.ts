@@ -9,5 +9,6 @@ export interface List {
 export interface ListsState {
   lists: Array<List>;
   list: List;
+  loaded: boolean;
   error: string;
 }

@@ -32,6 +32,10 @@ export class ListService {
   }
 
   public setActualSelectedList(list: List): void {
+    if (!this.authService.isLoggedIn) {
+      this.localService.updateList(list);
+      this.localService.updateTasks(list.tasks ? list.tasks : []);
+    }
     this.store.dispatch(ListsActions.setList({ list: list }));
   }
 

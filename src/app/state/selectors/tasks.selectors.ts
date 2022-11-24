@@ -9,6 +9,11 @@ export const getTasksState = createSelector(
   state => state && state.list.tasks
 );
 
+export const getLoadedState = createSelector(
+  getTasksStateSelector,
+  state => state && state.loaded
+);
+
 export const getTasksError = createSelector(
   getTasksStateSelector,
   state => state && state.error
