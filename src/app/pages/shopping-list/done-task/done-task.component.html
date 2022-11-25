@@ -7,7 +7,7 @@
       'shopping_list.done_task.title'
         | translate: { tasksDone: calcDone(tasksDone) }
     }}
-    <button (click)="clearDoneList($event)" class="btn btn-light">
+    <button (click)="clearDoneList($event)" class="btn btn-danger">
       {{ 'shopping_list.done_task.clean' | translate }}
     </button>
   </p>

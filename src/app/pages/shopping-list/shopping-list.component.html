@@ -1,7 +1,9 @@
 <ng-container *ngIf="!isLoggedIn()">
   <app-message-box>
     <p class="mb-0">
-      <a routerLink="/login">{{ 'shopping_list.login' | translate }}</a
+      <a class="link" routerLink="/login">{{
+        'shopping_list.login' | translate
+      }}</a
       >{{ 'shopping_list.login_message' | translate }}
     </p>
   </app-message-box>
