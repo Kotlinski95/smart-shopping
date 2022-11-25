@@ -5,9 +5,10 @@
 html {
   height: 100%;
   overflow: hidden;
+  background-color: #08011a;
 }
 body {
-  background: url('./assets/background.webp') no-repeat fixed center;
+  background: #08011a url('./assets/background.webp') no-repeat fixed center;
   background-size: cover;
   display: block;
   margin: 0;
