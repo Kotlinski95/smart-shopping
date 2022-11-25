@@ -3,10 +3,17 @@
   @media only screen and (min-width: 768px) {
     min-width: 700px;
   }
-  background: rgba(255, 255, 255, 0.6);
+  @media only screen and (max-width: 768px) {
+    width: 90vw;
+  }
+  background: rgba(81, 90, 184, 0.3);
+  color: #fff;
   h2 {
     text-align: center;
     padding: 0.625rem;
+  }
+  a {
+    color: #fff;
   }
   .container {
     display: flex;

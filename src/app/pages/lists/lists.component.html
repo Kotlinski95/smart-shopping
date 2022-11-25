@@ -1,6 +1,6 @@
 <div class="container p-5 flex-column">
-  <form (ngSubmit)="addList()" [formGroup]="newTaskForm">
-    <div class="input-group mb-3 d-flex flex-nowrap px-3">
+  <form (ngSubmit)="addList()" [formGroup]="newTaskForm" class="w-100">
+    <div class="input-group mb-3 d-flex flex-nowrap">
       <input
         type="text"
         placeholder="{{ 'lists.add_list.input_placeholder' | translate }}"
@@ -11,7 +11,7 @@
       <div class="input-group-append d-flex">
         <button
           type="submit"
-          class="input-group-text btn btn-dark col-6 w-100"
+          class="input-group-text btn btn-danger col-6 w-100"
           id="basic-addon2"
           [disabled]="!newTaskForm.valid">
           {{ 'lists.add_list.button_label' | translate }}
@@ -20,7 +20,7 @@
     </div>
   </form>
   <h1>{{ 'lists.title' | translate }}</h1>
-  <div *ngIf="this.isListLoaded$ | async; else loading">
+  <div *ngIf="this.isListLoaded$ | async; else loading" class="list-container">
     <ol class="list-group" #toDoTaskListGroup>
       <li *ngFor="let list of tasksList" class="list-group-item">
         <div class="d-flex justify-content-between">

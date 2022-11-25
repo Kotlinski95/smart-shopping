@@ -1,11 +1,6 @@
-li {
-  background: rgba(255, 0, 0, 0.2);
-}
-
-.odd-li {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.li-last {
-  background: rgba(0, 255, 0, 0.3);
+.list-group-item {
+  background-color: #08011a;
+  color: #fff;
+  box-shadow: 0 0 7px #a595ba;
+  margin-bottom: 1px;
 }

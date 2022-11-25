@@ -1,4 +1,4 @@
-<div class="container">
+<div class="main-section container">
   <div class="row">
     <main role="main" class="col-12 px-4">
       <div class="inner-adjust">
@@ -40,14 +40,14 @@
           <div class="d-flex justify-content-between mb-2">
             <ng-container *ngIf="selectedList$ | async as selectedList">
               <a
-                class="btn btn-dark"
+                class="btn btn-success"
                 routerLink="/"
                 *ngIf="selectedList.name"
                 >{{ 'dashboard.shopping_list' | translate }}</a
               >
             </ng-container>
 
-            <a class="btn btn-dark" routerLink="/lists">{{
+            <a class="btn btn-success" routerLink="/lists">{{
               'dashboard.shopping_lists' | translate
             }}</a>
             <button class="btn btn-danger" (click)="authService.SignOut()">

@@ -1,7 +1,16 @@
-.alert{
-  background: rgba(255, 255, 255, 0.6);
+.alert {
+  background: rgba(81, 90, 184, 0.3);
+  border: none;
+  color: #fff;
 }
 
-.hide{
+.hide {
   display: none;
+}
+
+.btn {
+  background-color: #e2004f;
+  color: #fff;
+  box-shadow: 0 0 5px #a595ba;
+  border: #e2004f;
 }

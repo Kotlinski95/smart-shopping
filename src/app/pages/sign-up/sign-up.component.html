@@ -1,4 +1,4 @@
-<div class="container p-5 flex-column">
+<div class="main-section container p-5 flex-column">
   <h1>{{ 'sign_up.title' | translate }}</h1>
   <form (ngSubmit)="signUp()" [formGroup]="signUpForm" class="row flex-column">
     <div class="formGroup py-1">
@@ -21,7 +21,7 @@
     </div>
     <div class="formGroup">
       <button
-        class="btn btn-primary w-100 mt-2"
+        class="btn btn-danger w-100 mt-2"
         value="Log in"
         type="submit"
         [disabled]="!signUpForm.valid">
@@ -29,11 +29,16 @@
       </button>
     </div>
     <div class="formGroup d-flex justify-content-center">
-      <span class="or"><span class="orInner">{{ 'sign_up.or' | translate }}</span></span>
+      <span class="or"
+        ><span class="orInner">{{ 'sign_up.or' | translate }}</span></span
+      >
     </div>
     <!-- Continue with Google -->
     <div class="formGroup">
-      <span role="button" class="btn btn-success" (click)="authService.GoogleAuth()">
+      <span
+        role="button"
+        class="btn btn-success"
+        (click)="authService.GoogleAuth()">
         <fa-icon [icon]="faUserShield"></fa-icon>
         {{ 'sign_up.login_google' | translate }}
       </span>
@@ -42,7 +47,9 @@
   <div class="redirectToLogin mt-2">
     <span
       >{{ 'sign_up.signin_message' | translate }}
-      <a class="redirect" routerLink="/login">{{ 'sign_up.signin_link' | translate }}</a></span
+      <a class="redirect link" routerLink="/login">{{
+        'sign_up.signin_link' | translate
+      }}</a></span
     >
   </div>
 </div>
