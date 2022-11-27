@@ -3,4 +3,13 @@
   position: fixed;
   inset: 0 auto auto 0;
   z-index: 1000;
+  // alert color overwrite
+  &.alert-success {
+    background: #198754;
+    color: white;
+  }
+  &.alert-danger {
+    background: #e2004f;
+    color: white;
+  }
 }

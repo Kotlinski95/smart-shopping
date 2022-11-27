@@ -1,4 +1,11 @@
-<section class="alert alert-dark" role="alert" #alert>
-  <nav class="d-flex justify-content-end"><button type="button" class="btn btn-dark py-0 px-2" (click)="hide()">x</button></nav>
+<section
+  class="alert alert-dark d-flex justify-content-between gap-2"
+  role="alert"
+  #alert>
   <ng-content></ng-content>
+  <nav class="d-flex justify-content-end">
+    <button type="button" class="btn btn-dark py-0 px-2" (click)="hide()">
+      x
+    </button>
+  </nav>
 </section>
