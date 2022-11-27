@@ -9,7 +9,9 @@
   </app-message-box>
 </ng-container>
 
-<section class="shopping-list-component" *ngIf="list$ | async as list">
+<section
+  class="shopping-list-component main-section"
+  *ngIf="list$ | async as list">
   <p class="manage-lists">
     <a routerLink="/lists"
       >{{ 'shopping_list.manage_lists' | translate }} &#10144;</a
@@ -28,10 +30,10 @@
     </div>
     <div class="container pb-5 px-3">
       <div class="row w-100">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 px-0 px-sm-3">
           <app-todo-task></app-todo-task>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 px-0 px-sm-3">
           <app-done-task></app-done-task>
         </div>
       </div>

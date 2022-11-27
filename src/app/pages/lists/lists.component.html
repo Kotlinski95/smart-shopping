@@ -1,4 +1,4 @@
-<div class="container p-5 flex-column">
+<div class="container p-3 flex-column">
   <form (ngSubmit)="addList()" [formGroup]="newTaskForm" class="w-100">
     <div class="input-group mb-3 d-flex flex-nowrap">
       <input
@@ -23,11 +23,12 @@
   <div *ngIf="this.isListLoaded$ | async; else loading" class="list-container">
     <ol class="list-group" #toDoTaskListGroup>
       <li *ngFor="let list of tasksList" class="list-group-item">
-        <div class="d-flex justify-content-between">
-          <div class="px-2 word-break">
+        <div
+          class="d-flex justify-content-end gap-2 flex-wrap align-items-center">
+          <div class="flex-grow-1 word-break text-left">
             {{ list.name }}
           </div>
-          <div class="d-flex flex-nowrap align-self-center">
+          <div class="d-flex flex-nowrap align-self-center gap-2">
             <button
               type="button"
               class="btn btn-success"

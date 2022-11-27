@@ -1,7 +1,31 @@
 .container {
   width: 100%;
-  background: rgba(255, 255, 255, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.cards {
+  .row {
+    .col-item:first-of-type {
+      padding-left: 0;
+    }
+    .col-item:last-of-type {
+      padding-right: 0;
+    }
+    .col-item {
+      img {
+        width: 70%;
+        @media screen and (min-width: 769px) {
+          width: 40%;
+        }
+      }
+      .btn {
+        width: 90%;
+        @media screen and (min-width: 769px) {
+          width: 60%;
+        }
+      }
+    }
+  }
 }

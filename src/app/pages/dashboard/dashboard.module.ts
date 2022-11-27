@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { CardModule } from 'src/app/components/card/card.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     RouterModule,
     RouterModule.forChild(routes),
     TranslateModule,
+    CardModule,
   ],
 })
 export class DashboardModule {}
