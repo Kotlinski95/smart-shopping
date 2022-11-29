@@ -5,3 +5,9 @@ export interface User {
   photoURL: string;
   emailVerified: boolean;
 }
+
+export interface AuthState {
+  loggedIn: boolean;
+  user?: User;
+  error: string;
+}
