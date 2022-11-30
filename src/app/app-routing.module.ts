@@ -165,7 +165,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabledBlocking',
-      enableTracing: true,
     }),
   ],
   exports: [RouterModule],

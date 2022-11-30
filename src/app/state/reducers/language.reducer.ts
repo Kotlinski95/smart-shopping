@@ -26,5 +26,24 @@ export const LanguageReducer = createReducer<LanguageState>(
     return {
       ...state,
     };
+  }),
+
+  on(LanguageActions.useLanguage, (state): LanguageState => {
+    return {
+      ...state,
+    };
+  }),
+
+  on(LanguageActions.useLanguageSuccess, (state, action): LanguageState => {
+    return {
+      ...state,
+      language: action.language,
+    };
+  }),
+
+  on(LanguageActions.useLanguageFailure, (state): LanguageState => {
+    return {
+      ...state,
+    };
   })
 );
