@@ -3,7 +3,7 @@ import { LanguageState } from 'src/app/shared/interfaces/language';
 import { LanguageActions } from '../actions';
 
 const initialState: LanguageState = {
-  language: { language: 'english' },
+  language: { language: '' },
   error: '',
 };
 

@@ -1,23 +1,35 @@
 import { createAction, props } from '@ngrx/store';
+import { Termly } from 'src/app/shared/interfaces/consents';
+
+export const setTermlyState = createAction('[Consents] Set Termly state');
+
+export const setTermlyStateSuccess = createAction(
+  '[Consents] Set Termly state - success',
+  props<{ termly: Termly }>()
+);
+
+export const setTermlyStateFailure = createAction(
+  '[Consents] Set Termly state - failure'
+);
 
 export const setCookies = createAction('[Consents] Cookies change');
 
 export const setCookiesSuccess = createAction(
-  '[Language] Cookies change - success',
+  '[Consents] Cookies change - success',
   props<{ cookies: boolean }>()
 );
 
 export const setCookiesFailure = createAction(
-  '[Language] Cookies change - failure'
+  '[Consents] Cookies change - failure'
 );
 
 export const setPrivacy = createAction('[Consents] Privacy and Policy change');
 
 export const setPrivacySuccess = createAction(
-  '[Language] Privacy and Policy change - success',
+  '[Consents] Privacy and Policy change - success',
   props<{ privacy: boolean }>()
 );
 
 export const setPrivacyFailure = createAction(
-  '[Language] Privacy and Policy change - failure'
+  '[Consents] Privacy and Policy change - failure'
 );

@@ -1,3 +1,17 @@
 app-shopping-list {
   width: 100%;
 }
+
+.termly-cookie-preference-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 35px;
+  height: 35px;
+  background: rgba(81, 90, 184, 0.3);
+  border-radius: 50%;
+  z-index: 9;
+}

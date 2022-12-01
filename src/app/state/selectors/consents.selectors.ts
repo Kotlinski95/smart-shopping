@@ -5,10 +5,15 @@ const getConsentsState = createFeatureSelector<ConsentsState>('Consents');
 
 export const getCookiesState = createSelector(
   getConsentsState,
-  state => state && state.consents.cookies
+  state => state && state.consents.termly.cookies
 );
 
 export const getPrivacyState = createSelector(
   getConsentsState,
   state => state && state.consents.privacy
+);
+
+export const getTermlyState = createSelector(
+  getConsentsState,
+  state => state && state.consents.termly
 );

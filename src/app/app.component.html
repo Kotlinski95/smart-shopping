@@ -49,6 +49,7 @@
     color: white;
     font-weight: 600;
     z-index: 999;
+    backdrop-filter: blur(10px);
   }
 
   .toolbar-title {
@@ -216,4 +217,14 @@
 </div>
 <app-modal></app-modal>
 <app-alert></app-alert>
+<span
+  class="termly-cookie-preference-button"
+  type="button"
+  onclick="displayPreferenceModal()">
+  <img
+    src="../assets/cookies.png"
+    height="24"
+    width="24"
+    alt="Cookies preferences" />
+</span>
 <app-footer></app-footer>

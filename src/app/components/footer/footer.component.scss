@@ -1,6 +1,7 @@
 .footer-wrapper {
   background-color: #08011a77;
   width: 100%;
+  backdrop-filter: blur(10px);
   .row {
     min-height: 60px;
   }
