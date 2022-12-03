@@ -1,5 +1,5 @@
-import { ListsActions } from 'src/app/state/actions';
-import { Injectable, NgZone } from '@angular/core';
+import { AuthActions, ListsActions } from 'src/app/state/actions';
+import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { User } from '../interfaces/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -15,95 +15,95 @@ import { AlertService } from './alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertType } from '../interfaces/alert';
 import { Store } from '@ngrx/store';
+import firebase from 'firebase/compat/app';
+import { Subscription } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   userData: any; // Save logged in user data
   private translationSection = 'alert.authorization';
+  private subscriptions: Subscription = new Subscription();
+
   constructor(
-    public afs: AngularFirestore, // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone, // NgZone service to remove outside scope warning
     public ssrSupportService: SsrSupportService,
     private alertService: AlertService,
     private translate: TranslateService,
     private store: Store
   ) {
-    /* Saving user data in localstorage when
-    logged in and setting up null when logged out */
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userData = user;
-        this.ssrSupportService.setLocalStorageItem(
-          'user',
-          JSON.stringify(this.userData)
-        );
-        JSON.parse(this.ssrSupportService.getLocalStorageItem('user')!);
-      } else {
-        this.ssrSupportService.setLocalStorageItem('user', 'null');
-        JSON.parse(this.ssrSupportService.getLocalStorageItem('user')!);
-      }
-    });
+    this.subscriptions.add(
+      this.afAuth.authState.subscribe(user => {
+        this.store.dispatch(AuthActions.setUser({ user: Object.freeze(user) }));
+      })
+    );
   }
   // Sign in with email/password
-  SignIn(email: string, password: string) {
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then(result => {
-        this.SetUserData(result.user);
-        this.afAuth.authState.subscribe(user => {
-          if (user) {
-            this.router.navigate(['dashboard']);
-          }
+  SignIn(email: string, password: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.afAuth
+        .signInWithEmailAndPassword(email, password)
+        .then(result => {
+          this.SetUserData(result.user);
+          this.afAuth.authState.subscribe(user => {
+            if (user) {
+              this.router.navigate(['dashboard']);
+            }
+          });
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.login_success`
+            ),
+            duration: 3000,
+          });
+          resolve();
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.login_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 4000,
+          });
+          reject(error);
         });
-        this.alertService.setAlert({
-          type: AlertType.Success,
-          message: this.translate.instant(
-            `${this.translationSection}.login_success`
-          ),
-          duration: 3000,
-        });
-        this.store.dispatch(ListsActions.cleanSelectedList());
-      })
-      .catch(error => {
-        this.alertService.setAlert({
-          type: AlertType.Error,
-          message: this.translate.instant(
-            `${this.translationSection}.login_failure`,
-            { errorMessage: error.message }
-          ),
-          duration: 4000,
-        });
-      });
+    });
   }
 
-  SignUp(email: string, password: string) {
-    return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then(result => {
-        this.SendVerificationMail();
-        this.SetUserData(result.user);
-        this.alertService.setAlert({
-          type: AlertType.Success,
-          message: this.translate.instant(
-            `${this.translationSection}.register_success`
-          ),
-          duration: 3000,
+  SignUp(email: string, password: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.afAuth
+        .createUserWithEmailAndPassword(email, password)
+        .then(result => {
+          this.SendVerificationMail();
+          this.SetUserData(result.user);
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.register_success`
+            ),
+            duration: 3000,
+          });
+          this.store.dispatch(ListsActions.cleanSelectedList());
+          resolve();
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.register_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 4000,
+          });
+          reject(error);
         });
-        this.store.dispatch(ListsActions.cleanSelectedList());
-      })
-      .catch(error => {
-        this.alertService.setAlert({
-          type: AlertType.Error,
-          message: this.translate.instant(
-            `${this.translationSection}.register_failure`,
-            { errorMessage: error.message }
-          ),
-          duration: 4000,
-        });
-      });
+    });
   }
 
   SendVerificationMail() {
@@ -111,17 +111,10 @@ export class AuthService {
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
         this.router.navigate(['verify-email-address']);
-      });
-  }
-
-  ForgotPassword(passwordResetEmail: string) {
-    return this.afAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
         this.alertService.setAlert({
           type: AlertType.Success,
           message: this.translate.instant(
-            `${this.translationSection}.reset_password_success`
+            `${this.translationSection}.verification_email_success`
           ),
           duration: 3000,
         });
@@ -130,12 +123,40 @@ export class AuthService {
         this.alertService.setAlert({
           type: AlertType.Error,
           message: this.translate.instant(
-            `${this.translationSection}.reset_password_failure`,
+            `${this.translationSection}.verification_email_failure`,
             { errorMessage: error.message }
           ),
           duration: 4000,
         });
       });
+  }
+
+  ForgotPassword(passwordResetEmail: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.afAuth
+        .sendPasswordResetEmail(passwordResetEmail)
+        .then(() => {
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.reset_password_success`
+            ),
+            duration: 3000,
+          });
+          resolve();
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.reset_password_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 4000,
+          });
+          reject(error);
+        });
+    });
   }
 
   get isLoggedIn(): boolean {
@@ -163,66 +184,74 @@ export class AuthService {
     return this.AuthLogin(new FacebookAuthProvider());
   }
 
-  AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then(result => {
-        this.SetUserData(result.user);
-        this.afAuth.authState.subscribe(user => {
-          if (user) {
-            this.router.navigate(['dashboard']);
-            this.alertService.setAlert({
-              type: AlertType.Success,
-              message: this.translate.instant(
-                `${this.translationSection}.auth_login_success`
-              ),
-              duration: 3000,
-            });
-          }
+  AuthLogin(provider: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.afAuth
+        .signInWithPopup(provider)
+        .then(result => {
+          this.SetUserData(result.user);
+          this.afAuth.authState.subscribe(user => {
+            if (user) {
+              this.router.navigate(['dashboard']);
+              this.alertService.setAlert({
+                type: AlertType.Success,
+                message: this.translate.instant(
+                  `${this.translationSection}.auth_login_success`
+                ),
+                duration: 3000,
+              });
+            }
+          });
+          this.store.dispatch(ListsActions.cleanSelectedList());
+          resolve();
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.auth_login_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 4000,
+          });
+          reject(error);
         });
-        this.store.dispatch(ListsActions.cleanSelectedList());
-      })
-      .catch(error => {
-        this.alertService.setAlert({
-          type: AlertType.Error,
-          message: this.translate.instant(
-            `${this.translationSection}.auth_login_failure`,
-            { errorMessage: error.message }
-          ),
-          duration: 4000,
-        });
-      });
+    });
   }
 
-  AnonymousLogin() {
-    this.afAuth
-      .signInAnonymously()
-      .then(result => {
-        this.SetUserData(result.user);
-        this.afAuth.authState.subscribe(user => {
-          if (user) {
-            this.router.navigate(['dashboard']);
-            this.alertService.setAlert({
-              type: AlertType.Success,
-              message: this.translate.instant(
-                `${this.translationSection}.anonymous_login_success`
-              ),
-              duration: 3000,
-            });
-          }
+  AnonymousLogin(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.afAuth
+        .signInAnonymously()
+        .then(result => {
+          this.SetUserData(result.user);
+          this.afAuth.authState.subscribe(user => {
+            if (user) {
+              this.router.navigate(['dashboard']);
+              this.alertService.setAlert({
+                type: AlertType.Success,
+                message: this.translate.instant(
+                  `${this.translationSection}.anonymous_login_success`
+                ),
+                duration: 3000,
+              });
+            }
+          });
+          this.store.dispatch(ListsActions.cleanSelectedList());
+          resolve();
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.anonymous_login_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 4000,
+          });
+          reject(error);
         });
-        this.store.dispatch(ListsActions.cleanSelectedList());
-      })
-      .catch(error => {
-        this.alertService.setAlert({
-          type: AlertType.Error,
-          message: this.translate.instant(
-            `${this.translationSection}.anonymous_login_failure`,
-            { errorMessage: error.message }
-          ),
-          duration: 4000,
-        });
-      });
+    });
   }
 
   SetUserData(user: any) {
@@ -248,18 +277,48 @@ export class AuthService {
     return userRef.get().pipe(map(data => data.data()));
   }
 
-  SignOut() {
-    return this.afAuth.signOut().then(() => {
-      this.ssrSupportService.removeLocalStorageItem('user');
-      this.router.navigate(['login']);
-      this.alertService.setAlert({
-        type: AlertType.Success,
-        message: this.translate.instant(
-          `${this.translationSection}.logout_success`
-        ),
-        duration: 3000,
-      });
-      this.store.dispatch(ListsActions.cleanSelectedList());
+  SignOut(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      return this.afAuth
+        .signOut()
+        .then(() => {
+          this.ssrSupportService.removeLocalStorageItem('user');
+          this.router.navigate(['login']);
+          this.alertService.setAlert({
+            type: AlertType.Success,
+            message: this.translate.instant(
+              `${this.translationSection}.logout_success`
+            ),
+            duration: 3000,
+          });
+          this.store.dispatch(ListsActions.cleanSelectedList());
+          resolve();
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.logout_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 4000,
+          });
+          reject(error);
+        });
     });
+  }
+
+  public setUser(user: firebase.User | null): void {
+    if (user) {
+      this.userData = user;
+      this.ssrSupportService.setLocalStorageItem('user', JSON.stringify(user));
+      JSON.parse(this.ssrSupportService.getLocalStorageItem('user')!);
+    } else {
+      this.ssrSupportService.setLocalStorageItem('user', 'null');
+      JSON.parse(this.ssrSupportService.getLocalStorageItem('user')!);
+    }
+  }
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

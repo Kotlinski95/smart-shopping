@@ -1,6 +1,8 @@
+import { AuthActions } from 'src/app/state/actions';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { Store } from '@ngrx/store';
+import { getAuthPendingState } from 'src/app/state/selectors';
 
 @Component({
   selector: 'app-forgot-passowrd',
@@ -9,10 +11,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class ForgotPasswordComponent {
   public resetPasswordForm!: FormGroup;
-  constructor(
-    public authService: AuthService,
-    private formBuilder: FormBuilder
-  ) {}
+  public getAuthPendingState$ = this.store.select(getAuthPendingState);
+  constructor(private formBuilder: FormBuilder, public store: Store) {}
 
   ngOnInit(): void {
     this.resetPasswordForm = this.formBuilder.group({
@@ -21,6 +21,10 @@ export class ForgotPasswordComponent {
   }
 
   resetPassword(): void {
-    this.authService.ForgotPassword(this.resetPasswordForm.value.email);
+    this.store.dispatch(
+      AuthActions.forgotPassword({
+        passwordResetEmail: this.resetPasswordForm.value.email,
+      })
+    );
   }
 }

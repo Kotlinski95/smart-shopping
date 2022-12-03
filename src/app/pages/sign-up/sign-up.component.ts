@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { faUserShield } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
+import { AuthActions } from 'src/app/state/actions';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,10 +13,7 @@ import { faUserShield } from '@fortawesome/free-solid-svg-icons';
 export class SignUpComponent implements OnInit {
   faUserShield = faUserShield;
   public signUpForm!: FormGroup;
-  constructor(
-    public authService: AuthService,
-    private formBuilder: FormBuilder
-  ) {}
+  constructor(private formBuilder: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
@@ -24,9 +23,15 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp(): void {
-    this.authService.SignUp(
-      this.signUpForm.value.email,
-      this.signUpForm.value.password
+    this.store.dispatch(
+      AuthActions.userSignUp({
+        email: this.signUpForm.value.email,
+        password: this.signUpForm.value.password,
+      })
     );
+  }
+
+  googleAuth(): void {
+    this.store.dispatch(AuthActions.googleAuth());
   }
 }

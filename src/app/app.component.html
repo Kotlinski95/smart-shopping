@@ -49,6 +49,7 @@
     color: white;
     font-weight: 600;
     z-index: 999;
+    backdrop-filter: blur(10px);
   }
 
   .toolbar-title {
@@ -169,7 +170,10 @@
 </style>
 
 <!-- Toolbar -->
-<div class="toolbar" role="banner">
+<div
+  class="toolbar"
+  role="banner"
+  *ngIf="{ isLoggedIn: isLoggedIn$ | async } as authorizationState">
   <a routerLink="/">
     <picture>
       <source
@@ -185,7 +189,7 @@
     <span class="toolbar-title" title="SmartShopping List">{{ title }}</span>
   </a>
   <div class="spacer"></div>
-  <ng-container *ngIf="!this.authService.isLoggedIn">
+  <ng-container *ngIf="!authorizationState.isLoggedIn">
     <a aria-label="Sign In" rel="noopener" routerLink="/login" title="Sign In">
       <img
         src="../assets/svg/user-login-svgrepo-com.svg"
@@ -195,7 +199,7 @@
     </a>
   </ng-container>
 
-  <ng-container *ngIf="this.authService.isLoggedIn">
+  <ng-container *ngIf="authorizationState.isLoggedIn">
     <a
       aria-label="Dashboard"
       rel="noopener"
@@ -216,4 +220,14 @@
 </div>
 <app-modal></app-modal>
 <app-alert></app-alert>
+<span
+  class="termly-cookie-preference-button"
+  type="button"
+  onclick="displayPreferenceModal()">
+  <img
+    src="../assets/cookies.png"
+    height="24"
+    width="24"
+    alt="Cookies preferences" />
+</span>
 <app-footer></app-footer>

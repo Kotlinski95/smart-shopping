@@ -146,6 +146,8 @@
       "auth_login_failure": "Ups! Coś poszło nie tak podczas autoryzacji z wiadomością: {{errorMessage}}",
       "anonymous_login_success": "Logowanie anonimowe zakończone pomyślnie",
       "anonymous_login_failure": "Ups! Coś poszło nie tak podczas logowania anonimowego z wiadomością: {{errorMessage}}",
+      "verification_email_success": "Email weryfikacyjny został pomyślnie wysłany",
+      "verification_email_failure": "Ups! Coś poszło nie tak podczas wysyłania emaila weryfikacyjnego z wiadomością: {{errorMessage}}",
       "logout_success": "Użytkownik wylogowany pomyślnie"
     },
     "internationalization": {

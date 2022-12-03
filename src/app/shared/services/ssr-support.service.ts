@@ -48,6 +48,10 @@ export class SsrSupportService {
     }
   }
 
+  public getWindowView(): Window | null {
+    return this.document.defaultView;
+  }
+
   public getDocument(): Document {
     return this.document;
   }

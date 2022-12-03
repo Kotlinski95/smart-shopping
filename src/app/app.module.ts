@@ -39,6 +39,8 @@ import { SharedModule } from './shared/modules/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import * as Reducers from 'src/app/state/reducers';
+import * as Effects from 'src/app/state/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -78,8 +80,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     LanguageSelectorModule,
     FooterModule,
     SharedModule.forRoot(),
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({
+      Language: Reducers.LanguageReducer,
+      Consents: Reducers.ConsentsReducer,
+      Authorization: Reducers.AuthReducer,
+    }),
+    EffectsModule.forRoot([
+      Effects.LanguageEffects,
+      Effects.ConsentsEffects,
+      Effects.AuthEffects,
+    ]),
     StoreDevtoolsModule.instrument({
       name: 'SmartShopping DevTools',
       maxAge: 25,

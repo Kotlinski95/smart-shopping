@@ -1,6 +1,9 @@
+import { AuthActions } from 'src/app/state/actions';
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { faRedoAlt } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
+import { getUserState } from 'src/app/state/selectors';
 
 @Component({
   selector: 'app-verify-email',
@@ -9,5 +12,10 @@ import { faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 })
 export class VerifyEmailComponent {
   faRedoAlt = faRedoAlt;
-  constructor(public authService: AuthService) {}
+  public user$ = this.store.select(getUserState);
+  constructor(private store: Store) {}
+
+  public sendVerificationMail(): void {
+    this.store.dispatch(AuthActions.sendVerificationMail());
+  }
 }

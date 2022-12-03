@@ -1,6 +1,10 @@
 <div class="main-section container p-5 flex-column">
   <h1>{{ 'sign_in.title' | translate }}</h1>
-  <form (ngSubmit)="signIn()" [formGroup]="signInForm" class="row flex-column">
+  <form
+    (ngSubmit)="signIn()"
+    [formGroup]="signInForm"
+    class="row flex-column"
+    *ngIf="{ value: getAuthPendingState$ | async } as authPendingState">
     <div class="formGroup py-1">
       <input
         type="text"
@@ -25,7 +29,7 @@
         class="btn btn-danger w-100 mt-2"
         value="Log in"
         type="submit"
-        [disabled]="!signInForm.valid">
+        [disabled]="!signInForm.valid || authPendingState.value">
         {{ 'sign_in.login' | translate }}
       </button>
     </div>
@@ -36,31 +40,31 @@
     </div>
     <!-- Calling GoogleAuth Api from AuthService -->
     <div class="formGroup">
-      <span
+      <button
         class="btn btn-success w-100"
-        role="button"
-        (click)="authService.GoogleAuth()">
+        (click)="googleAuth()"
+        [disabled]="authPendingState.value">
         <fa-icon [icon]="faUserShield"></fa-icon>
         {{ 'sign_in.login_google' | translate }}
-      </span>
+      </button>
     </div>
     <div class="formGroup mt-2">
-      <span
+      <button
         class="btn btn-primary w-100"
-        role="button"
-        (click)="authService.FacebookAuth()">
+        (click)="facebookAuth()"
+        [disabled]="authPendingState.value">
         <fa-icon [icon]="faUserShield"></fa-icon>
         {{ 'sign_in.login_facebook' | translate }}
-      </span>
+      </button>
     </div>
     <div class="formGroup mt-2">
-      <span
+      <button
         class="btn btn-secondary w-100"
-        role="button"
-        (click)="authService.AnonymousLogin()">
+        (click)="anonymousLogin()"
+        [disabled]="authPendingState.value">
         <fa-icon [icon]="faUserShield"></fa-icon>
         {{ 'sign_in.login_anonymously' | translate }}
-      </span>
+      </button>
     </div>
   </form>
 

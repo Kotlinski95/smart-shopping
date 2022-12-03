@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isLoggedIn()">
+<ng-container *ngIf="!(isLoggedIn$ | async)">
   <app-message-box>
     <p class="mb-0">
       <a class="link" routerLink="/login">{{
