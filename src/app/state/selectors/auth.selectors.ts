@@ -12,3 +12,8 @@ export const getLoginState = createSelector(
   getAuthState,
   state => state && state.loggedIn
 );
+
+export const getAuthPendingState = createSelector(
+  getAuthState,
+  state => state && state.pending
+);

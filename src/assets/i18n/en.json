@@ -145,6 +145,8 @@
       "auth_login_failure": "Ups! Something went wrong while authorizing login with message: {{errorMessage}}",
       "anonymous_login_success": "User successfully login anonymously",
       "anonymous_login_failure": "Ups! Something went wrong while signing in anonymously with message: {{errorMessage}}",
+      "verification_email_success": "Verification email successfully sent",
+      "verification_email_failure": "Ups! Something went wrong while sending verification email with message: {{errorMessage}}",
       "logout_success": "User successfully logged out"
     },
     "internationalization": {

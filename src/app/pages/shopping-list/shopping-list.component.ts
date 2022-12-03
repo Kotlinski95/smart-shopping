@@ -8,6 +8,7 @@ import {
   getListsState,
   getListState,
   getLoadedState,
+  getLoginState,
 } from 'src/app/state/selectors';
 import { List } from 'src/app/shared/interfaces/list';
 
@@ -23,17 +24,11 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   public list$: Observable<List> = new Observable();
   public lists$: Observable<List[]> = new Observable();
   public selectedList: any;
-  constructor(
-    private authService: AuthService,
-    private tasksService: TaskService,
-    private store: Store
-  ) {
+  public isLoggedIn$ = this.store.select(getLoginState);
+  constructor(private store: Store) {
     this.store.dispatch(TasksActions.setTasks());
     this.list$ = this.store.select(getListState);
     this.lists$ = this.store.select(getListsState);
-  }
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn;
   }
 
   ngOnInit(): void {

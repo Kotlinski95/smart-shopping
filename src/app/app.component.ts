@@ -3,6 +3,7 @@ import { MetaService } from './shared/services/meta.service';
 import { AuthService } from './shared/services/auth.service';
 import { Store } from '@ngrx/store';
 import { ConsentsActions } from './state/actions';
+import { getLoginState } from './state/selectors';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,11 +11,8 @@ import { ConsentsActions } from './state/actions';
 })
 export class AppComponent {
   public title = 'smart-shopping';
-  constructor(
-    private meta: MetaService,
-    public authService: AuthService,
-    private store: Store
-  ) {
+  public isLoggedIn$ = this.store.select(getLoginState);
+  constructor(private meta: MetaService, private store: Store) {
     this.meta.updateMetaData();
     this.store.dispatch(ConsentsActions.setTermlyState());
   }

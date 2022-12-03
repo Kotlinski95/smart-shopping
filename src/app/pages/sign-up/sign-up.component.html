@@ -35,10 +35,7 @@
     </div>
     <!-- Continue with Google -->
     <div class="formGroup">
-      <span
-        role="button"
-        class="btn btn-success"
-        (click)="authService.GoogleAuth()">
+      <span role="button" class="btn btn-success" (click)="googleAuth()">
         <fa-icon [icon]="faUserShield"></fa-icon>
         {{ 'sign_up.login_google' | translate }}
       </span>
