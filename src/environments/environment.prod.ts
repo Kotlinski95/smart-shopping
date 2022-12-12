@@ -10,5 +10,10 @@ export const environment = {
     authDomain: 'smart-shopping-d3bd1.firebaseapp.com',
     messagingSenderId: '873959591676',
   },
+  contentful: {
+    spaceId: '2l7pvbq0pr09',
+    accessToken: '3bsLSwaIC545HzQ26iwqn1c4f6KM2h2rpiJEp4Q5RcY',
+    environment: 'master',
+  },
   production: true,
 };
