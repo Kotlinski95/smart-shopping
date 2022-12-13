@@ -19,7 +19,7 @@ export class TermsAndConditionsComponent implements OnInit {
   public ngOnInit(): void {
     this.termsAndConditionsContent$ = this.contentfulService.getContent(
       this.contentfulConfig.entryID,
-      CONFIG.contentTypeIds.termsAndConditions.contentID
+      this.contentfulConfig.contentID
     );
     this.termsAndConditionsImage$ = this.contentfulService.getAsset(
       this.contentfulConfig.assetID

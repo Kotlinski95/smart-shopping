@@ -22,6 +22,11 @@ export const CONFIG = {
       entryID: '1kn9S1D2CaxQ6H1HSYiY9U',
       assetID: '7CF0sBNhPorIOqwnkjbYq5',
     },
+    about: {
+      contentID: 'aboutUs',
+      entryID: '7KA45v1OIwBbVIeJRIX1zG',
+      assetID: '5JmtA2XaAwAmqufNfm3LrR',
+    },
   },
 };
 
