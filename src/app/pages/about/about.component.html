@@ -13,20 +13,15 @@
             returnHtmlFromRichText(content.fields.description)
           "></div>
       </div>
-      <div class="localizaton">
+      <div
+        class="localizaton"
+        *ngIf="leafletOptions$ | async as leafletOptions">
         <h2 [innerHtml]="content.fields.localizationHeader"></h2>
-        <google-map
-          height="400px"
-          width="750px"
-          [center]="center"
-          [zoom]="zoom"
-          (mapClick)="moveMap($event)"
-          (mapMousemove)="move($event)">
-          <map-marker
-            *ngFor="let markerPosition of markerPositions"
-            [position]="markerPosition"
-            [options]="markerOptions"></map-marker>
-        </google-map>
+        <div
+          id="map"
+          style="height: 400px"
+          leaflet
+          [leafletOptions]="leafletOptions"></div>
       </div>
     </section>
   </div>

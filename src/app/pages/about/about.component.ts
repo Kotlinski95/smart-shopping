@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Entry } from 'contentful';
-import { Observable } from 'rxjs';
+import * as Leaflet from 'leaflet';
+import { latLng } from 'leaflet';
+import { Observable, BehaviorSubject } from 'rxjs';
 import {
   CONFIG,
   ContentfulService,
 } from 'src/app/shared/services/contentful.service';
+
+export interface Localization {
+  lat: number;
+  lon: number;
+}
 
 @Component({
   selector: 'app-about',
@@ -15,6 +22,9 @@ export class AboutComponent implements OnInit {
   public contentfulConfig = CONFIG.contentTypeIds.about;
   public aboutContent$: Observable<Entry<any>> | undefined;
   public aboutImage$: Observable<string> | undefined;
+  private leafletOptions: BehaviorSubject<Leaflet.MapOptions> =
+    new BehaviorSubject({});
+  public leafletOptions$ = this.leafletOptions.asObservable();
   constructor(private contentfulService: ContentfulService) {}
   public ngOnInit(): void {
     this.aboutContent$ = this.contentfulService.getContent(
@@ -24,28 +34,57 @@ export class AboutComponent implements OnInit {
     this.aboutImage$ = this.contentfulService.getAsset(
       this.contentfulConfig.assetID
     );
-  }
-  display: any;
-  center: google.maps.LatLngLiteral = {
-    lat: 50.28455,
-    lng: 19.01519,
-  };
-  zoom = 4;
-  moveMap(event: google.maps.MapMouseEvent) {
-    if (event.latLng != null) this.center = event.latLng.toJSON();
-  }
-  move(event: google.maps.MapMouseEvent) {
-    if (event.latLng != null) this.display = event.latLng.toJSON();
-  }
-  markerOptions: google.maps.MarkerOptions = {
-    draggable: false,
-  };
-  markerPositions: google.maps.LatLngLiteral[] = [];
-  addMarker(event: google.maps.MapMouseEvent) {
-    if (event.latLng != null) this.markerPositions.push(event.latLng.toJSON());
+    this.aboutContent$.subscribe(data => {
+      this.leafletOptions.next({
+        ...this.leafletOptions.getValue(),
+        layers: this.getLayer(
+          data.fields.localization,
+          data.fields.localizationHeader
+        ),
+        zoom: 13,
+        center: latLng(
+          data.fields.localization.lat,
+          data.fields.localization.lon
+        ),
+      });
+    });
   }
 
   public returnHtmlFromRichText(richText: any) {
     return this.contentfulService.returnHtmlFromRichText(richText);
   }
+
+  public getLayer = (
+    localization: Localization,
+    place: string
+  ): Leaflet.Layer[] => {
+    return [
+      new Leaflet.TileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+          attribution: '&copy; OpenStreetMap contributors',
+        } as Leaflet.TileLayerOptions
+      ),
+      ...this.getMarker(localization, place),
+    ] as Leaflet.Layer[];
+  };
+
+  public getMarker = (
+    localization: Localization,
+    place: string
+  ): Leaflet.Marker[] => {
+    return [
+      new Leaflet.Marker(
+        new Leaflet.LatLng(localization.lat, localization.lon),
+        {
+          icon: new Leaflet.Icon({
+            iconSize: [50, 41],
+            iconAnchor: [13, 41],
+            iconUrl: 'assets/svg/blue-marker.svg',
+          }),
+          title: place,
+        } as Leaflet.MarkerOptions
+      ),
+    ] as Leaflet.Marker[];
+  };
 }

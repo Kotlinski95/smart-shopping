@@ -4,7 +4,7 @@ import { AboutComponent } from './about.component';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContentfulService } from 'src/app/shared/services/contentful.service';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 const routes: Routes = [
   {
@@ -19,7 +19,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     TranslateModule,
-    GoogleMapsModule,
+    LeafletModule,
   ],
   providers: [ContentfulService],
 })
