@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Entry } from 'contentful';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import * as Leaflet from 'leaflet';
 import { latLng } from 'leaflet';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { ContentfulPage } from 'src/app/shared/interfaces/contentful';
 import {
   CONFIG,
   ContentfulService,
 } from 'src/app/shared/services/contentful.service';
+import { ContentfulActions } from 'src/app/state/actions';
+import { getContentfulContent } from 'src/app/state/selectors/contentful.selectors';
 
 export interface Localization {
   lat: number;
@@ -18,36 +21,58 @@ export interface Localization {
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, OnDestroy {
   public contentfulConfig = CONFIG.contentTypeIds.about;
-  public aboutContent$: Observable<Entry<any>> | undefined;
+  public aboutContent$: Observable<ContentfulPage | undefined> | undefined;
   public aboutImage$: Observable<string> | undefined;
   private leafletOptions: BehaviorSubject<Leaflet.MapOptions> =
     new BehaviorSubject({});
   public leafletOptions$ = this.leafletOptions.asObservable();
-  constructor(private contentfulService: ContentfulService) {}
+  private subscriptions: Subscription = new Subscription();
+  constructor(
+    private contentfulService: ContentfulService,
+    private store: Store
+  ) {}
   public ngOnInit(): void {
-    this.aboutContent$ = this.contentfulService.getContent(
-      this.contentfulConfig.entryID,
-      this.contentfulConfig.contentID
+    this.store.dispatch(
+      ContentfulActions.getContentfulContent({
+        entryID: this.contentfulConfig.entryID,
+        contentID: this.contentfulConfig.contentID,
+      })
     );
-    this.aboutImage$ = this.contentfulService.getAsset(
-      this.contentfulConfig.assetID
+    this.store.dispatch(
+      ContentfulActions.getContentfulAsset({
+        entryID: this.contentfulConfig.entryID,
+        assetID: this.contentfulConfig.assetID,
+      })
     );
-    this.aboutContent$.subscribe(data => {
-      this.leafletOptions.next({
-        ...this.leafletOptions.getValue(),
-        layers: this.getLayer(
-          data.fields.localization,
-          data.fields.localizationHeader
-        ),
-        zoom: 13,
-        center: latLng(
-          data.fields.localization.lat,
-          data.fields.localization.lon
-        ),
-      });
-    });
+    this.aboutContent$ = this.store.pipe(
+      select(state =>
+        getContentfulContent(state, this.contentfulConfig.entryID)
+      )
+    );
+    this.subscriptions.add(
+      this.aboutContent$.subscribe(data => {
+        if (data?.content) {
+          this.leafletOptions.next({
+            ...this.leafletOptions.getValue(),
+            layers: this.getLayer(
+              data.content.fields.localization,
+              data.content.fields.localizationHeader
+            ),
+            zoom: 13,
+            center: latLng(
+              data.content.fields.localization.lat,
+              data.content.fields.localization.lon
+            ),
+          });
+        }
+      })
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   public returnHtmlFromRichText(richText: any) {

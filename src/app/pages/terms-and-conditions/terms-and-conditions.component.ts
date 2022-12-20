@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Entry } from 'contentful';
 import { Observable } from 'rxjs';
+import { ContentfulPage } from 'src/app/shared/interfaces/contentful';
 import {
   CONFIG,
   ContentfulService,
 } from 'src/app/shared/services/contentful.service';
+import { ContentfulActions } from 'src/app/state/actions';
+import { getContentfulContent } from 'src/app/state/selectors/contentful.selectors';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -13,16 +17,33 @@ import {
 })
 export class TermsAndConditionsComponent implements OnInit {
   public contentfulConfig = CONFIG.contentTypeIds.termsAndConditions;
-  public termsAndConditionsContent$: Observable<Entry<any>> | undefined;
-  public termsAndConditionsImage$: Observable<string> | undefined;
-  constructor(private contentfulService: ContentfulService) {}
+  public termsAndConditionsContent$:
+    | Observable<ContentfulPage | undefined>
+    | undefined;
+  constructor(
+    private contentfulService: ContentfulService,
+    private store: Store
+  ) {}
   public ngOnInit(): void {
-    this.termsAndConditionsContent$ = this.contentfulService.getContent(
-      this.contentfulConfig.entryID,
-      this.contentfulConfig.contentID
+    this.store.dispatch(
+      ContentfulActions.getContentfulContent({
+        entryID: CONFIG.contentTypeIds.termsAndConditions.entryID,
+        contentID: CONFIG.contentTypeIds.termsAndConditions.contentID,
+      })
     );
-    this.termsAndConditionsImage$ = this.contentfulService.getAsset(
-      this.contentfulConfig.assetID
+    this.store.dispatch(
+      ContentfulActions.getContentfulAsset({
+        entryID: CONFIG.contentTypeIds.termsAndConditions.entryID,
+        assetID: CONFIG.contentTypeIds.termsAndConditions.assetID,
+      })
+    );
+    this.termsAndConditionsContent$ = this.store.pipe(
+      select(state =>
+        getContentfulContent(
+          state,
+          CONFIG.contentTypeIds.termsAndConditions.entryID
+        )
+      )
     );
   }
 

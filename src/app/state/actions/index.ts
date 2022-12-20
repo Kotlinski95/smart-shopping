@@ -3,6 +3,7 @@ import * as TasksActions from './tasks.actions';
 import * as AuthActions from './auth.actions';
 import * as LanguageActions from './language.actions';
 import * as ConsentsActions from './consents.actions';
+import * as ContentfulActions from './contentful.actions';
 
 export {
   ListsActions,
@@ -10,4 +11,5 @@ export {
   AuthActions,
   LanguageActions,
   ConsentsActions,
+  ContentfulActions,
 };

@@ -1,28 +1,33 @@
 <main class="page main-section container p-2 p-sm-5 flex-column">
-  <div class="section-body" *ngIf="aboutContent$ | async as content">
-    <header>
-      <h1 class="title">{{ content.fields.title }}</h1>
-    </header>
-    <section>
-      <div class="banner" *ngIf="aboutImage$ | async as image">
-        <img src="{{ image }}" alt="" />
-      </div>
-      <div class="description">
+  <div class="section-body" *ngIf="aboutContent$ | async as about">
+    <ng-container *ngIf="about.content">
+      <header>
+        <h1 class="title">{{ about.content.fields.title }}</h1>
+      </header>
+      <section>
+        <div class="banner" *ngIf="aboutImage$ | async as image">
+          <img src="{{ image }}" alt="" />
+        </div>
+        <div class="description">
+          <div
+            [innerHtml]="
+              returnHtmlFromRichText(about.content.fields.description)
+            "
+          ></div>
+        </div>
         <div
-          [innerHtml]="
-            returnHtmlFromRichText(content.fields.description)
-          "></div>
-      </div>
-      <div
-        class="localizaton"
-        *ngIf="leafletOptions$ | async as leafletOptions">
-        <h2 [innerHtml]="content.fields.localizationHeader"></h2>
-        <div
-          id="map"
-          style="height: 400px"
-          leaflet
-          [leafletOptions]="leafletOptions"></div>
-      </div>
-    </section>
+          class="localizaton"
+          *ngIf="leafletOptions$ | async as leafletOptions"
+        >
+          <h2 [innerHtml]="about.content.fields.localizationHeader"></h2>
+          <div
+            id="map"
+            style="height: 400px;"
+            leaflet
+            [leafletOptions]="leafletOptions"
+          ></div>
+        </div>
+      </section>
+    </ng-container>
   </div>
 </main>

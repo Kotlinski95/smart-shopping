@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createClient, Entry } from 'contentful';
+import { Asset, createClient, Entry } from 'contentful';
 import { INLINES } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { from, Observable } from 'rxjs';
@@ -51,8 +51,8 @@ export class ContentfulService {
       )
       .then(res => res.items);
   }
-  getContent(id: string, content_type: string): Observable<Entry<any>> {
-    return from(
+  getContent(id: string, content_type: string): Promise<Entry<unknown>> {
+    return new Promise((resolve, reject) => {
       this.cdaClient
         .getEntries(
           Object.assign(
@@ -62,8 +62,8 @@ export class ContentfulService {
             { 'sys.id': id }
           )
         )
-        .then(res => res.items[0])
-    );
+        .then(res => resolve(res.items[0]));
+    });
   }
   public getAssets(): Observable<any> {
     return from(
@@ -78,12 +78,13 @@ export class ContentfulService {
     );
   }
 
-  public getAsset(assetId: string): Observable<string> {
-    return from(
+  public getAsset(assetId: string): Promise<string> {
+    return new Promise((resolve, reject) => {
       this.cdaClient.getAsset(assetId).then(function (asset) {
+        resolve(`https:${asset.fields.file.url}`);
         return `https:${asset.fields.file.url}`;
-      })
-    );
+      });
+    });
   }
 
   public returnHtmlFromRichText(richText: any) {

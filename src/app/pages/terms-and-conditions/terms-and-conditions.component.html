@@ -1,15 +1,24 @@
 <main class="page main-section container p-2 p-sm-5 flex-column">
-  <div class="section-body" *ngIf="(termsAndConditionsContent$ | async) as content">
-    <header>
-      <h1 class="title">{{ content.fields.title }} </h1>
-    </header>
-    <section>
-      <div class="banner" *ngIf="termsAndConditionsImage$ | async as image">
-        <img src="{{ image }}" alt="">
-      </div>
-      <div class="description">
-        <div [innerHtml]="returnHtmlFromRichText(content.fields.description)"></div>
-      </div>
-    </section>
+  <div class="section-body" *ngIf="termsAndConditionsContent$ | async as terms">
+    <ng-container *ngIf="terms.content">
+      <header>
+        <h1 class="title">{{ terms.content.fields.title }}</h1>
+      </header>
+      <section>
+        <ng-container *ngIf="terms.asset">
+          <div class="banner">
+            <img src="{{ terms.asset.url }}" alt="" />
+          </div>
+        </ng-container>
+
+        <div class="description">
+          <div
+            [innerHtml]="
+              returnHtmlFromRichText(terms.content.fields.description)
+            "
+          ></div>
+        </div>
+      </section>
+    </ng-container>
   </div>
 </main>
