@@ -84,11 +84,13 @@ import * as Effects from 'src/app/state/effects';
       Language: Reducers.LanguageReducer,
       Consents: Reducers.ConsentsReducer,
       Authorization: Reducers.AuthReducer,
+      Contentful: Reducers.ContentfulReducer,
     }),
     EffectsModule.forRoot([
       Effects.LanguageEffects,
       Effects.ConsentsEffects,
       Effects.AuthEffects,
+      Effects.ContentfulEffects,
     ]),
     StoreDevtoolsModule.instrument({
       name: 'SmartShopping DevTools',

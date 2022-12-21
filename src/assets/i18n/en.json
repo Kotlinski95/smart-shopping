@@ -151,6 +151,10 @@
     },
     "internationalization": {
       "language_change": "Language successfully changed to {{language}}"
+    },
+    "contentful": {
+      "get_content_failure": "Ups! Something went wrong while fetching contentful content for this page with message: {{errorMessage}}",
+      "get_asset_failure": "Ups! Something went wrong while fetching contentful asset for this page with message: {{errorMessage}}"
     }
   },
   "development": {

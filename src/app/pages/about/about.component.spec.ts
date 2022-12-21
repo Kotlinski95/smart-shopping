@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateFakeLoader,
   TranslateLoader,
@@ -11,6 +12,8 @@ import { AboutComponent } from './about.component';
 describe('AboutComponent', () => {
   let component: AboutComponent;
   let fixture: ComponentFixture<AboutComponent>;
+  const initialState = {};
+  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,10 +27,12 @@ describe('AboutComponent', () => {
           },
         }),
       ],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
   });
 
   beforeEach(() => {
+    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(AboutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateFakeLoader,
   TranslateLoader,
@@ -11,6 +12,8 @@ import { TermsAndConditionsComponent } from './terms-and-conditions.component';
 describe('TermsAndConditionsComponent', () => {
   let component: TermsAndConditionsComponent;
   let fixture: ComponentFixture<TermsAndConditionsComponent>;
+  const initialState = {};
+  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,10 +27,12 @@ describe('TermsAndConditionsComponent', () => {
           },
         }),
       ],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
   });
 
   beforeEach(() => {
+    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(TermsAndConditionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
