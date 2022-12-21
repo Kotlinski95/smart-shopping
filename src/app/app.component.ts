@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MetaService } from './shared/services/meta.service';
-import { AuthService } from './shared/services/auth.service';
 import { Store } from '@ngrx/store';
 import { ConsentsActions } from './state/actions';
 import { getLoginState } from './state/selectors';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

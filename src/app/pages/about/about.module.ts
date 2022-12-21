@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContentfulService } from 'src/app/shared/services/contentful.service';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LoadingSpinnerModule } from 'src/app/components/loading-spinner/loading-spinner.module';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule,
     LeafletModule,
+    LoadingSpinnerModule,
   ],
   providers: [ContentfulService],
 })

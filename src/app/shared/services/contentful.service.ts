@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Asset, createClient, Entry } from 'contentful';
-import { INLINES } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { from, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AlertService } from './alert.service';
+import { AlertType } from '../interfaces/alert';
+import { TranslateService } from '@ngx-translate/core';
 
 export const CONFIG = {
   contentTypeIds: {
@@ -39,6 +42,13 @@ export class ContentfulService {
     accessToken: environment.contentful.accessToken,
   });
 
+  private translationSection = 'alert.contentful';
+
+  constructor(
+    private alertService: AlertService,
+    private translate: TranslateService
+  ) {}
+
   getContents(content_type: string, query?: object): Promise<Entry<any>[]> {
     return this.cdaClient
       .getEntries(
@@ -62,7 +72,20 @@ export class ContentfulService {
             { 'sys.id': id }
           )
         )
-        .then(res => resolve(res.items[0]));
+        .then(res => {
+          return resolve(res.items[0]);
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.get_content_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 4000,
+          });
+          reject(error);
+        });
     });
   }
   public getAssets(): Observable<any> {
@@ -80,10 +103,23 @@ export class ContentfulService {
 
   public getAsset(assetId: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.cdaClient.getAsset(assetId).then(function (asset) {
-        resolve(`https:${asset.fields.file.url}`);
-        return `https:${asset.fields.file.url}`;
-      });
+      this.cdaClient
+        .getAsset(assetId)
+        .then(function (asset) {
+          resolve(`https:${asset.fields.file.url}`);
+          return `https:${asset.fields.file.url}`;
+        })
+        .catch(error => {
+          this.alertService.setAlert({
+            type: AlertType.Error,
+            message: this.translate.instant(
+              `${this.translationSection}.get_asset_failure`,
+              { errorMessage: error.message }
+            ),
+            duration: 4000,
+          });
+          reject(error);
+        });
     });
   }
 
@@ -95,6 +131,10 @@ export class ContentfulService {
           const uri = node.data.uri;
 
           return `<a class="link" href="${uri}" target="_blank">${value}</a>`;
+        },
+        [BLOCKS.HEADING_2]: (node: any) => {
+          const value = node.content[0]['value'];
+          return `<h2>${value}</h2>`;
         },
       },
     };

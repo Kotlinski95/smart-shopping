@@ -8,7 +8,10 @@ import {
   ContentfulService,
 } from 'src/app/shared/services/contentful.service';
 import { ContentfulActions } from 'src/app/state/actions';
-import { getContentfulContent } from 'src/app/state/selectors/contentful.selectors';
+import {
+  getContentfulContent,
+  getContentfulContentLoaded,
+} from 'src/app/state/selectors/contentful.selectors';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -20,6 +23,8 @@ export class TermsAndConditionsComponent implements OnInit {
   public termsAndConditionsContent$:
     | Observable<ContentfulPage | undefined>
     | undefined;
+  public isTermsAndConditionsContentLoaded$: Observable<boolean> =
+    new Observable();
   constructor(
     private contentfulService: ContentfulService,
     private store: Store
@@ -40,6 +45,14 @@ export class TermsAndConditionsComponent implements OnInit {
     this.termsAndConditionsContent$ = this.store.pipe(
       select(state =>
         getContentfulContent(
+          state,
+          CONFIG.contentTypeIds.termsAndConditions.entryID
+        )
+      )
+    );
+    this.isTermsAndConditionsContentLoaded$ = this.store.pipe(
+      select(state =>
+        getContentfulContentLoaded(
           state,
           CONFIG.contentTypeIds.termsAndConditions.entryID
         )

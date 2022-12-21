@@ -8,7 +8,10 @@ import {
   ContentfulService,
 } from 'src/app/shared/services/contentful.service';
 import { ContentfulActions } from 'src/app/state/actions';
-import { getContentfulContent } from 'src/app/state/selectors/contentful.selectors';
+import {
+  getContentfulContent,
+  getContentfulContentLoaded,
+} from 'src/app/state/selectors/contentful.selectors';
 
 @Component({
   selector: 'app-privacy',
@@ -18,6 +21,7 @@ import { getContentfulContent } from 'src/app/state/selectors/contentful.selecto
 export class PrivacyComponent implements OnInit {
   public contentfulConfig = CONFIG;
   public privacyContent$: Observable<ContentfulPage | undefined> | undefined;
+  public isPrivacyContentLoaded$: Observable<boolean> = new Observable();
   constructor(
     private contentfulService: ContentfulService,
     private store: Store
@@ -39,6 +43,12 @@ export class PrivacyComponent implements OnInit {
     this.privacyContent$ = this.store.pipe(
       select(state =>
         getContentfulContent(state, CONFIG.contentTypeIds.privacy.entryID)
+      )
+    );
+
+    this.isPrivacyContentLoaded$ = this.store.pipe(
+      select(state =>
+        getContentfulContentLoaded(state, CONFIG.contentTypeIds.privacy.entryID)
       )
     );
   }

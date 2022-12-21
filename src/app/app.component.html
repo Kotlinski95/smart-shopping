@@ -48,7 +48,7 @@
     background-color: #08011add;
     color: white;
     font-weight: 600;
-    z-index: 999;
+    z-index: 9999;
     backdrop-filter: blur(10px);
   }
 
@@ -180,7 +180,7 @@
         srcset="../assets/icons/icon-152x152.png"
         media="(min-width: 800px)" />
       <img
-        src="../assets/icons/icon-96x96.png"
+        src="../assets/icons/icon-96x96-transparent.png"
         alt="Smart shopping logo"
         width="40px"
         height="40px"
@@ -214,8 +214,7 @@
   </ng-container>
   <app-language-selector></app-language-selector>
 </div>
-
-<div class="content" role="main">
+<div class="content" role="main" >
   <router-outlet></router-outlet>
 </div>
 <app-modal></app-modal>

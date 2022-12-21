@@ -1,4 +1,4 @@
-<main class="page main-section container p-2 p-sm-5 flex-column">
+<main class="page main-section container p-2 p-sm-5 flex-column" *ngIf="this.isPrivacyContentLoaded$ | async; else loading">
   <div class="section-body" *ngIf="privacyContent$ | async as privacy">
     <ng-container *ngIf="privacy.content">
       <header>
@@ -22,3 +22,6 @@
     </ng-container>
   </div>
 </main>
+<ng-template #loading>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>

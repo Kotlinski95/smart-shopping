@@ -8,7 +8,10 @@ import {
   ContentfulService,
 } from 'src/app/shared/services/contentful.service';
 import { ContentfulActions } from 'src/app/state/actions';
-import { getContentfulContent } from 'src/app/state/selectors/contentful.selectors';
+import {
+  getContentfulContent,
+  getContentfulContentLoaded,
+} from 'src/app/state/selectors/contentful.selectors';
 @Component({
   selector: 'app-cookies',
   templateUrl: './cookies.component.html',
@@ -17,6 +20,7 @@ import { getContentfulContent } from 'src/app/state/selectors/contentful.selecto
 export class CookiesComponent implements OnInit {
   public contentfulConfig = CONFIG.contentTypeIds.cookies;
   public cookiesContent$: Observable<ContentfulPage | undefined> | undefined;
+  public isCookiesContentLoaded$: Observable<boolean> = new Observable();
   constructor(
     private contentfulService: ContentfulService,
     private store: Store
@@ -37,6 +41,11 @@ export class CookiesComponent implements OnInit {
     this.cookiesContent$ = this.store.pipe(
       select(state =>
         getContentfulContent(state, CONFIG.contentTypeIds.cookies.entryID)
+      )
+    );
+    this.isCookiesContentLoaded$ = this.store.pipe(
+      select(state =>
+        getContentfulContentLoaded(state, CONFIG.contentTypeIds.cookies.entryID)
       )
     );
   }

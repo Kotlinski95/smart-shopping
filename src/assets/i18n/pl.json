@@ -152,6 +152,10 @@
     },
     "internationalization": {
       "language_change": "Język został pomyślnie zmieniony na {{language}}"
+    },
+    "contentful": {
+      "get_content_failure": "Ups! Coś poszło nie tak podczas pobierania kontentu dla tej strony z wiadomością: {{errorMessage}}",
+      "get_asset_failure": "Ups! Coś poszło nie tak podczas pobierania grafiki dla tej strony z wiadomością: {{errorMessage}}"
     }
   },
   "development": {

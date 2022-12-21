@@ -4,6 +4,7 @@ import { CookiesComponent } from './cookies.component';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContentfulService } from 'src/app/shared/services/contentful.service';
+import { LoadingSpinnerModule } from 'src/app/components/loading-spinner/loading-spinner.module';
 
 const routes: Routes = [
   {
@@ -14,7 +15,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [CookiesComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), TranslateModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    TranslateModule,
+    LoadingSpinnerModule,
+  ],
   providers: [ContentfulService],
 })
 export class CookiesModule {}

@@ -9,7 +9,10 @@ import {
   ContentfulService,
 } from 'src/app/shared/services/contentful.service';
 import { ContentfulActions } from 'src/app/state/actions';
-import { getContentfulContent } from 'src/app/state/selectors/contentful.selectors';
+import {
+  getContentfulContent,
+  getContentfulContentLoaded,
+} from 'src/app/state/selectors/contentful.selectors';
 
 export interface Localization {
   lat: number;
@@ -29,6 +32,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     new BehaviorSubject({});
   public leafletOptions$ = this.leafletOptions.asObservable();
   private subscriptions: Subscription = new Subscription();
+  public isAboutContentLoaded$: Observable<boolean> = new Observable();
   constructor(
     private contentfulService: ContentfulService,
     private store: Store
@@ -49,6 +53,11 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.aboutContent$ = this.store.pipe(
       select(state =>
         getContentfulContent(state, this.contentfulConfig.entryID)
+      )
+    );
+    this.isAboutContentLoaded$ = this.store.pipe(
+      select(state =>
+        getContentfulContentLoaded(state, this.contentfulConfig.entryID)
       )
     );
     this.subscriptions.add(
