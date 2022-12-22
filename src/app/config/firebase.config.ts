@@ -1,8 +1,6 @@
-import { Config } from '../shared/interfaces/config';
+import { FirebaseConfig } from '../shared/interfaces/firebase';
 
-export const config: Config = {
-  firebase: {
-    usersPrefix: 'users',
-    collectionName: 'tasks',
-  },
+export const firebaseConfig: FirebaseConfig = {
+  usersPrefix: 'users',
+  collectionName: 'tasks',
 };

@@ -155,7 +155,8 @@
     },
     "contentful": {
       "get_content_failure": "Ups! Coś poszło nie tak podczas pobierania kontentu dla tej strony z wiadomością: {{errorMessage}}",
-      "get_asset_failure": "Ups! Coś poszło nie tak podczas pobierania grafiki dla tej strony z wiadomością: {{errorMessage}}"
+      "get_asset_failure": "Ups! Coś poszło nie tak podczas pobierania grafiki dla tej strony z wiadomością: {{errorMessage}}",
+      "richtext_error": "<p>Przepraszam! Coś poszło nie tak podczas pobierania kontentu dla tej strony :(</p>"
     }
   },
   "development": {

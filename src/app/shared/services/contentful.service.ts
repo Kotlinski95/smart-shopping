@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
 import { AlertService } from './alert.service';
 import { AlertType } from '../interfaces/alert';
 import { TranslateService } from '@ngx-translate/core';
+import { config } from 'src/app/config';
+import { Language } from '../interfaces/language';
 
 export const CONFIG = {
   contentTypeIds: {
@@ -61,7 +63,11 @@ export class ContentfulService {
       )
       .then(res => res.items);
   }
-  getContent(id: string, content_type: string): Promise<Entry<unknown>> {
+  getContent(
+    id: string,
+    content_type: string,
+    locale: string
+  ): Promise<Entry<unknown>> {
     return new Promise((resolve, reject) => {
       this.cdaClient
         .getEntries(
@@ -69,7 +75,7 @@ export class ContentfulService {
             {
               content_type: content_type,
             },
-            { 'sys.id': id }
+            { 'sys.id': id, locale: locale }
           )
         )
         .then(res => {
@@ -101,10 +107,10 @@ export class ContentfulService {
     );
   }
 
-  public getAsset(assetId: string): Promise<string> {
+  public getAsset(assetId: string, locale: string): Promise<string> {
     return new Promise((resolve, reject) => {
       this.cdaClient
-        .getAsset(assetId)
+        .getAsset(assetId, { locale: locale })
         .then(function (asset) {
           resolve(`https:${asset.fields.file.url}`);
           return `https:${asset.fields.file.url}`;
@@ -143,8 +149,18 @@ export class ContentfulService {
       richText === null ||
       richText.nodeType !== 'document'
     ) {
-      return '<p>Error</p>';
+      return this.translate.instant(
+        `${this.translationSection}.richtext_error`
+      );
     }
     return documentToHtmlString(richText, options);
+  }
+
+  public getLocaleMapingName(language: Language): string {
+    const languageMapping =
+      config.contentful.locale[
+        language.language as keyof typeof config.contentful.locale
+      ];
+    return languageMapping;
   }
 }

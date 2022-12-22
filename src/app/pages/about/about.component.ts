@@ -13,6 +13,7 @@ import {
   getContentfulContent,
   getContentfulContentLoaded,
 } from 'src/app/state/selectors/contentful.selectors';
+import { getLanguage } from 'src/app/state/selectors/language.selectors';
 
 export interface Localization {
   lat: number;
@@ -38,18 +39,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     private store: Store
   ) {}
   public ngOnInit(): void {
-    this.store.dispatch(
-      ContentfulActions.getContentfulContent({
-        entryID: this.contentfulConfig.entryID,
-        contentID: this.contentfulConfig.contentID,
-      })
-    );
-    this.store.dispatch(
-      ContentfulActions.getContentfulAsset({
-        entryID: this.contentfulConfig.entryID,
-        assetID: this.contentfulConfig.assetID,
-      })
-    );
+    this.getAboutUsPageContent();
     this.aboutContent$ = this.store.pipe(
       select(state =>
         getContentfulContent(state, this.contentfulConfig.entryID)
@@ -78,6 +68,12 @@ export class AboutComponent implements OnInit, OnDestroy {
         }
       })
     );
+
+    this.subscriptions.add(
+      this.store.select(getLanguage).subscribe(() => {
+        this.getAboutUsPageContent();
+      })
+    );
   }
 
   public ngOnDestroy(): void {
@@ -86,6 +82,21 @@ export class AboutComponent implements OnInit, OnDestroy {
 
   public returnHtmlFromRichText(richText: any) {
     return this.contentfulService.returnHtmlFromRichText(richText);
+  }
+
+  private getAboutUsPageContent() {
+    this.store.dispatch(
+      ContentfulActions.getContentfulContent({
+        entryID: this.contentfulConfig.entryID,
+        contentID: this.contentfulConfig.contentID,
+      })
+    );
+    this.store.dispatch(
+      ContentfulActions.getContentfulAsset({
+        entryID: this.contentfulConfig.entryID,
+        assetID: this.contentfulConfig.assetID,
+      })
+    );
   }
 
   public getLayer = (
