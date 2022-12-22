@@ -20,3 +20,10 @@ export interface ContentfulAsset {
   id: string;
   url: string;
 }
+
+export interface ContentfulConfig {
+  locale: {
+    pl: string;
+    en: string;
+  };
+}
