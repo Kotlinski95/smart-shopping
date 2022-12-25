@@ -31,6 +31,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ModalModule } from './components/modal/modal.module';
+import {
+  NgxGoogleAnalyticsModule,
+  NgxGoogleAnalyticsRouterModule,
+} from 'ngx-google-analytics';
 import { AlertModule } from './components/alert/alert.module';
 import { LanguageSelectorModule } from './components/language-selector/language-selector.module';
 import { LanguageService } from './shared/services/language.service';
@@ -41,11 +45,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import * as Reducers from 'src/app/state/reducers';
 import * as Effects from 'src/app/state/effects';
+import { config } from './config';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    NgxGoogleAnalyticsModule.forRoot(config.googleAnalytics.id),
+    NgxGoogleAnalyticsRouterModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,

@@ -16,6 +16,7 @@ import { List } from '../interfaces/list';
 import { Store } from '@ngrx/store';
 import { getListState } from 'src/app/state/selectors/lists.selectors';
 import { LocalService } from './local.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Injectable()
 export class TaskService {
@@ -31,7 +32,8 @@ export class TaskService {
     private translate: TranslateService,
     private alertService: AlertService,
     private store: Store,
-    private localService: LocalService
+    private localService: LocalService,
+    private gaService: GoogleAnalyticsService
   ) {
     this.store.select(getListState)?.subscribe(list => {
       this.currentList.next(list);
@@ -50,6 +52,7 @@ export class TaskService {
     } else {
       this.localService.add(task);
     }
+    this.gaService.event('add_task', 'task', 'Add');
   }
 
   public remove(task: Task, showAlert = true) {
@@ -64,6 +67,7 @@ export class TaskService {
     } else {
       this.localService.remove(task);
     }
+    this.gaService.event('remove_task', 'task', 'Remove');
   }
   public done(task: Task, showAlert = true) {
     if (this.authService.isLoggedIn) {
@@ -82,6 +86,7 @@ export class TaskService {
     } else {
       this.localService.done(task);
     }
+    this.gaService.event('done_task', 'task', 'Done');
   }
 
   public undo(task: Task) {
@@ -100,6 +105,7 @@ export class TaskService {
     } else {
       this.localService.undo(task);
     }
+    this.gaService.event('undo_task', 'task', 'Undo');
   }
 
   public clearDoneList(list: Array<Task>, showAlert = true): Promise<void> {
