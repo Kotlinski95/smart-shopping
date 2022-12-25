@@ -10,6 +10,7 @@ import { FirebaseService } from './firebase.service';
 import { DocumentData } from 'firebase/firestore';
 import { config } from '../../config';
 import { LocalService } from './local.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,8 @@ export class ListService {
     private store: Store,
     private authService: AuthService,
     private fireBaseService: FirebaseService,
-    private localService: LocalService
+    private localService: LocalService,
+    private gaService: GoogleAnalyticsService
   ) {
     this.store.select(getListState)?.subscribe(list => {
       this.currentList.next(list);
@@ -66,6 +68,7 @@ export class ListService {
     } else {
       this.localService.addList(list, alert);
     }
+    this.gaService.event('add_list', 'list', 'Add');
   }
 
   public createList(list: List): void {
@@ -94,5 +97,6 @@ export class ListService {
     } else {
       this.localService.removeList(list, showAlert);
     }
+    this.gaService.event('remove_list', 'list', 'Remove');
   }
 }

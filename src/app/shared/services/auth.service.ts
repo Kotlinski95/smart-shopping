@@ -17,6 +17,7 @@ import { AlertType } from '../interfaces/alert';
 import { Store } from '@ngrx/store';
 import firebase from 'firebase/compat/app';
 import { Subscription } from 'rxjs';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 @Injectable({
   providedIn: 'root',
 })
@@ -32,7 +33,8 @@ export class AuthService implements OnDestroy {
     public ssrSupportService: SsrSupportService,
     private alertService: AlertService,
     private translate: TranslateService,
-    private store: Store
+    private store: Store,
+    private gaService: GoogleAnalyticsService
   ) {
     this.subscriptions.add(
       this.afAuth.authState.subscribe(user => {
@@ -60,6 +62,7 @@ export class AuthService implements OnDestroy {
             duration: 3000,
           });
           resolve();
+          this.gaService.event('sign_ig', 'authorization', 'SignIn');
         })
         .catch(error => {
           this.alertService.setAlert({
@@ -90,6 +93,7 @@ export class AuthService implements OnDestroy {
             duration: 3000,
           });
           this.store.dispatch(ListsActions.cleanSelectedList());
+          this.gaService.event('sign_up', 'authorization', 'SignUp');
           resolve();
         })
         .catch(error => {
@@ -118,6 +122,11 @@ export class AuthService implements OnDestroy {
           ),
           duration: 3000,
         });
+        this.gaService.event(
+          'send_verification',
+          'authorization',
+          'SendVerification'
+        );
       })
       .catch(error => {
         this.alertService.setAlert({
@@ -143,6 +152,11 @@ export class AuthService implements OnDestroy {
             ),
             duration: 3000,
           });
+          this.gaService.event(
+            'forgot_password',
+            'authorization',
+            'ForgotPassword'
+          );
           resolve();
         })
         .catch(error => {
@@ -203,6 +217,7 @@ export class AuthService implements OnDestroy {
             }
           });
           this.store.dispatch(ListsActions.cleanSelectedList());
+          this.gaService.event('sign_auth', 'authorization', 'AuthLogin');
           resolve();
         })
         .catch(error => {
@@ -238,6 +253,11 @@ export class AuthService implements OnDestroy {
             }
           });
           this.store.dispatch(ListsActions.cleanSelectedList());
+          this.gaService.event(
+            'sign_anonymous',
+            'authorization',
+            'AnonymousLogin'
+          );
           resolve();
         })
         .catch(error => {
@@ -292,6 +312,7 @@ export class AuthService implements OnDestroy {
             duration: 3000,
           });
           this.store.dispatch(ListsActions.cleanSelectedList());
+          this.gaService.event('sign_out', 'authorization', 'SignOut');
           resolve();
         })
         .catch(error => {

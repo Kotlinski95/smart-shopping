@@ -55,6 +55,7 @@
     "flag-icon-css": "^4.1.7",
     "jquery": "^3.6.1",
     "leaflet": "^1.6.0",
+    "ngx-google-analytics": "^13.0.0",
     "ngx-spinner": "^13.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -1,10 +1,11 @@
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { ElementRef, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { ElementRef, Injectable, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from './alert.service';
 import { SsrSupportService } from './ssr-support.service';
 import { AlertType } from '../interfaces/alert';
 import { Subscription } from 'rxjs';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,8 @@ export class LanguageService implements OnDestroy {
   constructor(
     private translate: TranslateService,
     private ssrSupportService: SsrSupportService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private gaService: GoogleAnalyticsService
   ) {
     translate.setDefaultLang(this.getSelectedLanguage());
     this.subscriptions.add(
@@ -86,6 +88,7 @@ export class LanguageService implements OnDestroy {
         duration: 3000,
       });
     });
+    this.gaService.event('change_language', 'language', 'Change');
   }
 
   public getSelectedLanguage(): string {
