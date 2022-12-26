@@ -46,6 +46,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import * as Reducers from 'src/app/state/reducers';
 import * as Effects from 'src/app/state/effects';
 import { config } from './config';
+import { ScrollToTopModule } from './components/scroll-to-top/scroll-to-top.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -104,6 +105,7 @@ import { config } from './config';
       maxAge: 25,
       logOnly: environment.production,
     }),
+    ScrollToTopModule,
   ],
   exports: [NgxSpinnerModule],
   providers: [
