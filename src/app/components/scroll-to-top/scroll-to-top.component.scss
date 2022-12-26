@@ -1,0 +1,14 @@
+:host {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 9999;
+    .scroll-button{
+        all: unset;
+        width: 30px;
+        height: 30px;
+        font-size: 2rem;
+        color: #e2004f;
+        cursor: pointer;
+    }
+}

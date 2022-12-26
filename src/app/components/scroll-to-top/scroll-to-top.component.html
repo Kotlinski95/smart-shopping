@@ -1,0 +1,5 @@
+<ng-container *ngIf="showScroll$ | async">
+    <button class="scroll-button" [ngClass]="{show : showOnScroll()}" (click)="scrollToTop()" >&#8682;
+    </button>
+</ng-container>
+
