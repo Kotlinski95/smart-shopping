@@ -1,5 +1,14 @@
 <ng-container *ngIf="showScroll$ | async">
-    <button class="scroll-button" [ngClass]="{show : showOnScroll()}" (click)="scrollToTop()" >&#8682;
-    </button>
+  <button
+    class="scroll-button"
+    [ngClass]="{ show: showOnScroll() }"
+    (click)="scrollToTop()">
+    <img
+      src="../../../assets/gif/scroll_to_top.gif"
+      alt="Scroll to top"
+      title="Scroll to top"
+      loading="lazy"
+      width="30px"
+      height="30px" />
+  </button>
 </ng-container>
-

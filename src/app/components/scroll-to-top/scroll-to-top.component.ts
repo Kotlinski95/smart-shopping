@@ -3,19 +3,10 @@ import { ViewportScroller } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  HostListener,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  fromEvent,
-  map,
-  Observable,
-  Subscription,
-  tap,
-} from 'rxjs';
+import { debounceTime, fromEvent, Observable, Subscription } from 'rxjs';
 import { SsrSupportService } from 'src/app/shared/services/ssr-support.service';
 
 @Component({
