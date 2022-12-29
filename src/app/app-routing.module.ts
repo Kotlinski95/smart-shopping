@@ -24,11 +24,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/sign-in/sign-in.module').then(m => m.SignInModule),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Login',
+      description: 'Smart Shopping: Login page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
-      keywords: 'smart,shopping,list,app,pwa,ssr',
+      keywords: 'smart,shopping,list,app,pwa,ssr,login,firebase,authorization',
     },
   },
   {
@@ -36,11 +36,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Register',
+      description: 'Smart Shopping: Register page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
-      keywords: 'smart,shopping,list,app,pwa,ssr',
+      keywords:
+        'smart,shopping,list,app,pwa,ssr,register,firebase,authorization',
     },
   },
   {
@@ -48,8 +49,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Dashboard',
+      description: 'Smart Shopping: Dashboard page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
@@ -64,8 +65,8 @@ const routes: Routes = [
         m => m.ForgotPassowrdModule
       ),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Forgot Password',
+      description: 'Smart Shopping: Forgot password page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
@@ -78,8 +79,8 @@ const routes: Routes = [
         m => m.VerifyEmailModule
       ),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Verify Email',
+      description: 'Smart Shopping: Verification page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
@@ -90,8 +91,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/about/about.module').then(m => m.AboutModule),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'About Smart Shopping',
+      description: 'Smart Shopping: About us',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
@@ -102,8 +103,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/privacy/privacy.module').then(m => m.PrivacyModule),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Privacy Policy',
+      description: 'Smart Shopping: Privacy policy page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
@@ -116,8 +117,8 @@ const routes: Routes = [
         m => m.TermsAndConditionsModule
       ),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Terms&Conditions',
+      description: 'Smart Shopping: Terms and conditions page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
@@ -128,8 +129,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/cookies/cookies.module').then(m => m.CookiesModule),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Cookies',
+      description: 'Smart Shopping: Cookies policy page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
@@ -140,8 +141,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/contact/contact.module').then(m => m.ContactModule),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Contact',
+      description: 'Smart Shopping: Contact us page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
@@ -152,11 +153,24 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/lists/lists.module').then(m => m.ListsModule),
     data: {
-      title: 'Smart Shopping',
-      description: 'Smart Shopping for everyone',
+      title: 'Lists',
+      description: 'Smart Shopping: Lists page',
       ogUrl: 'your og url',
       author: 'Adrian Kotlinski',
       keywords: 'smart,shopping,list,app,pwa,ssr',
+    },
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./pages/not-found/not-found.module').then(m => m.NotFoundModule),
+    data: {
+      title: 'Not Found',
+      description: 'Smart Shopping page not found',
+      ogUrl: 'your og url',
+      author: 'Adrian Kotlinski',
+      keywords: 'smart,shopping,list,app,pwa,ssr,404,error,not-found',
     },
   },
 ];

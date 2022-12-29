@@ -1,0 +1,15 @@
+.container {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 95vw;
+    .section-body{
+      max-width: 100%;
+    }
+
+    img{
+        max-width: 100%;
+    }
+  }
