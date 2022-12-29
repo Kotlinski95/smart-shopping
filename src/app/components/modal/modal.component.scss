@@ -13,14 +13,16 @@
         border-color: #e2004f;
       }
     }
-    @media screen and(max-width: 769px) {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -100%);
-      width: 80vw;
-      margin: 0;
-      padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    margin: 0;
+    padding: 10px;
+    @media screen and(min-width: 769px) {
+      width: auto;
+      min-width: 350px;
     }
   }
 }
