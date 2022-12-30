@@ -109,7 +109,57 @@
     "description": "Aplikacja powstała z myślą o usprawnieniu procesu planowania wykonania określonych zadań np. listy zakupów.<br> Mozliwe jest sprawne zarządzanie listą zadań, dodawanie, usuwania oraz oznaczanie wykonanych zadań."
   },
   "contact": {
-    "title": "Kontakt"
+    "title": "Kontakt",
+    "description": "Chcielibyśmy wiedzieć co masz nam do powiedzenia!",
+    "details": {
+      "description": "Nie wahaj si z nami skontaktować:",
+      "phone": "poprzez telefon: <a class=\"link\" href=\"tel:+48608418911\">naciśnij aby zadzwonić do nas!</a>",
+      "email": "lub uzupełnij poniższy formularz:"
+    },
+    "form": {
+      "name": {
+        "label": "Imię (musimy się jakoś do Ciebie zwracać!)",
+        "errors": {
+          "required": "Imię jest wymagane",
+          "minLength": "Imię powinno mieć conajmniej 3 znaki",
+          "pattern": "Dopuszczalne są tylko litery i spacja"
+        }
+      },
+      "email": {
+        "label": "Email",
+        "errors": {
+          "required": "Email jest wymagany",
+          "email": "Wymagany jest format email np. xyz@gmail.com"
+        }
+      },
+      "topic": {
+        "label": "Temat",
+        "options": {
+          "private": "Prywatna wiadomość",
+          "business": "Wiadomość biznesowa",
+          "issue": "Uwaga dotycząca strony",
+          "other": "Inny"
+        },
+        "errors": {
+          "required": "Temat jest wymagany"
+        }
+      },
+      "message": {
+        "label": "Wiadomość",
+        "errors": {
+          "required": "Treść wiadomości jest wymagana"
+        }
+      },
+      "consent": {
+        "label": "Udzielam zgody na ewentualny kontakt na podane wyżej dane kontaktowe.",
+        "errors": {
+          "required": "Zgoda jest wymagana"
+        }
+      },
+      "submit": {
+        "label": "Wyślij wiadomość"
+      }
+    }
   },
   "footer": {
     "policy": "Polityka prywatności",
@@ -157,6 +207,10 @@
       "get_content_failure": "Ups! Coś poszło nie tak podczas pobierania kontentu dla tej strony z wiadomością: {{errorMessage}}",
       "get_asset_failure": "Ups! Coś poszło nie tak podczas pobierania grafiki dla tej strony z wiadomością: {{errorMessage}}",
       "richtext_error": "<p>Przepraszam! Coś poszło nie tak podczas pobierania kontentu dla tej strony :(</p>"
+    },
+    "form": {
+      "send_contact_success": "Wiadomość została wysłana pomyślnie",
+      "send_contact_failure": "Ups! Coś poszło nie tak podczas wysyłania wiadomości: {{errorMessage}}"
     }
   },
   "development": {

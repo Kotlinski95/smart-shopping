@@ -20,8 +20,8 @@
         color: white;
         color-scheme: dark;
         &:-webkit-autofill {
-            -webkit-box-shadow: 0 0 0px 1000px rgb(0, 0, 0) inset;
-          }
+          -webkit-box-shadow: 0 0 0px 1000px rgb(0, 0, 0) inset;
+        }
       }
       .mat-select-value-text {
         color: white;
@@ -59,10 +59,6 @@
     .mat-form-field-subscript-wrapper {
       position: static;
       margin-top: 0.4em;
-      .mat-error {
-        color: #ffd9d5;
-        font-size: 0.75rem;
-      }
     }
   }
   button.mat-primary {
@@ -71,6 +67,24 @@
     &.mat-button-disabled {
       opacity: 0.4;
     }
+  }
+  .mat-error {
+    color: #ffd9d5;
+    font-size: 0.75rem;
+  }
+  .mat-form-field-required-marker {
+    color: #e2004f;
+  }
+  .mat-checkbox {
+    &.mat-checkbox-checked .mat-checkbox-background {
+      background-color: #198754;
+    }
+    .mat-checkbox-layout {
+      white-space: normal !important;
+    }
+  }
+  textarea {
+    min-height: 6rem;
   }
 }
 

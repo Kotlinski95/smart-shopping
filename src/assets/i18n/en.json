@@ -136,6 +136,7 @@
         "options": {
           "private": "Private",
           "business": "Business",
+          "issue": "Website issue",
           "other": "Other"
         },
         "errors": {
@@ -146,6 +147,12 @@
         "label": "Message",
         "errors": {
           "required": "Message is required"
+        }
+      },
+      "consent": {
+        "label": "I give my permission for possible contact at the contact details given above.",
+        "errors": {
+          "required": "Consent is required"
         }
       },
       "submit": {

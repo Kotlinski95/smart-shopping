@@ -24,13 +24,16 @@ export const FormReducer = createReducer<FormState>(
   on(FormActions.sendContactFormSuccess, (state, action): FormState => {
     return {
       ...state,
-      contactForm: { form: action.form, error: '' },
+      contactForm: { form: action.value, error: '' },
     };
   }),
   on(FormActions.sendContactFormFailure, (state, action): FormState => {
     return {
       ...state,
-      contactForm: { form: initialState.contactForm.form, error: action.error },
+      contactForm: {
+        form: initialState.contactForm.form,
+        error: action.error,
+      },
     };
   })
 );

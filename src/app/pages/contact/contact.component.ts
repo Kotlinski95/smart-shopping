@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormService } from 'src/app/shared/services/form.service';
@@ -9,11 +10,15 @@ import { FormActions } from 'src/app/state/actions';
   styleUrls: ['./contact.component.scss', '../../../styles/form.scss'],
 })
 export class ContactComponent {
+  public contactForm: FormGroup = this.formService.getContantForm();
+
   constructor(private formService: FormService, private store: Store) {}
-  contactForm = this.formService.getContantForm();
+
   public onSubmit(): void {
     this.store.dispatch(
-      FormActions.sendContactForm({ form: this.contactForm.value })
+      FormActions.sendContactForm({
+        value: this.contactForm.value,
+      })
     );
   }
 }

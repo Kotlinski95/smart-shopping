@@ -28,6 +28,7 @@
       <mat-select formControlName="topic" name="topic">
         <mat-option value="private">{{ 'contact.form.topic.options.private' | translate }}</mat-option>
         <mat-option value="businnes">{{ 'contact.form.topic.options.business' | translate }}</mat-option>
+        <mat-option value="issue">{{ 'contact.form.topic.options.issue' | translate }}</mat-option>
         <mat-option value="other">{{ 'contact.form.topic.options.other' | translate }}</mat-option>
       </mat-select>
       <mat-error *ngIf="contactForm.get('topic')?.hasError('required')">{{ 'contact.form.topic.errors.required' | translate }}</mat-error>
@@ -37,6 +38,10 @@
       <textarea matInput formControlName="message" name="message"></textarea>
       <mat-error *ngIf="contactForm.get('message')?.hasError('required')">{{ 'contact.form.message.errors.required' | translate }}</mat-error>
     </mat-form-field>
+
+    <mat-checkbox formControlName="consent" required [ngClass]="contactForm.get('consent')?.hasError('required') && contactForm.get('consent')?.touched ? 'pb-0' : 'pb-3'">{{ 'contact.form.consent.label' | translate }}<span aria-hidden="true" class="mat-form-field-required-marker"> *</span></mat-checkbox>
+    <mat-error class="pb-3" *ngIf="contactForm.get('consent')?.hasError('required') && contactForm.get('consent')?.touched">{{ 'contact.form.consent.errors.required' | translate }}</mat-error>
+
     <button mat-raised-button color="primary" type="submit" [disabled]="contactForm.invalid">{{ 'contact.form.submit.label' | translate }}</button>
   </form>
 

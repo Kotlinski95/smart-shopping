@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
   ],
