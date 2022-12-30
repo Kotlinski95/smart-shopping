@@ -1,8 +1,43 @@
-<div class="main-section container p-5 flex-column">
-  <h1>{{ 'contact.title' | translate }}</h1>
-  <p>{{ 'development.message' | translate }}</p>
-  <img
-    src="../../../assets/gif/site-in-work.gif"
-    alt="Site still in work"
-    title="Site still in work" />
+<div class="main-section container p-4 p-md-5 flex-column">
+  <h1 class="title">{{ 'contact.title' | translate }}</h1>
+  <h2>{{ 'contact.description' | translate }}</h2>
+  <div class="w-100">
+    <p>{{ 'contact.details.description' | translate }}</p>
+    <ul class="px-2">
+      <li innerHtml="{{ 'contact.details.phone' | translate }}"></li>
+      <li class="pb-2">{{ 'contact.details.email' | translate }}</li>
+    </ul>
+
+  </div>
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'contact.form.name.label' | translate }}</mat-label>
+      <input matInput formControlName="name" name="name">
+      <mat-error *ngIf="contactForm.get('name')?.hasError('required')">{{ 'contact.form.name.errors.required' | translate }}</mat-error>
+      <mat-error *ngIf="contactForm.get('name')?.hasError('minlength')">{{ 'contact.form.name.errors.minLength' | translate }}</mat-error>
+      <mat-error *ngIf="contactForm.get('name')?.hasError('pattern')">{{ 'contact.form.name.errors.pattern' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'contact.form.email.label' | translate }}</mat-label>
+      <input matInput formControlName="email" name="email">
+      <mat-error *ngIf="contactForm.get('email')?.hasError('required')">{{ 'contact.form.email.errors.required' | translate }}</mat-error>
+      <mat-error *ngIf="contactForm.get('email')?.hasError('email')">{{ 'contact.form.email.errors.email' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'contact.form.topic.label' | translate }}</mat-label>
+      <mat-select formControlName="topic" name="topic">
+        <mat-option value="private">{{ 'contact.form.topic.options.private' | translate }}</mat-option>
+        <mat-option value="businnes">{{ 'contact.form.topic.options.business' | translate }}</mat-option>
+        <mat-option value="other">{{ 'contact.form.topic.options.other' | translate }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="contactForm.get('topic')?.hasError('required')">{{ 'contact.form.topic.errors.required' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'contact.form.message.label' | translate }}</mat-label>
+      <textarea matInput formControlName="message" name="message"></textarea>
+      <mat-error *ngIf="contactForm.get('message')?.hasError('required')">{{ 'contact.form.message.errors.required' | translate }}</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="contactForm.invalid">{{ 'contact.form.submit.label' | translate }}</button>
+  </form>
+
 </div>

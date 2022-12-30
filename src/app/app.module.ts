@@ -93,12 +93,14 @@ import { ScrollToTopModule } from './components/scroll-to-top/scroll-to-top.modu
       Consents: Reducers.ConsentsReducer,
       Authorization: Reducers.AuthReducer,
       Contentful: Reducers.ContentfulReducer,
+      Forms: Reducers.FormReducer,
     }),
     EffectsModule.forRoot([
       Effects.LanguageEffects,
       Effects.ConsentsEffects,
       Effects.AuthEffects,
       Effects.ContentfulEffects,
+      Effects.FormEffects,
     ]),
     StoreDevtoolsModule.instrument({
       name: 'SmartShopping DevTools',
