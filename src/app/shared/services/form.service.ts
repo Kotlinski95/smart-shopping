@@ -11,6 +11,7 @@ import { ContactForm } from '../interfaces/form';
 import { AlertService } from './alert.service';
 import emailjs from '@emailjs/browser';
 import { Observable } from 'rxjs';
+import { Language } from '../interfaces/language';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class FormService {
     email: '',
     message: '',
     topic: '',
+    topicValue: '',
     consent: '',
   };
   private contactForm = new FormGroup({
@@ -38,6 +40,7 @@ export class FormService {
     ]),
     message: new FormControl(this.initialValue.message, Validators.required),
     topic: new FormControl(this.initialValue.topic, Validators.required),
+    topicValue: new FormControl(this.initialValue.topicValue),
     consent: new FormControl(this.initialValue.consent, Validators.required),
   });
 
@@ -69,13 +72,13 @@ export class FormService {
     });
   }
 
-  public sendEmailTemplate(event: any): Promise<void> {
+  public sendEmailTemplate(event: any, language: Language): Promise<void> {
     return new Promise((resolve, reject) => {
       resolve();
       return emailjs
         .sendForm(
           'service_0lcu3bp',
-          'template_insnjq5',
+          language.language === 'pl' ? 'template_u9qdz6m' : 'template_insnjq5',
           event.target as HTMLFormElement,
           '0jafi06jMGqoFKzR7'
         )

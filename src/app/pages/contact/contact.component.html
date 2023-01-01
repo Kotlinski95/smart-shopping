@@ -7,42 +7,97 @@
       <li innerHtml="{{ 'contact.details.phone' | translate }}"></li>
       <li class="pb-2">{{ 'contact.details.email' | translate }}</li>
     </ul>
-
   </div>
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-group">
     <mat-form-field appearance="outline">
       <mat-label>{{ 'contact.form.name.label' | translate }}</mat-label>
-      <input matInput formControlName="name" name="name">
-      <mat-error *ngIf="contactForm.get('name')?.hasError('required')">{{ 'contact.form.name.errors.required' | translate }}</mat-error>
-      <mat-error *ngIf="contactForm.get('name')?.hasError('minlength')">{{ 'contact.form.name.errors.minLength' | translate }}</mat-error>
-      <mat-error *ngIf="contactForm.get('name')?.hasError('pattern')">{{ 'contact.form.name.errors.pattern' | translate }}</mat-error>
+      <input matInput formControlName="name" name="name" />
+      <mat-error *ngIf="contactForm.get('name')?.hasError('required')">{{
+        'contact.form.name.errors.required' | translate
+      }}</mat-error>
+      <mat-error *ngIf="contactForm.get('name')?.hasError('minlength')">{{
+        'contact.form.name.errors.minLength' | translate
+      }}</mat-error>
+      <mat-error *ngIf="contactForm.get('name')?.hasError('pattern')">{{
+        'contact.form.name.errors.pattern' | translate
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>{{ 'contact.form.email.label' | translate }}</mat-label>
-      <input matInput formControlName="email" name="email">
-      <mat-error *ngIf="contactForm.get('email')?.hasError('required')">{{ 'contact.form.email.errors.required' | translate }}</mat-error>
-      <mat-error *ngIf="contactForm.get('email')?.hasError('email')">{{ 'contact.form.email.errors.email' | translate }}</mat-error>
+      <input matInput formControlName="email" name="email" />
+      <mat-error *ngIf="contactForm.get('email')?.hasError('required')">{{
+        'contact.form.email.errors.required' | translate
+      }}</mat-error>
+      <mat-error *ngIf="contactForm.get('email')?.hasError('email')">{{
+        'contact.form.email.errors.email' | translate
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>{{ 'contact.form.topic.label' | translate }}</mat-label>
       <mat-select formControlName="topic" name="topic">
-        <mat-option value="private">{{ 'contact.form.topic.options.private' | translate }}</mat-option>
-        <mat-option value="businnes">{{ 'contact.form.topic.options.business' | translate }}</mat-option>
-        <mat-option value="issue">{{ 'contact.form.topic.options.issue' | translate }}</mat-option>
-        <mat-option value="other">{{ 'contact.form.topic.options.other' | translate }}</mat-option>
+        <mat-option
+          value="{{ 'contact.form.topic.values.private' | translate }}"
+          >{{ 'contact.form.topic.options.private' | translate }}</mat-option
+        >
+        <mat-option
+          value="{{ 'contact.form.topic.values.business' | translate }}"
+          >{{ 'contact.form.topic.options.business' | translate }}</mat-option
+        >
+        <mat-option
+          value="{{ 'contact.form.topic.values.issue' | translate }}"
+          >{{ 'contact.form.topic.options.issue' | translate }}</mat-option
+        >
+        <mat-option
+          value="{{ 'contact.form.topic.values.other' | translate }}"
+          >{{ 'contact.form.topic.options.other' | translate }}</mat-option
+        >
       </mat-select>
-      <mat-error *ngIf="contactForm.get('topic')?.hasError('required')">{{ 'contact.form.topic.errors.required' | translate }}</mat-error>
+      <input
+        formControlName="topicValue"
+        name="topicValue"
+        class="visually-hidden"
+        [value]="contactForm.get('topic')?.value" />
+      <mat-error *ngIf="contactForm.get('topic')?.hasError('required')">{{
+        'contact.form.topic.errors.required' | translate
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>{{ 'contact.form.message.label' | translate }}</mat-label>
       <textarea matInput formControlName="message" name="message"></textarea>
-      <mat-error *ngIf="contactForm.get('message')?.hasError('required')">{{ 'contact.form.message.errors.required' | translate }}</mat-error>
+      <mat-error *ngIf="contactForm.get('message')?.hasError('required')">{{
+        'contact.form.message.errors.required' | translate
+      }}</mat-error>
     </mat-form-field>
 
-    <mat-checkbox formControlName="consent" required [ngClass]="contactForm.get('consent')?.hasError('required') && contactForm.get('consent')?.touched ? 'pb-0' : 'pb-3'">{{ 'contact.form.consent.label' | translate }}<span aria-hidden="true" class="mat-form-field-required-marker"> *</span></mat-checkbox>
-    <mat-error class="pb-3" *ngIf="contactForm.get('consent')?.hasError('required') && contactForm.get('consent')?.touched">{{ 'contact.form.consent.errors.required' | translate }}</mat-error>
+    <mat-checkbox
+      formControlName="consent"
+      required
+      [ngClass]="
+        contactForm.get('consent')?.hasError('required') &&
+        contactForm.get('consent')?.touched
+          ? 'pb-0'
+          : 'pb-3'
+      "
+      >{{ 'contact.form.consent.label' | translate
+      }}<span aria-hidden="true" class="mat-form-field-required-marker">
+        *</span
+      ></mat-checkbox
+    >
+    <mat-error
+      class="pb-3"
+      *ngIf="
+        contactForm.get('consent')?.hasError('required') &&
+        contactForm.get('consent')?.touched
+      "
+      >{{ 'contact.form.consent.errors.required' | translate }}</mat-error
+    >
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="contactForm.invalid">{{ 'contact.form.submit.label' | translate }}</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="contactForm.invalid">
+      {{ 'contact.form.submit.label' | translate }}
+    </button>
   </form>
-
 </div>
