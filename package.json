@@ -73,7 +73,7 @@
     "@angular-eslint/template-parser": "13.5.0",
     "@angular/cli": "^13.3.10",
     "@angular/compiler-cli": "^13.3.12",
-    "@netlify-builder/deploy": "^4.1.2",
+    "@netlify-builder/deploy": "^5.0.0",
     "@ngrx/eslint-plugin": "^14.3.2",
     "@nguniversal/builders": "^13.0.2",
     "@types/express": "^4.17.15",
