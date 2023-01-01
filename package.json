@@ -24,7 +24,7 @@
     "@angular/common": "^13.2.0",
     "@angular/compiler": "^13.2.0",
     "@angular/core": "^13.2.0",
-    "@angular/fire": "^7.4.1",
+    "@angular/fire": "^7.2.1",
     "@angular/forms": "^13.2.0",
     "@angular/localize": "^13.2.0",
     "@angular/material": "^13.3.9",
@@ -70,7 +70,7 @@
     "@angular-eslint/eslint-plugin-template": "13.5.0",
     "@angular-eslint/schematics": "13.5.0",
     "@angular-eslint/template-parser": "13.5.0",
-    "@angular/cli": "~13.2.6",
+    "@angular/cli": "^13.3.10",
     "@angular/compiler-cli": "^13.2.0",
     "@netlify-builder/deploy": "^4.1.2",
     "@ngrx/eslint-plugin": "^14.3.2",
@@ -106,8 +106,8 @@
     }
   },
   "engines": {
-    "node": "16",
-    "pnpm": ">=8",
+    "node": ">=14 <=16",
+    "pnpm": ">=6 <=7.5",
     "yarn": ">=1.22"
   }
 }
