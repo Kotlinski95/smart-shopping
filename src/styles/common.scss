@@ -1,3 +1,7 @@
+*{
+  line-height: 1.5;
+}
+
 .word-break {
   word-break: break-word;
   hyphens: auto;
@@ -19,6 +23,11 @@
 
 .link {
   color: #f8d9f1;
+  text-decoration: none;
+}
+.link:hover {
+  color: #f8d9f1;
+  text-decoration: underline;
 }
 
 input {
@@ -39,4 +48,31 @@ input {
   a{
     color: #f8d9f1 !important;
   }
+}
+
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+}
+
+.visually-hidden:focus {
+  height: auto;
+  width: auto;
+  clip: auto;
+}
+
+.skip-to-content{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  padding: 0.3em 0.7em;
+  z-index: 999;
 }

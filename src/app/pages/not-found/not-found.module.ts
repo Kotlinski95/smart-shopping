@@ -16,8 +16,4 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes), TranslateModule],
   exports: [NotFoundComponent],
 })
-export class NotFoundModule {
-  constructor() {
-    console.log('NotFoundModule');
-  }
-}
+export class NotFoundModule {}

@@ -1,0 +1,106 @@
+.form-group {
+  .mat-form-field {
+    .mat-form-field-flex {
+      background: #08011a !important;
+      box-shadow: 0 0 5px #a595ba;
+      border-radius: 5px;
+      .mat-form-field-outline-gap {
+        border-top-color: inherit !important;
+      }
+      .mat-form-field-label {
+        &:not(.mat-form-field-empty) {
+          margin-top: 1px;
+        }
+        .mat-placeholder-required {
+          color: #e2004f;
+        }
+      }
+      .mat-input-element {
+        box-shadow: none;
+        color: white;
+        color-scheme: dark;
+        &:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0px 1000px rgb(0, 0, 0) inset;
+        }
+      }
+      .mat-select-value-text {
+        color: white;
+      }
+      .mat-form-field-outline-thick {
+        top: 0;
+      }
+      .mat-select {
+        .mat-select-arrow {
+          color: white;
+        }
+        &.mat-select-invalid {
+          .mat-select-arrow {
+            color: #f44336;
+          }
+        }
+      }
+    }
+    &.mat-focused {
+      .mat-form-field-label {
+        color: white;
+      }
+      .mat-form-field-label {
+        margin-top: 1px;
+      }
+      .mat-form-field-outline-thick {
+        color: #673ab7;
+      }
+    }
+    &:not(.mat-focused) {
+      .mat-form-field-label {
+        color: white;
+      }
+    }
+    .mat-form-field-subscript-wrapper {
+      position: static;
+      margin-top: 0.4em;
+    }
+  }
+  button.mat-primary {
+    background-color: #e2004f !important;
+    color: white !important;
+    &.mat-button-disabled {
+      opacity: 0.4;
+    }
+  }
+  .mat-error {
+    color: #ffd9d5;
+    font-size: 0.75rem;
+  }
+  .mat-form-field-required-marker {
+    color: #e2004f;
+  }
+  .mat-checkbox {
+    &.mat-checkbox-checked .mat-checkbox-background {
+      background-color: #198754;
+    }
+    .mat-checkbox-layout {
+      white-space: normal !important;
+    }
+  }
+  textarea {
+    min-height: 6rem;
+  }
+}
+
+.cdk-overlay-container {
+  .mat-select-panel {
+    background-color: #08011a;
+    .mat-option-text {
+      color: white;
+    }
+    .mat-option.mat-active {
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(0, 0, 0, 0.87);
+    }
+    .mat-option:hover:not(.mat-option-disabled),
+    .mat-option:focus:not(.mat-option-disabled) {
+      background: rgba(255, 255, 255, 0.14);
+    }
+  }
+}
