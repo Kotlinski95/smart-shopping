@@ -139,6 +139,12 @@
           "issue": "Website issue",
           "other": "Other"
         },
+        "values": {
+          "private": "Private",
+          "business": "Business",
+          "issue": "Website issue",
+          "other": "Other"
+        },
         "errors": {
           "required": "Topic is required"
         }

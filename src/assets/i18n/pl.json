@@ -140,6 +140,12 @@
           "issue": "Uwaga dotycząca strony",
           "other": "Inny"
         },
+        "values": {
+          "private": "Prywatna wiadomość",
+          "business": "Wiadomość biznesowa",
+          "issue": "Uwaga dotycząca strony",
+          "other": "Inny"
+        },
         "errors": {
           "required": "Temat jest wymagany"
         }
