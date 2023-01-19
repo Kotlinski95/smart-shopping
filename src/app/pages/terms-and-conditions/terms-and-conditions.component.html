@@ -1,4 +1,6 @@
-<main class="page main-section container p-2 p-sm-5 flex-column" *ngIf="this.isTermsAndConditionsContentLoaded$ | async; else loading">
+<main
+  class="page main-section container p-2 p-sm-5 flex-column"
+  *ngIf="this.isTermsAndConditionsContentLoaded$ | async; else loading">
   <div class="section-body" *ngIf="termsAndConditionsContent$ | async as terms">
     <ng-container *ngIf="terms.content">
       <header>
@@ -15,8 +17,7 @@
           <div
             [innerHtml]="
               returnHtmlFromRichText(terms.content.fields.description)
-            "
-          ></div>
+            "></div>
         </div>
       </section>
     </ng-container>

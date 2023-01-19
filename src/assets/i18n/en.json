@@ -64,10 +64,20 @@
   "reset_password": {
     "title": "Password Reset",
     "text": "Enter your email address to request a password reset..",
-    "input_placeholder": "Email",
-    "Button_label": "Reset Password",
     "go_back": "Would you like to return? ",
-    "login": "Sign In"
+    "login": "Sign In",
+    "form": {
+      "email": {
+        "label": "Email",
+        "errors": {
+          "required": "Email is required",
+          "email": "Email format is requered e.g. xyz@gmail.com"
+        }
+      },
+      "submit": {
+        "label": "Reset Password"
+      }
+    }
   },
   "sign_in": {
     "title": "Sign in",
@@ -80,7 +90,26 @@
     "login_anonymously": "Sign in anonymously",
     "forgot_password": "Forgot password?",
     "signup_message": "You don't have account yet?",
-    "signup_link": "Sign Up"
+    "signup_link": "Sign Up",
+    "form": {
+      "login": {
+        "label": "Email",
+        "errors": {
+          "required": "Email is required",
+          "email": "Email format is requered e.g. xyz@gmail.com"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "errors": {
+          "required": "Password is required",
+          "minLength": "The Password must be at least 3 characters long"
+        }
+      },
+      "submit": {
+        "label": "Sign in"
+      }
+    }
   },
   "sign_up": {
     "title": "Sign Up",
@@ -90,7 +119,34 @@
     "or": "or",
     "login_google": "Continue with Google",
     "signin_message": "You already have account?",
-    "signin_link": "Sign In"
+    "signin_link": "Sign In",
+    "form": {
+      "email": {
+        "label": "Email",
+        "errors": {
+          "required": "Email is required",
+          "email": "Email format is requered e.g. xyz@gmail.com"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "errors": {
+          "required": "Password is required",
+          "minLength": "The Password must be at least 3 characters long"
+        }
+      },
+      "password-confirm": {
+        "label": "Confirm Password",
+        "errors": {
+          "required": "Password is required",
+          "minLength": "The Password must be at least 3 characters long",
+          "notMatch": "Passwords should be consistent"
+        }
+      },
+      "submit": {
+        "label": "Sign Up"
+      }
+    }
   },
   "verify_email": {
     "title": "Thank you for registering!",

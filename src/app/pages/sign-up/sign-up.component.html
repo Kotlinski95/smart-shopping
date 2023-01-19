@@ -1,24 +1,61 @@
-<div class="main-section container p-5 flex-column">
-  <h1>{{ 'sign_up.title' | translate }}</h1>
-  <form (ngSubmit)="signUp()" [formGroup]="signUpForm" class="row flex-column">
-    <div class="formGroup py-1">
+<div class="main-section container p-2 p-md-5 flex-column">
+  <h1 class="pb-3">{{ 'sign_up.title' | translate }}</h1>
+  <form
+    (ngSubmit)="signUp()"
+    [formGroup]="signUpForm"
+    class="row flex-column form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'sign_up.form.email.label' | translate }}</mat-label>
+      <input matInput formControlName="email" name="email" />
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('required')">{{
+        'sign_up.form.email.errors.required' | translate
+      }}</mat-error>
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('email')">{{
+        'sign_up.form.email.errors.email' | translate
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'sign_up.form.password.label' | translate }}</mat-label>
       <input
-        type="email"
-        class="formControl w-100"
-        placeholder="{{ 'sign_up.username_label' | translate }}"
-        formControlName="email"
-        #userEmail
-        required />
-    </div>
-    <div class="formGroup py-1">
-      <input
-        type="password"
-        class="formControl w-100"
-        placeholder="{{ 'sign_up.password_label' | translate }}"
+        appBlockCopyPaste
+        matInput
         formControlName="password"
-        #userPwd
-        required />
-    </div>
+        name="password"
+        [type]="(hidePassword$ | async) ? 'password' : 'text'" />
+      <mat-icon matSuffix (click)="togglePasswordHide()"
+        >{{ (hidePassword$ | async) ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+      <mat-error *ngIf="signUpForm.get('password')?.hasError('required')">{{
+        'sign_up.form.password.errors.required' | translate
+      }}</mat-error>
+      <mat-error *ngIf="signUpForm.get('password')?.hasError('minlength')">{{
+        'sign_up.form.password.errors.minLength' | translate
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{
+        'sign_up.form.password-confirm.label' | translate
+      }}</mat-label>
+      <input
+        appBlockCopyPaste
+        matInput
+        formControlName="passwordConfirm"
+        name="passwordConfirm"
+        [type]="(hidePassword$ | async) ? 'password' : 'text'"
+        [errorStateMatcher]="matcher" />
+      <mat-icon matSuffix (click)="togglePasswordHide()"
+        >{{ (hidePassword$ | async) ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+      <mat-error
+        *ngIf="signUpForm.get('passwordConfirm')?.hasError('required')"
+        >{{
+          'sign_up.form.password-confirm.errors.required' | translate
+        }}</mat-error
+      >
+      <mat-error *ngIf="signUpForm.hasError('notSame')">
+        {{ 'sign_up.form.password-confirm.errors.notMatch' | translate }}
+      </mat-error>
+    </mat-form-field>
     <div class="formGroup">
       <button
         class="btn btn-danger w-100 mt-2"
@@ -28,14 +65,14 @@
         {{ 'sign_up.login' | translate }}
       </button>
     </div>
-    <div class="formGroup d-flex justify-content-center">
+    <div class="formGroup d-flex justify-content-center mt-2">
       <span class="or"
         ><span class="orInner">{{ 'sign_up.or' | translate }}</span></span
       >
     </div>
     <!-- Continue with Google -->
-    <div class="formGroup">
-      <span role="button" class="btn btn-success" (click)="googleAuth()">
+    <div class="formGroup mt-2">
+      <span role="button" class="btn btn-success w-100" (click)="googleAuth()">
         <fa-icon [icon]="faUserShield"></fa-icon>
         {{ 'sign_up.login_google' | translate }}
       </span>

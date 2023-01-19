@@ -6,7 +6,7 @@
     <span>
       {{
         'shopping_list.done_task.title'
-          | translate: { tasksDone: calcDone(tasksDone) }
+          | translate : { tasksDone: calcDone(tasksDone) }
       }}
     </span>
     <button (click)="clearDoneList($event)" class="btn btn-danger">
