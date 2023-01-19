@@ -1,11 +1,13 @@
 <div class="container p-3 flex-column">
   <form (ngSubmit)="addList()" [formGroup]="newTaskForm" class="w-100">
     <div class="input-group mb-3 d-flex flex-nowrap">
+      <label class="visually-hidden" for="newList">{{ 'lists.add_list.input_placeholder' | translate }}</label>
       <input
         type="text"
         placeholder="{{ 'lists.add_list.input_placeholder' | translate }}"
         [(ngModel)]="newList"
         formControlName="newList"
+        id="newList"
         class="rounded flex w-100"
         #inputField />
       <div class="input-group-append d-flex">

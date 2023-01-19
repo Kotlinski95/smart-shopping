@@ -277,5 +277,10 @@
   "not_found": {
     "title": "Przepraszam, nie mogliśmy znaleść tego czego szukasz.",
     "description": "Wylądowałeś na adresie URL, który wydaje się nie istnieć na stronie {{ url }}. Oto kilka opcji:"
+  },
+  "accessibility": {
+    "language_button_expand": "Rozwiń listę z dostępnymi językami",
+    "language_button_pl": "Zmień język na polski",
+    "language_button_en": "Zmień język na angielski"
   }
 }

@@ -1,18 +1,15 @@
 <div ngbDropdown class="dropdown">
-  <button
-    ngbDropdownToggle
-    class="btn btn-danger"
-    type="button"
-    id="dropdownMenuButton1"
-    aria-expanded="false">
+  <button ngbDropdownToggle class="btn btn-danger" type="button" id="dropdownMenuButton1" aria-expanded="false" [attr.aria-label]="'accessibility.language_button_expand' | translate">
     <span #flagSelected class="flag-icon"></span>
   </button>
   <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-    <button ngbDropdownItem (click)="changeLanguage('pl')">
-      <span class="flag-icon flag-icon-pl"></span>
+    <button ngbDropdownItem (click)="changeLanguage('pl')"
+      [attr.aria-label]="'accessibility.language_button_pl' | translate">
+      <span class="flag-icon flag-icon-pl" aria-hidden="true"></span>
     </button>
-    <button ngbDropdownItem (click)="changeLanguage('en')">
-      <span class="flag-icon flag-icon-gb"></span>
+    <button ngbDropdownItem (click)="changeLanguage('en')"
+      [attr.aria-label]="'accessibility.language_button_en' | translate">
+      <span class="flag-icon flag-icon-gb" aria-hidden="true"></span>
     </button>
   </ul>
 </div>

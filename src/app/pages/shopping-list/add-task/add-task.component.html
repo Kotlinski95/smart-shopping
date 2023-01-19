@@ -1,6 +1,7 @@
 <ng-container>
   <form (ngSubmit)="add()" [formGroup]="newTaskForm" class="container px-3">
     <div class="input-group mb-3 d-flex flex-nowrap px-0 px-sm-3">
+      <label class="visually-hidden" for="newTask">{{ 'shopping_list.add_task.input_placeholder' | translate}}</label>
       <input
         type="text"
         placeholder="{{
@@ -8,6 +9,7 @@
         }}"
         [(ngModel)]="newTask"
         formControlName="newTask"
+        id="newTask"
         class="rounded flex w-100"
         #inputField />
       <div class="input-group-append d-flex">

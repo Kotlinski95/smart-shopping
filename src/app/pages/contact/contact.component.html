@@ -52,11 +52,17 @@
           >{{ 'contact.form.topic.options.other' | translate }}</mat-option
         >
       </mat-select>
-      <input
+      <label class="visually-hidden" aria-hidden="true">
+        {{ 'contact.form.topic.label' | translate }}
+        <input
         formControlName="topicValue"
         name="topicValue"
-        class="visually-hidden"
-        [value]="contactForm.get('topic')?.value" />
+        [value]="contactForm.get('topic')?.value"
+        tabindex="-1"
+        aria-hidden="true"
+      />
+      </label>
+
       <mat-error *ngIf="contactForm.get('topic')?.hasError('required')">{{
         'contact.form.topic.errors.required' | translate
       }}</mat-error>
@@ -96,7 +102,8 @@
       mat-raised-button
       color="primary"
       type="submit"
-      [disabled]="contactForm.invalid">
+      [disabled]="contactForm.invalid"
+    >
       {{ 'contact.form.submit.label' | translate }}
     </button>
   </form>

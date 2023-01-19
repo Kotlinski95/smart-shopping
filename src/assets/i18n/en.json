@@ -280,5 +280,10 @@
   "not_found": {
     "title": "Sorry, we can't seem to find what you're looking for.",
     "description": "You've landed on a URL that doesn't seem to exist on {{ url }}. Here's some options:"
+  },
+  "accessibility": {
+    "language_button_expand": "Expand languages list",
+    "language_button_pl": "Change language to polish",
+    "language_button_en": "Change language to english"
   }
 }

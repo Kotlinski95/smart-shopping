@@ -12,7 +12,7 @@
           margin-top: 1px;
         }
         .mat-placeholder-required {
-          color: #e2004f;
+          color: #EB0052;
         }
       }
       .mat-input-element {
@@ -62,7 +62,7 @@
     }
   }
   button.mat-primary {
-    background-color: #e2004f !important;
+    background-color: #EB0052 !important;
     color: white !important;
     &.mat-button-disabled {
       opacity: 0.4;
@@ -73,7 +73,7 @@
     font-size: 0.75rem;
   }
   .mat-form-field-required-marker {
-    color: #e2004f;
+    color: #EB0052;
   }
   .mat-checkbox {
     &.mat-checkbox-checked .mat-checkbox-background {
