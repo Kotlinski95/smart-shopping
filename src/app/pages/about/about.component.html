@@ -1,4 +1,6 @@
-<main class="page main-section container p-2 p-sm-5 flex-column" *ngIf="this.isAboutContentLoaded$ | async; else loading">
+<main
+  class="page main-section container p-2 p-sm-5 flex-column"
+  *ngIf="this.isAboutContentLoaded$ | async; else loading">
   <div class="section-body" *ngIf="aboutContent$ | async as about">
     <ng-container *ngIf="about.content">
       <header>
@@ -12,20 +14,17 @@
           <div
             [innerHtml]="
               returnHtmlFromRichText(about.content.fields.description)
-            "
-          ></div>
+            "></div>
         </div>
         <div
           class="localizaton"
-          *ngIf="leafletOptions$ | async as leafletOptions"
-        >
+          *ngIf="leafletOptions$ | async as leafletOptions">
           <h2 [innerHtml]="about.content.fields.localizationHeader"></h2>
           <div
             id="map"
-            style="height: 400px;"
+            style="height: 400px"
             leaflet
-            [leafletOptions]="leafletOptions"
-          ></div>
+            [leafletOptions]="leafletOptions"></div>
         </div>
       </section>
     </ng-container>

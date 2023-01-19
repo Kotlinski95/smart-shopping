@@ -5,6 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 
 const routes: Routes = [
   {
@@ -22,6 +27,11 @@ const routes: Routes = [
     RouterModule,
     RouterModule.forChild(routes),
     TranslateModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    DirectivesModule,
   ],
 })
 export class SignUpModule {}

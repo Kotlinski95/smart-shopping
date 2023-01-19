@@ -64,15 +64,23 @@
   "reset_password": {
     "title": "Zresetuj hasło",
     "text": "Podaj swój adres e-mail, aby poprosić o zresetowanie hasła.",
-    "input_placeholder": "Email",
-    "Button_label": "Resetuj Hasło",
     "go_back": "Chcesz powrócić? ",
-    "login": "Zaloguj się"
+    "login": "Zaloguj się",
+    "form": {
+      "email": {
+        "label": "Adres Email",
+        "errors": {
+          "required": "Email jest wymagany",
+          "email": "Wymagany jest poprawny format adresu email"
+        }
+      },
+      "submit": {
+        "label": "Resetuj Hasło"
+      }
+    }
   },
   "sign_in": {
     "title": "Logowanie",
-    "username_label": "Nazwa użytkownika",
-    "password_label": "Hasło",
     "login": "Zaloguj",
     "or": "lub",
     "login_google": "Zaloguj się z Google",
@@ -80,17 +88,61 @@
     "login_anonymously": "Zaloguj się anonimowo",
     "forgot_password": "Zapomniałeś hasła?",
     "signup_message": "Nie posiadasz konta?",
-    "signup_link": "Zarejestruj się"
+    "signup_link": "Zarejestruj się",
+    "form": {
+      "login": {
+        "label": "Email",
+        "errors": {
+          "required": "Email jest wymagany",
+          "email": "Wymagany jest poprawny format adresu email"
+        }
+      },
+      "password": {
+        "label": "Hasło",
+        "errors": {
+          "required": "Hasło jest wymagane",
+          "minLength": "Hasło powinno mieć conajmniej 3 znaki"
+        }
+      },
+      "submit": {
+        "label": "Zaloguj"
+      }
+    }
   },
   "sign_up": {
     "title": "Rejestracja",
-    "username_label": "Adres Email",
-    "password_label": "Hasło",
     "login": "Zarejestruj",
     "or": "lub",
     "login_google": "Kontynuuj z Google",
     "signin_message": "Posiadasz już konto?",
-    "signin_link": "Zaloguj się"
+    "signin_link": "Zaloguj się",
+    "form": {
+      "email": {
+        "label": "Adres email",
+        "errors": {
+          "required": "Email jest wymagany",
+          "email": "Wymagany jest poprawny format adresu email"
+        }
+      },
+      "password": {
+        "label": "Hasło",
+        "errors": {
+          "required": "Hasło jest wymagane",
+          "minLength": "Hasło powinno mieć conajmniej 3 znaki"
+        }
+      },
+      "password-confirm": {
+        "label": "Potwierdź hasło",
+        "errors": {
+          "required": "Hasło jest wymagane",
+          "minLength": "Hasło powinno mieć conajmniej 3 znaki",
+          "notMatch": "Hasła powinny być takie same"
+        }
+      },
+      "submit": {
+        "label": "Zarejestruj"
+      }
+    }
   },
   "verify_email": {
     "title": "Dziękujemy za rejestrację!",
@@ -118,7 +170,7 @@
     },
     "form": {
       "name": {
-        "label": "Imię (musimy się jakoś do Ciebie zwracać!)",
+        "label": "Imię",
         "errors": {
           "required": "Imię jest wymagane",
           "minLength": "Imię powinno mieć conajmniej 3 znaki",

@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 const routes: Routes = [
   {
     path: '',
@@ -20,6 +23,9 @@ const routes: Routes = [
     FontAwesomeModule,
     RouterModule.forChild(routes),
     TranslateModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
   ],
 })
 export class ForgotPassowrdModule {}

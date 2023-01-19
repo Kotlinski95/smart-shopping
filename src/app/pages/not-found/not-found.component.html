@@ -1,19 +1,21 @@
 <section class="page main-section container p-2 p-sm-5 flex-column">
-    <div class="section-body">
-      <ng-container>
-        <header>
-          <h1 class="title">{{ 'not_found.title' | translate }}</h1>
-          <img
+  <div class="section-body">
+    <ng-container>
+      <header>
+        <h1 class="title">{{ 'not_found.title' | translate }}</h1>
+        <img
           src="../../../assets/gif/not_found.gif"
           alt="404 Not Found"
           title="Not Found"
           class="d-block mx-auto mb-3" />
-        </header>
-        <section>
-          <div class="description">
-            <p>{{ 'not_found.description' | translate: { url: getActualUrl() } }}</p>
-          </div>
-        </section>
-      </ng-container>
-    </div>
-  </section>
+      </header>
+      <section>
+        <div class="description">
+          <p>
+            {{ 'not_found.description' | translate : { url: getActualUrl() } }}
+          </p>
+        </div>
+      </section>
+    </ng-container>
+  </div>
+</section>

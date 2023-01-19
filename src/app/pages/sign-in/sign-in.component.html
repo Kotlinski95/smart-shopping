@@ -1,29 +1,37 @@
-<div class="main-section container p-5 flex-column">
-  <h1>{{ 'sign_in.title' | translate }}</h1>
+<div class="main-section container p-2 p-md-5 flex-column">
+  <h1 class="pb-3">{{ 'sign_in.title' | translate }}</h1>
   <form
     (ngSubmit)="signIn()"
     [formGroup]="signInForm"
-    class="row flex-column"
+    class="row flex-column form-group"
     *ngIf="{ value: getAuthPendingState$ | async } as authPendingState">
-    <div class="formGroup py-1">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'sign_in.form.login.label' | translate }}</mat-label>
+      <input matInput formControlName="login" name="login" />
+      <mat-error *ngIf="signInForm.get('login')?.hasError('required')">{{
+        'sign_in.form.login.errors.required' | translate
+      }}</mat-error>
+      <mat-error *ngIf="signInForm.get('login')?.hasError('email')">{{
+        'sign_in.form.login.errors.email' | translate
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'sign_in.form.password.label' | translate }}</mat-label>
       <input
-        type="text"
-        class="formControl w-100"
-        placeholder="{{ 'sign_in.username_label' | translate }}"
-        formControlName="login"
-        #userName
-        required />
-    </div>
-    <div class="formGroup py-1">
-      <input
-        type="password"
-        class="formControl w-100"
-        placeholder="{{ 'sign_in.password_label' | translate }}"
+        matInput
         formControlName="password"
-        #userPassword
-        required />
-    </div>
-    <!-- Calling SignIn Api from AuthService -->
+        name="password"
+        [type]="(hidePassword$ | async) ? 'password' : 'text'" />
+      <mat-icon matSuffix (click)="togglePasswordHide()">{{
+        (hidePassword$ | async) ? 'visibility_off' : 'visibility'
+      }}</mat-icon>
+      <mat-error *ngIf="signInForm.get('password')?.hasError('required')">{{
+        'sign_in.form.password.errors.required' | translate
+      }}</mat-error>
+      <mat-error *ngIf="signInForm.get('password')?.hasError('minlength')">{{
+        'sign_in.form.password.errors.minLength' | translate
+      }}</mat-error>
+    </mat-form-field>
     <div class="formGroup">
       <button
         class="btn btn-danger w-100 mt-2"
@@ -33,13 +41,13 @@
         {{ 'sign_in.login' | translate }}
       </button>
     </div>
-    <div class="formGroup d-flex justify-content-center">
+    <div class="formGroup d-flex justify-content-center mt-2">
       <span class="or"
         ><span class="orInner">{{ 'sign_in.or' | translate }}</span></span
       >
     </div>
     <!-- Calling GoogleAuth Api from AuthService -->
-    <div class="formGroup">
+    <div class="formGroup mt-2">
       <button
         class="btn btn-success w-100"
         (click)="googleAuth()"
@@ -48,7 +56,7 @@
         {{ 'sign_in.login_google' | translate }}
       </button>
     </div>
-    <div class="formGroup mt-2">
+    <div class="formGroup mt-3">
       <button
         class="btn btn-primary w-100"
         (click)="facebookAuth()"
@@ -57,7 +65,7 @@
         {{ 'sign_in.login_facebook' | translate }}
       </button>
     </div>
-    <div class="formGroup mt-2">
+    <div class="formGroup mt-3 mb-2">
       <button
         class="btn btn-secondary w-100"
         (click)="anonymousLogin()"
@@ -68,7 +76,7 @@
     </div>
   </form>
 
-  <div class="forgotPassword">
+  <div class="forgotPassword mb-2">
     <a class="link" routerLink="/forgot-password">{{
       'sign_in.forgot_password' | translate
     }}</a>

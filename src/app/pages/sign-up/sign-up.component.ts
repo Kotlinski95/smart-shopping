@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import {
+  AbstractControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { AuthActions } from 'src/app/state/actions';
+import { BehaviorSubject } from 'rxjs';
+import {
+  FormService,
+  MyErrorStateMatcher,
+} from 'src/app/shared/services/form.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,18 +20,22 @@ import { AuthActions } from 'src/app/state/actions';
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  faUserShield = faUserShield;
+  public matcher = new MyErrorStateMatcher();
+  private hidePassword = new BehaviorSubject(true);
+  public hidePassword$ = this.hidePassword.asObservable();
+  public faUserShield = faUserShield;
   public signUpForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private store: Store) {}
+  constructor(private formService: FormService, private store: Store) {}
 
-  ngOnInit(): void {
-    this.signUpForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(3)]],
-    });
+  public ngOnInit(): void {
+    this.signUpForm = this.formService.getSignUpForm();
   }
 
-  signUp(): void {
+  public togglePasswordHide(): void {
+    this.hidePassword.next(!this.hidePassword.getValue());
+  }
+
+  public signUp(): void {
     this.store.dispatch(
       AuthActions.userSignUp({
         email: this.signUpForm.value.email,
@@ -31,7 +44,7 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  googleAuth(): void {
+  public googleAuth(): void {
     this.store.dispatch(AuthActions.googleAuth());
   }
 }

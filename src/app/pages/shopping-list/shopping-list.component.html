@@ -18,7 +18,7 @@
     >
   </p>
   <h2>
-    {{ 'shopping_list.title' | translate: { listname: list.name } }}
+    {{ 'shopping_list.title' | translate : { listname: list.name } }}
   </h2>
   <div *ngIf="this.isTaskListLoaded$ | async; else loading">
     <ng-container *ngIf="lists$ | async as lists">
